@@ -15,7 +15,8 @@
                             <select class="form-select" name="employee_id" id="employee">
                                 <option value=""></option>
                                 @foreach ($employee as $row)
-                                    <option value="{{ $row->id }}">{{ $row->firstName }}</option>
+                                    <option value="{{ $row->id }}">{{ $row->firstName }} {{ $row->lastName }} -
+                                        {{ $row->staffId }}</option>
                                 @endforeach
                             </select>
                             @error('employee_id')
@@ -79,6 +80,9 @@
                         <div class="col-md-6">
                             <label for="pulse" class="form-label">Pulse</label>
                             <input type="number" class="form-control" name="pulse" id="pulse">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         </div>
                         @error('pulse')
                             <div class="alert-danger alert">{{ $message }}</div>

@@ -13,7 +13,6 @@ class Consultation extends Model
         'user_id',
         'injurie_id',
         'employee_id',
-        
         'staffType',
         'referral',
         'diagnosis',
@@ -47,5 +46,9 @@ class Consultation extends Model
     public function injurie(): BelongsTo
     {
         return $this->belongsTo(Injury::class);
+    }
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

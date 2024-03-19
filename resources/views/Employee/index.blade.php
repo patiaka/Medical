@@ -93,13 +93,14 @@
                                                     <path fill-rule="evenodd"
                                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                                 </svg></a>
-                                            <a class="btn-sm app-btn-secondary"
-                                                href="{{ route('employee.delete', $employee->id) }}"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            <a class="btn-sm app-btn-danger delete-button"
+                                                href="{{ route('employee.delete', $employee->id) }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path
                                                         d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                                </svg></a>
+                                                </svg>
+                                            </a>
                                         </td>
                                     </tr>
                                 @empty
@@ -265,7 +266,7 @@
     <!-- Button trigger modal -->
 
 
-    <!-- Modal -->
+    <!-- Modal add employee -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -342,25 +343,6 @@
                         <button type="submit" class="btn app-btn-primary" data-bs-dismiss="modal">Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal de confirmation de suppression -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation de suppression</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Êtes-vous sûr de vouloir supprimer cet employé ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-danger" id="confirmDelete">Supprimer</button>
                 </div>
             </div>
         </div>

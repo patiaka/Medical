@@ -31,9 +31,10 @@ Route::prefix('consultation')->group(function(){
     Route::get('/',[ConsultationController::class, 'index'])->name('consultation.index');
     Route::post('/store',[ConsultationController::class, 'store'])->name('consultation.store');
     Route::get('/create',[ConsultationController::class, 'create'])->name('consultation.create');
-    Route::get('/edit/{employee}',[ConsultationController::class, 'edit'])->name('consultation.edit');
-    Route::put('/update/{employee}',[ConsultationController::class, 'update'])->name('consultation.update');
-    Route::get('/{employee}',[ConsultationController::class, 'delete'])->name('consultation.delete');
+    Route::get('/edit/{consultation}',[ConsultationController::class, 'edit'])->name('consultation.edit');
+    Route::put('/update/{consulation}',[ConsultationController::class, 'update'])->name('consultation.update');
+    Route::get('/show/{consultation}',[ConsultationController::class, 'show'])->name('consultation.show');
+    Route::get('/{consulation}',[ConsultationController::class, 'delete'])->name('consultation.delete');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

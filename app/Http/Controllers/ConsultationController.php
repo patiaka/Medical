@@ -17,8 +17,9 @@ class ConsultationController extends Controller
     public function index()
     {
         //
+        $employees = Employee::all();
         $consultations = Consultation::paginate(10);
-        return view('Consultation.index',compact('consultations'));
+        return view('Consultation.index',compact('consultations','employees'));
     }
 
     /**
@@ -36,40 +37,19 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-     
-        // $request->validate([
-        //     'user_id' => 'required|exists:users,id',
-        //     'employee_id' => 'required|exists:employees,id',
-        //     'injurie_id' => 'required|exists:injuries,id',
-        //     'staffType' => 'required|string|max:255',
-        //     'referral' => 'required|string|max:255',
-        //     'diagnosis' => 'required|string|max:255',
-        //     'history' => 'required|string',
-        //     'bp' => 'required|string|max:255',
-        //     'pulse' => 'required|integer',
-        //     'temperature' => 'required|integer',
-        //     'observation' => 'required',
-        //     'comments' => 'required',
-        //     'malaria' => 'required|string|max:255',
-        //     'daysOff' => 'required|integer',
-        //     'diagnosispec' => 'required',
-        //     'diagnosiMali' => 'required',
-        // ]);
-        //
-        // dd($request->all());
         Consultation::create($request->validated());
         toastr()->success('Consultation added succesfully');
-        return back();
+        return redirect()->route('consultation.index');
 
     }
 
     /**
      * Display the specified resource.
      */
-    // public function show(Consultation $consulation)
-    // {
-    //     //
-    // }
+    public function show(Consultation $consultation)
+    {
+        return view('consultation.show',compact('consultation'));
+    }
 
     /**
      * Show the form for editing the specified resource.

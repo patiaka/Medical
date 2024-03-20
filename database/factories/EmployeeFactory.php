@@ -17,7 +17,14 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            
+            'staffId' => \uniqid(),
+            'firstName' => fake()->firstName(),
+            'lastName' => fake()->lastName(),
+            'birthDate' => fake()->date(),
+            'jobTitle' => fake()->jobTitle(),
+            'company' => fake()->randomElement(['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF']),
+            'employeeType' => fake()->randomElement(['Expat', 'National']),
+            'department_id' => \rand(1, 10),
         ];
     }
 }

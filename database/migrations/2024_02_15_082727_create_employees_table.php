@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->integer('staffId')->unique();
+            $table->string('staffId')->unique();
             $table->string('firstName');
             $table->string('lastName');
             $table->date('birthDate');
@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('company');
             $table->string('employeeType');
             $table->foreignId('department_id')
-                    ->constrained()
-                    ->cascadeOnUpdate()
-                    ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

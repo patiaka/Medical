@@ -46,21 +46,20 @@
         <div class="app-card app-card-orders-table shadow-sm mb-5">
             <div class="app-card-body">
                 <div class="table-responsive">
-                    <table class="table app-table-hover mb-0 text-left">
+                    <table class="table app-table-hover mb-0 text-left" id="myTable" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="cell">id</th>
-                                <th class="cell">Name</th>
-                                <th class="cell">Action</th>
+                                <th>id</th>
+                                <th>Name</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($departments as $department)
                             <tr>
-                                <td class="cell">{{ $department->id }}</td>
-                                <td class="cell"><span class="truncate">{{ $department->name }}</span></td>
-
-                                <td class="cell">
+                                <td>{{ $department->id }}</td>
+                                <td>{{ $department->name }}</td>
+                                <td>
                                     <a class="btn-sm app-btn-secondary"
                                         href="{{ route('department.edit', $department->id) }}">
                                         <i class="fa fa-edit fa-2x text-success"></i>
@@ -74,7 +73,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="cell" colspan="2">No Department added</td>
+                                <td colspan="2">No Department added</td>
                             </tr>
                             @endforelse
 

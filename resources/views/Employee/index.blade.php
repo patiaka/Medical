@@ -62,34 +62,34 @@
                 </div>
                 @endif
                 <div class="table-responsive">
-                    <table class="table app-table-hover mb-0 text-left">
+                    <table class="table app-table-hover mb-0 text-left" id="myTable" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="cell">id</th>
-                                <th class="cell">Staff id</th>
-                                <th class="cell">First Name</th>
-                                <th class="cell">Last Name</th>
-                                <th class="cell">Birth Date</th>
-                                <th class="cell">Job Title</th>
-                                <th class="cell">Company</th>
-                                <th class="cell">Department</th>
-                                <th class="cell">Action</th>
+                                <th>id</th>
+                                <th>Staff id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Birth Date</th>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Department</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($employees as $employee)
                             <tr>
-                                <td class="cell">{{ $employee->id }}</td>
-                                <td class="cell"><span class="truncate">{{ $employee->staffId }}</span></td>
-                                <td class="cell">{{ $employee->firstName }}</td>
-                                <td class="cell">{{ $employee->lastName }}</td>
-                                <td class="cell">{{ $employee->birthDate }}</td>
-                                <td class="cell">{{ $employee->jobTitle }}</td>
-                                <td class="cell">{{ $employee->company }}</td>
-                                <td class="cell">{{ $employee->department->name }}
+                                <td>{{ $employee->id }}</td>
+                                <td><span class="truncate">{{ $employee->staffId }}</span></td>
+                                <td>{{ $employee->firstName }}</td>
+                                <td>{{ $employee->lastName }}</td>
+                                <td>{{ $employee->birthDate }}</td>
+                                <td>{{ $employee->jobTitle }}</td>
+                                <td>{{ $employee->company }}</td>
+                                <td>{{ $employee->department->name }}
                                 </td>
 
-                                <td class="cell">
+                                <td>
                                     <a class="btn-sm app-btn-secondary"
                                         href="{{ route('employee.edit', $employee->id) }}">
                                         <i class="fa fa-edit fa-2x text-success"></i>
@@ -105,7 +105,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="cell" colspan="7">No Patient added</td>
+                                <td colspan="7">No Patient added</td>
                             </tr>
                             @endforelse
                         </tbody>

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Consultation;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Injury;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         Department::factory(10)->create();
         Injury::factory(10)->create();
         Employee::factory(20)->create();
+        Consultation::factory(20)->create();
     }
 }

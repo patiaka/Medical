@@ -60,12 +60,14 @@
                                 <td class="cell">{{ $department->id }}</td>
                                 <td class="cell"><span class="truncate">{{ $department->name }}</span></td>
 
-                                <td class="cell"><a class="btn-sm app-btn-secondary"
+                                <td class="cell">
+                                    <a class="btn-sm app-btn-secondary"
                                         href="{{ route('department.edit', $department->id) }}">
                                         <i class="fa fa-edit fa-2x text-success"></i>
                                     </a>
-                                    <a class="btn-sm app-btn-danger"
-                                        href="{{ route('department.delete', $department->id) }}">
+                                    <a role="button" href="#"
+                                        onclick="deleteConfirmation('{{ route('department.delete', $department->id) }}')"
+                                        class="btn-sm app-btn-danger">
                                         <i class="fa fa-trash fa-2x text-danger"></i>
                                     </a>
                                 </td>

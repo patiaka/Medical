@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
 use App\Models\Department;
+use App\Models\Employee;
 use Illuminate\Http\Request;
-use App\Http\Requests\saveEmployeeRequest;
 
 class EmployeeController extends Controller
 {
     // Liste des employées
     public function index()
     {
-        $companys = ['SOMISY','CORICA','SFTP','Aggreko','SNIAF'];
+        $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
         sort($companys);
         $departments = Department::all();
         $employees = Employee::with('department')->paginate(10);
-        return view('employee.index',compact('employees','departments','companys'));
+
+        return view('employee.index', compact('employees', 'departments', 'companys'));
 
     }
+
     // Enregistrement des employées
     public function store(Request $request)
     {
@@ -32,24 +33,26 @@ class EmployeeController extends Controller
             'employeeType' => 'required|string',
             'department_id' => 'required|exists:departments,id',
         ]);
-        
+
         Employee::create($validatedData);
         toastr()->success('Employee added Successfully');
+
         return redirect()->back();
     }
 
-        //Edition des employées
+    //Edition des employées
     public function edit(Employee $employee)
     {
         $departments = Department::all();
-        $companys = ['SOMISY','CORICA','SFTP','Aggreko','SNIAF'];
+        $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
         sort($companys);
-    
-        return view('employee.edit',compact('employee','departments','companys'));
+
+        return view('employee.edit', compact('employee', 'departments', 'companys'));
     }
+
     // Mise a jour des employées
     public function update(Request $request, Employee $employee)
-        {
+    {
         $validatedData = $request->validate([
             'staffId' => 'required|unique:employees,staffId,'.$employee->id,
             'firstName' => 'required',
@@ -68,13 +71,16 @@ class EmployeeController extends Controller
         return redirect()->route('employee.index');
     }
 
-    public function delete(Employee $employee)
+    public function delete(int $employee)
     {
 
-            $employee->delete();
-            toastr()->success('Deleted successfully');
-            return redirect()->back();
-        
-    }
+        $row = Employee::findOrFail($employee);
+        $row->delete();
 
+        return response()->json([
+            'success' => true,
+            'message' => $row ? class_basename($row).' supprimer avec success ' : class_basename($row).' non trouvé',
+        ]);
+
+    }
 }

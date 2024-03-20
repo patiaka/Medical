@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreConsultationRequest;
 use App\Models\Consultation;
-use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Injury;
-use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
 {
@@ -19,7 +17,8 @@ class ConsultationController extends Controller
         //
         $employees = Employee::all();
         $consultations = Consultation::paginate(10);
-        return view('Consultation.index',compact('consultations','employees'));
+
+        return view('Consultation.index', compact('consultations', 'employees'));
     }
 
     /**
@@ -29,7 +28,8 @@ class ConsultationController extends Controller
     {
         $injuryType = Injury::all();
         $employee = Employee::all();
-        return view('Consultation.create',compact('injuryType','employee'));
+
+        return view('Consultation.create', compact('injuryType', 'employee'));
     }
 
     /**
@@ -39,6 +39,7 @@ class ConsultationController extends Controller
     {
         Consultation::create($request->validated());
         toastr()->success('Consultation added succesfully');
+
         return redirect()->route('consultation.index');
 
     }
@@ -48,7 +49,7 @@ class ConsultationController extends Controller
      */
     public function show(Consultation $consultation)
     {
-        return view('consultation.show',compact('consultation'));
+        return view('consultation.show', compact('consultation'));
     }
 
     /**
@@ -56,15 +57,21 @@ class ConsultationController extends Controller
      */
     public function edit(Consultation $consulation)
     {
-        //
+        $injuryType = Injury::all();
+        $employee = Employee::all();
+
+        return view('consultation.edit', compact('consulation', 'injuryType', 'employee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Consultation $consulation)
+    public function update(StoreConsultationRequest $request, Consultation $consulation)
     {
-        //
+        $consulation->update($request->validated());
+        toastr()->success('Consultation update succesfully');
+
+        return back();
     }
 
     /**

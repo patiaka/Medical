@@ -15,6 +15,7 @@
 
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
+    <link id="theme-style" rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
 
 </head>
 
@@ -53,6 +54,7 @@
 
 
     <!-- Javascript -->
+    <script src="{{ asset('assets/js/jquery.js') }}"></script>
     <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
@@ -63,17 +65,17 @@
     <!-- Page Specific JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert2@11.js') }}"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
     <script>
-        //         $(document).ready( function () {
-//     $('#myTable').DataTable({
-//         responsive: true,
-//         autoWidth: true,
-//         'order': [[0, 'desc']],
-//         language: {
-//         url: "{{ asset('assets/js/fr-FR.json') }}",
-//         }
-//     });
-// });
+        $(document).ready( function () {
+    $('#myTable').DataTable({
+        responsive: true,
+        autoWidth: true,
+        'order': [[0, 'desc']],
+
+    });
+});
     </script>
 </body>
 

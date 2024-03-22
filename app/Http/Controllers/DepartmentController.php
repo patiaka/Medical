@@ -11,7 +11,7 @@ class DepartmentController extends Controller
     //
     public function index()
     {
-        $departments = Department::paginate(10);
+        $departments = Department::all();
 
         return view('department.index', compact('departments'));
     }
@@ -56,7 +56,7 @@ class DepartmentController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => $row ? class_basename($row).' supprimer avec success ' : class_basename($row).' non trouvé',
+            'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not fund',
         ]);
 
     }

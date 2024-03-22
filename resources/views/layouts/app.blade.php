@@ -68,14 +68,16 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
     <script>
-        $(document).ready( function () {
-    $('#myTable').DataTable({
-        responsive: true,
-        autoWidth: true,
-        'order': [[0, 'desc']],
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                responsive: true,
+                autoWidth: true,
+                'order': [
+                    [0, 'desc']
+                ],
 
-    });
-});
+            });
+        });
     </script>
 </body>
 

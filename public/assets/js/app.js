@@ -87,13 +87,14 @@ searchMobileTrigger.addEventListener("click", () => {
 
 function deleteConfirmation(url) {
     swal.fire({
-        title: "Supprimer?",
+        title: "Delete?",
         icon: "question",
-        text: "Etes vous sur de vouloir supprimer cet element!",
+        text: "Would you want to delete this",
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: "Oui, Supprimer!",
-        cancelButtonText: "Non, Annuler!",
+        confirmButtonText: "Yes, Delete!",
+        confirmButtonColor: "red",
+        cancelButtonText: "No, Cancel!",
         reverseButtons: true,
     }).then(
         function (e) {

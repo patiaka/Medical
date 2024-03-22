@@ -25,6 +25,11 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">National/Expat:</th>
+                                    <td>{{ $consultation->employee->employeeType }}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Staff ID:</th>
                                     <td>{{ $consultation->employee->staffId }}
                                     </td>

@@ -32,9 +32,9 @@ Route::prefix('consultation')->group(function () {
     Route::post('/store', [ConsultationController::class, 'store'])->name('consultation.store');
     Route::get('/create', [ConsultationController::class, 'create'])->name('consultation.create');
     Route::get('/edit/{consultation}', [ConsultationController::class, 'edit'])->name('consultation.edit');
-    Route::put('/update/{consulation}', [ConsultationController::class, 'update'])->name('consultation.update');
+    Route::put('/update/{consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
     Route::get('/show/{consultation}', [ConsultationController::class, 'show'])->name('consultation.show');
-    Route::delete('/{consulation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
+    Route::delete('/{consultation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

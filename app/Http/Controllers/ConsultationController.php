@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreConsultationRequest;
-use App\Models\Consultation;
-use App\Models\Employee;
 use App\Models\Injury;
+use App\Models\Employee;
+use App\Models\Consultation;
+use App\Http\Requests\StoreConsultationRequest;
 
 class ConsultationController extends Controller
 {
@@ -17,7 +17,6 @@ class ConsultationController extends Controller
         //
         $employees = Employee::all();
         $consultations = Consultation::paginate(10);
-
         return view('Consultation.index', compact('consultations', 'employees'));
     }
 
@@ -55,30 +54,38 @@ class ConsultationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Consultation $consulation)
+    public function edit(Consultation $consultation)
     {
         $injuryType = Injury::all();
         $employee = Employee::all();
 
-        return view('consultation.edit', compact('consulation', 'injuryType', 'employee'));
+        return view('consultation.edit', compact('consultation', 'injuryType', 'employee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreConsultationRequest $request, Consultation $consulation)
+    public function update(StoreConsultationRequest $request, Consultation $consultation)
     {
-        $consulation->update($request->validated());
+        $consultation->update($request->validated());
         toastr()->success('Consultation update succesfully');
 
-        return back();
+        return redirect()->route('consultation.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id)
+    public function delete(int $consultation)
     {
         //
+        $row = Consultation::findOrFail($consultation);
+        $row->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
+        ]);
+    
     }
 }

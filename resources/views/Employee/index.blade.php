@@ -121,8 +121,6 @@
                 <div class="modal-body">
                     <form class="" action="{{ route('employee.store') }}" method="POST">
                         @csrf
-
-
                         <div class="mb-3">
                             <label for="staffId" class="form-label">Staff ID</label>
                             <input type="text" class="form-control" id="staffId" name="staffId" value="">

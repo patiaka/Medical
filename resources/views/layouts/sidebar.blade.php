@@ -12,7 +12,8 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link active" href="{{ route('dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                        href="{{ route('dashboard') }}">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +27,7 @@
                 </li><!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->routeIs('doctor.index') ? 'active' : '' }}" href="#">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-people" viewBox="0 0 16 16">
@@ -39,7 +40,8 @@
                 </li><!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="{{ route('consultation.index') }}">
+                    <a class="nav-link {{ request()->routeIs('consultation.index') ? 'active' : '' }} "
+                        href="{{ route('consultation.index') }}">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-file-medical" viewBox="0 0 16 16">
@@ -54,7 +56,7 @@
                 </li><!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="orders.html">
+                    <a class="nav-link {{ request()->routeIs('medication.index') ? 'active' : '' }}" href="orders.html">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-capsule-pill" viewBox="0 0 16 16">
@@ -125,7 +127,8 @@
                     </a><!--//nav-link-->
                     <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link"
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ request()->routeIs('consultation.index') ? 'active' : '' }}"
                                     href="{{ route('employee.index') }}">Liste</a>
                             </li>
                         </ul>
@@ -156,10 +159,12 @@
                     </a><!--//nav-link-->
                     <div id="submenu-2" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link"
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ request()->routeIs('department.index') ? 'active' : '' }}"
                                     href="{{ route('department.index') }}">Liste</a>
                             </li>
-                            <li class="submenu-item"><a class="submenu-link"
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ request()->routeIs('department.create') ? 'active' : '' }}"
                                     href="{{ route('department.create') }}">Add</a>
                             </li>
                         </ul>

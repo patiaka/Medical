@@ -23,6 +23,7 @@ class EmployeeController extends Controller
     // Enregistrement des employées
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'staffId' => 'required|integer|unique:employees,staffId',
             'firstName' => 'required',
@@ -37,7 +38,7 @@ class EmployeeController extends Controller
         Employee::create($validatedData);
         toastr()->success('Employee added Successfully');
 
-        return redirect()->back();
+        return redirect()->route('employee.index');
     }
 
     //Edition des employées

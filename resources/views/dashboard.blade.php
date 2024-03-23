@@ -51,7 +51,7 @@
         <div class="col-12">
             <div class="app-card shadow-sm">
                 <div class="app-card-body">
-                    <h2 class="app-card-title">Consultation Data</h2>
+                    <h2 class="app-card-title">Dashboard Data</h2>
                     <canvas id="consultationChart" width="400" height="200"></canvas>
                 </div><!--//app-card-body-->
             </div><!--//app-card-->

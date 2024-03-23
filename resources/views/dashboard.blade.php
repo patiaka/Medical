@@ -12,7 +12,7 @@
 
                     </div>
                 </div><!--//app-card-body-->
-                <a class="app-card-link-mask" href="#"></a>
+                <a class="app-card-link-mask" href="{{ route('user.index') }}"></a>
             </div><!--//app-card-->
         </div><!--//col-->
 

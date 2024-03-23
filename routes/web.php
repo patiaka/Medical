@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\ConsultationController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConsultationController;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::resource('user', UserController::class)->except('create');
 
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index'])->name('department.index');

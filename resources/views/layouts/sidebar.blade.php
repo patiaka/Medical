@@ -28,7 +28,8 @@
                 </li><!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link {{ request()->routeIs('doctor.index') ? 'active' : '' }}" href="#">
+                    <a class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
+                        href="{{ route('user.index') }}">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-people" viewBox="0 0 16 16">

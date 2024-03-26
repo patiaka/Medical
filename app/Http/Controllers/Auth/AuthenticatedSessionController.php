@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,8 +27,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+        $user = User::where('email', $request->email)->first();
+        if (! $user->change_password) {
+            Auth::logout();
 
-        $request->session()->regenerate();
+            return redirect()->route('change.password', ['email' => $user->email]);
+        } else {
+            $request->session()->regenerate();
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

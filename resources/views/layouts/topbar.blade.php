@@ -141,7 +141,7 @@
                             <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="user profile"
                                 style="border-radius: 50% "></a>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                            <li><a class="dropdown-item" href="account.html">Account</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Account</a></li>
                             <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                             <li>
                                 <hr class="dropdown-divider">

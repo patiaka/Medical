@@ -1,16 +1,10 @@
 <div id="app-sidepanel" class="app-sidepanel">
     <div id="sidepanel-drop" class="sidepanel-drop"></div>
     <div class="sidepanel-inner d-flex flex-column">
-        <a href="/" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+        <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
         <div class="app-branding">
-<<<<<<< HEAD
-            <a class="app-logo" href="/"><img class="logo-icon me-2"
-                    src="{{ asset('assets/images/app-logo.svg') }}" alt="logo"><span class="logo-text">Syama
-                    Medical</span></a>
-=======
-            <a class="app-logo" href="/"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"><span
-                    class="logo-text">Syama Medical</span></a>
->>>>>>> f69b808e8a651970e0781f37e86b23f6282018e9
+            <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="assets/images/app-logo.svg"
+                    alt="logo"><span class="logo-text">Syama Medical</span></a>
 
         </div>
         <!--//app-branding-->
@@ -19,8 +13,7 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                        href="{{ route('dashboard') }}">
+                    <a class="nav-link active" href="{{ route('dashboard') }}">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -36,17 +29,14 @@
                 <!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-<<<<<<< HEAD
-                    <a class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
-                        href="{{ route('user.index') }}">
-=======
-                    <a class="nav-link" href="{{ route('user.index') }}">
->>>>>>> f69b808e8a651970e0781f37e86b23f6282018e9
+                    <a class="nav-link" href="docs.html">
                         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-people" viewBox="0 0 16 16">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                                    d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
+                                <path fill-rule="evenodd"
+                                    d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Doctor</span>
@@ -56,15 +46,17 @@
                 <!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link {{ request()->routeIs('consultation.index') ? 'active' : '' }} "
-                        href="{{ route('consultation.index') }}">
+                    <a class="nav-link" href="orders.html">
                         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-file-medical" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.5 4.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L7 6l-.549.317a.5.5 0 1 0 .5.866l.549-.317V7.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L9 6l.549-.317a.5.5 0 1 0-.5-.866l-.549.317zM5.5 9a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                <path
-                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1" />
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                <path fill-rule="evenodd"
+                                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z" />
+                                <circle cx="3.5" cy="5.5" r=".5" />
+                                <circle cx="3.5" cy="8" r=".5" />
+                                <circle cx="3.5" cy="10.5" r=".5" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Consultation</span>
@@ -74,12 +66,17 @@
                 <!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link {{ request()->routeIs('medication.index') ? 'active' : '' }}" href="orders.html">
+                    <a class="nav-link" href="orders.html">
                         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-capsule-pill" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8m-.5 1.042a3 3 0 0 0 0 5.917zm1 5.917a3 3 0 0 0 0-5.917z" />
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                <path fill-rule="evenodd"
+                                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z" />
+                                <circle cx="3.5" cy="5.5" r=".5" />
+                                <circle cx="3.5" cy="8" r=".5" />
+                                <circle cx="3.5" cy="10.5" r=".5" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Medication</span>
@@ -91,14 +88,15 @@
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="orders.html">
                         <span class="nav-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-clipboard2-pulse" viewBox="0 0 16 16">
-                                <path
-                                    d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z" />
-                                <path
-                                    d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z" />
-                                <path
-                                    d="M9.979 5.356a.5.5 0 0 0-.968.04L7.92 10.49l-.94-3.135a.5.5 0 0 0-.926-.08L4.69 10H4.5a.5.5 0 0 0 0 1H5a.5.5 0 0 0 .447-.276l.936-1.873 1.138 3.793a.5.5 0 0 0 .968-.04L9.58 7.51l.94 3.135A.5.5 0 0 0 11 11h.5a.5.5 0 0 0 0-1h-.128z" />
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-list"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                <path fill-rule="evenodd"
+                                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z" />
+                                <circle cx="3.5" cy="5.5" r=".5" />
+                                <circle cx="3.5" cy="8" r=".5" />
+                                <circle cx="3.5" cy="10.5" r=".5" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Health Surveillance</span>
@@ -128,16 +126,16 @@
                 <!--//nav-item-->
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="" data-bs-toggle="collapse" data-bs-target="#submenu-1"
-                        aria-expanded="false" aria-controls="submenu-1">
+                    <a class="nav-link submenu-toggle" href="{{ route('employee.index') }}" data-bs-toggle="collapse"
+                        data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
                         <span class="nav-icon">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-person-plus" viewBox="0 0 16 16">
-                                <path
-                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
-                                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                    d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
+                                <path
+                                    d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
                             </svg>
                         </span>
                         <span class="nav-link-text">Employee</span>
@@ -153,53 +151,16 @@
                     <!--//nav-link-->
                     <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a
-                                    class="submenu-link {{ request()->routeIs('consultation.index') ? 'active' : '' }}"
-                                    href="{{ route('employee.index') }}">Liste</a>
+                            <li class="submenu-item"><a class="submenu-link" href="notifications.html">Liste</a>
+                            </li>
+                            <li class="submenu-item"><a class="submenu-link" href="account.html">Add</a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <!--//nav-item-->
-                <li class="nav-item has-submenu">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="" data-bs-toggle="collapse" data-bs-target="#submenu-2"
-                        aria-expanded="false" aria-controls="submenu-2">
-                        <span class="nav-icon">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-buildings" viewBox="0 0 16 16">
-                                <path
-                                    d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
-                                <path
-                                    d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
-                            </svg>
-                        </span>
-                        <span class="nav-link-text">Department</span>
-                        <span class="submenu-arrow">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
-                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                        <!--//submenu-arrow-->
-                    </a>
-                    <!--//nav-link-->
-                    <div id="submenu-2" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
-                        <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a
-                                    class="submenu-link {{ request()->routeIs('department.index') ? 'active' : '' }}"
-                                    href="{{ route('department.index') }}">Liste</a>
-                            </li>
-                            <li class="submenu-item"><a
-                                    class="submenu-link {{ request()->routeIs('department.create') ? 'active' : '' }}"
-                                    href="{{ route('department.create') }}">Add</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <!--//nav-item-->
+
+
             </ul>
             <!--//app-menu-->
         </nav>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('function');
             $table->string('phone');
+            $table->boolean('change_password')->default(false);
             $table->string('password')->default('$2y$12$duZDv9cFshh947EfR5D8/OPG1jnkbbbk5ThLRSantV/J3oC77wERy');
             $table->rememberToken();
             $table->timestamps();

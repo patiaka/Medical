@@ -101,7 +101,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="observation" class="form-label">Observation</label>
+                            <label for="observation" class="form-label">Medical Observation</label>
                             <textarea class="form-control" name="observation" id="observation" rows="3"></textarea>
                             @error('observation')
                                 <div class="alert-danger alert">{{ $message }}</div>
@@ -150,6 +150,8 @@
                                 <div class="alert-danger alert">{{ $message }}</div>
                             @enderror
                         </div>
+                        @include('Medication.create')
+                        @include('HealthSurveillance.create')
                         <div class="text-center mt-2">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary">Close</button>

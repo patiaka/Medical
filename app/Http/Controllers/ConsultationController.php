@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Injury;
 use App\Models\Employee;
+use App\Models\Medication;
 use App\Models\Consultation;
+use App\Models\healthSurveillance;
 use App\Http\Requests\StoreConsultationRequest;
 
 class ConsultationController extends Controller
@@ -16,7 +18,7 @@ class ConsultationController extends Controller
     {
         //
         $employees = Employee::all();
-        $consultations = Consultation::paginate(10);
+        $consultations = Consultation::all();
         return view('Consultation.index', compact('consultations', 'employees'));
     }
 
@@ -36,7 +38,29 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-        Consultation::create($request->validated());
+        $consultation = Consultation::create($request->validated());
+        foreach ($request->medications as $medicationData) {
+            $medication = new Medication();
+            $medication->consultation_id = $consultation->id;
+            $medication->drugname = $medicationData['drugname'];
+            $medication->prescription = $medicationData['prescription'];
+            $medication->stock = $medicationData['stock'];
+            $medication->save();
+        }
+        foreach ($request->healthSurveillance as $healthSurveillanceData) {
+            $healthSurveillance = new healthSurveillance();
+            $healthSurveillance->consultation_id = $consultation->id;
+            $healthSurveillance->surveillanceType = $healthSurveillanceData['surveillanceType'];
+            $healthSurveillance->occupation = $healthSurveillanceData['occupation'];
+            $healthSurveillance->hazards = $healthSurveillanceData['hazards'];
+            $healthSurveillance->ecg = $healthSurveillanceData['ecg'];
+            $healthSurveillance->spirometry = $healthSurveillanceData['spirometry'];
+            $healthSurveillance->audiometry = $healthSurveillanceData['audiometry'];
+            $healthSurveillance->general = $healthSurveillanceData['general'];
+            $healthSurveillance->followUp = $healthSurveillanceData['followUp'];
+            $healthSurveillance->save();
+        }
+
         toastr()->success('Consultation added succesfully');
 
         return redirect()->route('consultation.index');

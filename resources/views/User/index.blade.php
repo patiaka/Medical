@@ -105,7 +105,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add user</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Doctor</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -127,6 +127,13 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" value="password123">
+                            @error('password')
+                                <div class="alert-danger alert">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="phone" class="form-label">Phone</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="">
                             @error('phone')
@@ -135,8 +142,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="function" class="form-label">Function</label>
-                            <input type="text" class="form-control" id="function" name="function" placeholder="function"
-                                value="" required>
+                            <input type="text" class="form-control" id="function" name="function"
+                                placeholder="function" value="" required>
                             @error('function')
                                 <div class="alert-danger alert">{{ $message }}</div>
                             @enderror

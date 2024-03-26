@@ -96,7 +96,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => $row ? class_basename($row).' supprimer avec success ' : class_basename($row).' non trouvé',
+            'message' => $row ? class_basename($row).' deleted successfully ' : class_basename($row).' not found',
         ]);
     }
 }

@@ -95,13 +95,6 @@
                 <!--//app-card-body-->
             </div>
             <!--//app-card-->
-            <nav class="app-pagination">
-                <div class="justify-content-center">
-                    {{ $employees->links() }}
-                </div>
-            </nav>
-            <!--//app-pagination-->
-
         </div>
         <!--//tab-pane-->
     </div>

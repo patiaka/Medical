@@ -14,7 +14,7 @@ class EmployeeController extends Controller
         $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
         sort($companys);
         $departments = Department::all();
-        $employees = Employee::with('department')->paginate(10);
+        $employees = Employee::with('department')->paginate(21);
 
         return view('employee.index', compact('employees', 'departments', 'companys'));
 

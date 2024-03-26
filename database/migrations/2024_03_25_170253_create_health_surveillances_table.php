@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medications', function (Blueprint $table) {
+        Schema::create('health_surveillances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('consultation_id')
             ->constrained()
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
-            $table->string('drugname');
-            $table->string('prescription');
-            $table->integer('stock');
+            $table->string('surveillanceType');
+            $table->string('occupation');
+            $table->string('hazards');
+            $table->string('ecg');
+            $table->string('spirometry');
+            $table->string('audiometry');
+            $table->string('general');
+            $table->date('followUp');
             $table->timestamps();
         });
     }
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medications');
+        Schema::dropIfExists('health_surveillances');
     }
 };

@@ -76,7 +76,7 @@
                                                     class="btn-sm app-btn-danger" style="margin-left: 10px;">
                                                     <i class="fa fa-eye fa-lg text-danger"></i>
                                                 </a>
-                                                <a role="button" href="#"
+                                                <a role="button"
                                                     onclick="deleteConfirmation('{{ route('consultation.delete', $consultation->id) }}')"
                                                     class="btn-sm app-btn-danger" style="margin-left: 10px;">
                                                     <i class="fa fa-trash fa-lg text-danger"></i>
@@ -98,12 +98,6 @@
                 <!--//app-card-body-->
             </div>
             <!--//app-card-->
-            <nav class="app-pagination">
-                <div class="justify-content-center">
-                    {{ $consultations->links() }}
-                </div>
-            </nav>
-            <!--//app-pagination-->
 
         </div>
         <!--//tab-pane-->

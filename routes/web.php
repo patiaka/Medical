@@ -11,9 +11,9 @@ use App\Http\Controllers\ConsultationController;
 
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::resource('user', UserController::class)->except('create');
 
 Route::resource('user', UserController::class)->except('create');
+
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index'])->name('department.index');
     Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');

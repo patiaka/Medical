@@ -59,39 +59,6 @@ class NewPasswordController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
                         ->withErrors(['email' => __($status)]);
-<<<<<<< HEAD
-=======
-    }
-
-    public function form_change_password(string $email): View
-    {
-        return view('auth.change-password', ['email' => $email]);
-    }
-
-    /**
-     * Handle an incoming new password request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function change_password(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-        DB::transaction(function () use ($request) {
-            $user = User::where('email', $request->email)->first();
-            $user->forceFill([
-                'change_password' => true,
-                'password' => Hash::make($request->password),
-                'remember_token' => Str::random(60),
-            ])->save();
-
-            event(new PasswordReset($user));
-        });
-
-        return to_route('login')->with('status', 'Mot de passe changé avec success');
->>>>>>> f69b808e8a651970e0781f37e86b23f6282018e9
     }
 
     public function form_change_password(string $email): View

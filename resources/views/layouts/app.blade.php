@@ -98,6 +98,9 @@
             <div class="col-md-4">
                 <input type="number" class="form-control" name="medications[0][stock]" placeholder="Stock">
             </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-danger remove-medication">-</button>
+            </div>
         </div>`;
                 $('.medication-fields').append(medicationFields);
                 $('.medication-fields').show(); // Show medication fields when adding medication
@@ -143,11 +146,16 @@
                 <div class="col-md-4">
                     <input type="date" class="form-control" name="healthSurveillance[0][followUp]" placeholder="Follow Up">
                 </div>
+                <div class="col-md-4">
+                <button type="button" class="btn btn-danger remove-health-surveillance">-</button>
+            </div>
         </div>`;
                 $('.health-surveillance-fields').append(healthSurveillanceFields);
                 $('.health-surveillance-fields').show(); // Show health surveillance fields when adding
             });
-
+            $('.health-surveillance-fields').on('click', '.remove-health-surveillance', function() {
+                $(this).closest('.health-surveillance-row').remove();
+            });
             // Remove All Health Surveillance button click event
             $('#remove-all-health-surveillance').click(function() {
                 $('.health-surveillance-fields').empty();

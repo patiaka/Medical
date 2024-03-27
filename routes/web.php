@@ -8,8 +8,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ConsultationController;
 
-
-
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::resource('user', UserController::class)->except('create');

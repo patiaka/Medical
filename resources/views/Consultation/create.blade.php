@@ -154,11 +154,12 @@
                         @include('HealthSurveillance.create')
                         <div class="text-center mt-2">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary">Close</button>
+                            <a href="{{ route('consultation.index') }}" class="btn btn-secondary">cancel</a>
                         </div>
-                    </form>
                 </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 @endsection

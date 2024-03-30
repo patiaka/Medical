@@ -14,17 +14,21 @@ return new class extends Migration
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('injurie_id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('diagnose_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('user_id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('employee_id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->string('staffType');
             $table->string('referral');
             $table->string('diagnosis');
@@ -36,7 +40,7 @@ return new class extends Migration
             $table->longtext('comments');
             $table->string('malaria');
             $table->integer('daysOff');
-            $table->string('diagnosispec');
+            // $table->string('diagnosispec');
             $table->string('diagnosiMali');
             $table->timestamps();
         });

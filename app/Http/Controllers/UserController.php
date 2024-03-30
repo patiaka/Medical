@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -31,14 +32,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
             'function' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:55'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         ]);
+        if ($validatedData->fails()) {
+            toastr()->error('validation error');
 
+            return \back();
+        }
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -100,5 +105,3 @@ class UserController extends Controller
         ]);
     }
 }
-
-

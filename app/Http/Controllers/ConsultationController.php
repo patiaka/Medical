@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Injury;
-use App\Models\Employee;
-use App\Models\Medication;
-use App\Models\Consultation;
-use App\Models\healthSurveillance;
 use App\Http\Requests\StoreConsultationRequest;
+use App\Models\Consultation;
+use App\Models\Diagnosis;
+use App\Models\Employee;
+use App\Models\healthSurveillance;
+use App\Models\Injury;
+use App\Models\Medication;
 
 class ConsultationController extends Controller
 {
@@ -19,6 +20,7 @@ class ConsultationController extends Controller
         //
         $employees = Employee::all();
         $consultations = Consultation::all();
+
         return view('Consultation.index', compact('consultations', 'employees'));
     }
 
@@ -29,8 +31,9 @@ class ConsultationController extends Controller
     {
         $injuryType = Injury::all();
         $employee = Employee::all();
+        $diagnosis = Diagnosis::all();
 
-        return view('Consultation.create', compact('injuryType', 'employee'));
+        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis'));
     }
 
     /**
@@ -82,8 +85,9 @@ class ConsultationController extends Controller
     {
         $injuryType = Injury::all();
         $employee = Employee::all();
+        $diagnosis = Diagnosis::all();
 
-        return view('consultation.edit', compact('consultation', 'injuryType', 'employee'));
+        return view('consultation.edit', compact('consultation', 'injuryType', 'employee', 'diagnosis'));
     }
 
     /**
@@ -110,6 +114,6 @@ class ConsultationController extends Controller
             'success' => true,
             'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
         ]);
-    
+
     }
 }

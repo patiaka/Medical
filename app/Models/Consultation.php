@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Consultation extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'injurie_id',
@@ -24,14 +25,12 @@ class Consultation extends Model
         'comments',
         'malaria',
         'daysOff',
-        'diagnosispec',
+        'diagnose_id',
         'diagnosiMali',
     ];
 
     /**
      * Get the user that owns the Consultation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -39,22 +38,31 @@ class Consultation extends Model
     }
 
     /**
+     * Get the diagnose that owns the Consultation
+     */
+    public function diagnose(): BelongsTo
+    {
+        return $this->belongsTo(Diagnosis::class);
+    }
+
+    /**
      * Get the injurie that owns the Consultation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function injurie(): BelongsTo
     {
         return $this->belongsTo(Injury::class);
     }
+
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }
+
     public function medications()
     {
         return $this->hasMany(Medication::class);
     }
+
     public function healthSurveillance()
     {
         return $this->hasMany(HealthSurveillance::class);

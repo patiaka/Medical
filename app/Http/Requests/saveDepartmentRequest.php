@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class saveDepartmentRequest extends FormRequest
@@ -23,14 +24,20 @@ class saveDepartmentRequest extends FormRequest
     {
         return [
             //
-            'department_name'=>'required|unique:departments,name'
+            'department_name' => 'required|unique:departments,name',
         ];
     }
+
     public function messages()
     {
         return [
-            'department_name'=>'The department name is required',
-            'department_name'=>'Department name already exist',
+            'department_name' => 'The department name is required',
+            'department_name' => 'Department name already exist',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        return toastr()->error('la validation a echoué verifiez vos informations!');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreConsultationRequest extends FormRequest
@@ -25,6 +26,7 @@ class StoreConsultationRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'employee_id' => 'required|exists:employees,id',
             'injurie_id' => 'required|exists:injuries,id',
+            'diagnose_id' => 'required|exists:diagnoses,id',
             'staffType' => 'required|string|max:255',
             'referral' => 'required|string|max:255',
             'diagnosis' => 'required|string|max:255',
@@ -36,16 +38,21 @@ class StoreConsultationRequest extends FormRequest
             'comments' => 'required',
             'malaria' => 'required|string|max:255',
             'daysOff' => 'required|integer',
-            'diagnosispec' => 'required',
+            // 'diagnosispec' => 'required',
             'diagnosiMali' => 'required',
         ];
     }
 
     protected function prepareForValidation()
     {
-       
-       $this->merge( [
+
+        $this->merge([
             'user_id' => auth()->user()->id,
         ]);
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        return toastr()->error('la validation a echoué verifiez vos informations!');
     }
 }

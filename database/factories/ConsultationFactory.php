@@ -20,8 +20,8 @@ class ConsultationFactory extends Factory
             'user_id' => fake()->numberBetween(1, 5), // Example: Random user ID between 1 and 100
             'employee_id' => fake()->numberBetween(1, 5), // Example: Random employee ID between 1 and 100
             'injurie_id' => fake()->numberBetween(1, 5), // Example: Random injury ID between 1 and 100
+            'diagnose_id' => fake()->numberBetween(1, 5), // Example: Random injury ID between 1 and 100
             'staffType' => fake()->randomElement(['Staff', 'Family']), // Example: Random word for staffType
-            'employeeType' => fake()->randomElement(['national', 'expat']), // Example: Random word for staffType
             'referral' => fake()->sentence(), // Example: Random sentence for referral
             'diagnosis' => fake()->sentence(), // Example: Random sentence for diagnosis
             'history' => fake()->paragraph(), // Example: Random paragraph for history
@@ -32,7 +32,6 @@ class ConsultationFactory extends Factory
             'comments' => fake()->paragraph(), // Example: Random paragraph for comments
             'malaria' => fake()->sentence(1), // Example: Random word for malaria
             'daysOff' => fake()->numberBetween(1, 10), // Example: Random number between 1 and 10 for daysOff
-            'diagnosispec' => fake()->paragraph(), // Example: Random paragraph for diagnosispec
             'diagnosiMali' => fake()->paragraph(), // Example: Random paragraph for diagnosiMali
         ];
     }

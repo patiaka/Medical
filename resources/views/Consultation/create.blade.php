@@ -23,13 +23,13 @@
                         </div>
                         <div class="col-md-6">
                             <label for="injury_type" class="form-label">Injury Type</label>
-                            <select class="form-select" name="injurie_id" id="injury_type">
+                            <select class="form-select" name="injurie_id" id="injurie_id">
                                 <option value=""></option>
                                 @foreach ($injuryType as $row)
                                     <option value="{{ $row->id }}">{{ $row->name }}</option>
                                 @endforeach
                             </select>
-                            @error('injury_type')
+                            @error('injurie_id')
                                 <div class="alert-danger alert">{{ $message }}</div>
                             @enderror
                         </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="nationality" class="form-label">Expat/National</label>
-                            <select class="form-select" name="staffType" id="nationality">
+                            <select class="form-select" name="nationality" id="nationality">
                                 <option value="national">national</option>
                                 <option value="expat">expat</option>
                             </select>

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\healthSurveillanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,7 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name
 
 Route::resource('user', UserController::class)->except('create');
 Route::resource('diagnosis', DiagnosisController::class)->except('create');
+Route::resource('heathSurveillance', healthSurveillanceController::class)->except('create');
 
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index'])->name('department.index');

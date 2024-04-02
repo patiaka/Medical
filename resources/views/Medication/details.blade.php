@@ -26,8 +26,6 @@
                             <div class="col-sm-8">
                                 <dd>{{ $medication->stock }}</dd>
                             </div>
-
-                            <!-- Ajoutez les autres champs de Medication ici... -->
                         </dl>
                     </div>
                 </div>

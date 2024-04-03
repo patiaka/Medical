@@ -43,6 +43,7 @@
                             <thead>
                                 <tr>
                                     <th>id</th>
+                                    <th>Employee Number</th>
                                     <th>Staff id</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
@@ -57,6 +58,7 @@
                                 @forelse ($employees as $employee)
                                     <tr>
                                         <td>{{ $employee->id }}</td>
+                                        <td>{{ generateEmployeeNumber() }}</td>
                                         <td><span class="truncate">{{ $employee->staffId }}</span></td>
                                         <td>{{ $employee->firstName }}</td>
                                         <td>{{ $employee->lastName }}</td>
@@ -115,15 +117,14 @@
                     <form class="" action="{{ route('employee.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="staffId" class="form-label">Staff ID</label>
-                            <input type="text" class="form-control" id="staffId" name="staffId" value="">
-                        </div>
-                        <div class="mb-3">
                             <label for="employeeNumber" class="form-label">Employee Number</label>
                             <input type="text" class="form-control" id="employeeNumber" name="employeeNumber"
                                 value="{{ generateEmployeeNumber() }}" readonly>
                         </div>
-
+                        <div class="mb-3">
+                            <label for="staffId" class="form-label">Staff ID</label>
+                            <input type="text" class="form-control" id="staffId" name="staffId" value="">
+                        </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">

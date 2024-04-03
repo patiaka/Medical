@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Injury;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreInjuryRequest;
 use App\Http\Requests\UpdateInjuryRequest;
+use Illuminate\Support\Facades\Validator;
 
 class InjuryController extends Controller
 {
@@ -13,7 +15,9 @@ class InjuryController extends Controller
      */
     public function index()
     {
-        //
+        $injury = Injury::all();
+
+        return view('Injury.index', compact('injury'));
     }
 
     /**
@@ -27,9 +31,22 @@ class InjuryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInjuryRequest $request)
+    public function store(Request $request)
     {
         //
+        $validatedData = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validatedData->fails()) {
+            toastr()->error('validation error');
+
+            return \back();
+        }
+
+        Injury::create($validatedData->validated());
+        toastr()->success('Injury added Successfully');
+
+        return \back();
     }
 
     /**
@@ -45,22 +62,41 @@ class InjuryController extends Controller
      */
     public function edit(Injury $injury)
     {
-        //
+        return view('Injury.edit', compact('injury'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInjuryRequest $request, Injury $injury)
+    public function update(Request $request, Injury $injury)
     {
         //
+        $validatedData = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        if ($validatedData->fails()) {
+            toastr()->error('validation error');
+
+            return \back();
+        }
+        $injury->update($validatedData->validated());
+        toastr()->success('Injury update succesfully');
+
+        return redirect()->route('diagnosis.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Injury $injury)
+    public function destroy(int $injury)
     {
         //
+        $row = Injury::findOrFail($injury);
+        $row->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
+        ]);
     }
 }

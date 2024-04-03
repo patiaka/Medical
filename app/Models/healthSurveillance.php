@@ -10,7 +10,6 @@ class healthSurveillance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'consultation_id', 
         'surveillanceType', 
         'occupation', 
         'hazards', 
@@ -21,8 +20,9 @@ class healthSurveillance extends Model
         'followUp'
     ];
 
-    public function consultation()
+    public function laboratory()
     {
-        return $this->belongsTo(Consultation::class);
+        return $this->morphMany(Laboratory::class, 'laboratorieable');
     }
+
 }

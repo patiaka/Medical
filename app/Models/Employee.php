@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Employee extends Model
 {
     use HasFactory;
-    protected $fillable = ['staffId','firstName','lastName','jobTitle','birthDate','company','department_id','employeeType'];
+    protected $fillable = ['employeeNumber','staffId','firstName','lastName','jobTitle','birthDate','company','department_id','employeeType'];
     
     public function department(): BelongsTo
     {

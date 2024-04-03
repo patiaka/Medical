@@ -63,8 +63,8 @@ class Consultation extends Model
         return $this->hasMany(Medication::class);
     }
 
-    public function healthSurveillance()
+    public function laboratory()
     {
-        return $this->hasMany(HealthSurveillance::class);
+        return $this->morphMany(Laboratory::class, 'laboratorieable');
     }
 }

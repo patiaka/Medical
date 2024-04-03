@@ -17,6 +17,7 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
+            'employeeNumber'=>'EMP' . uniqid(),
             'staffId' => \uniqid(),
             'firstName' => fake()->firstName(),
             'lastName' => fake()->lastName(),

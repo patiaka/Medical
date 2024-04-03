@@ -29,13 +29,14 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+    
             $table->string('staffType');
             $table->string('referral');
             $table->string('diagnosis');
             $table->longText('history');
-            $table->string('bp');
-            $table->integer('pulse');
-            $table->integer('temperature');
+            $table->double('bp');
+            $table->double('pulse');
+            $table->double('temperature');
             $table->longtext('observation');
             $table->longtext('comments');
             $table->string('malaria');

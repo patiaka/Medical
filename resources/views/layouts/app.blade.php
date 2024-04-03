@@ -81,10 +81,6 @@
 
             // Hide all medication fields by default
             $('.medication-fields').hide();
-
-            // Hide all health surveillance fields by default
-            $('.health-surveillance-fields').hide();
-
             // Add Medication button click event
             $('#add-medication').click(function() {
                 var medicationFields = `
@@ -116,53 +112,6 @@
                 $('.medication-fields').empty();
                 $('.medication-fields').hide(); // Hide medication fields when removing all medications
             });
-
-            // Add Health Surveillance button click event
-            $('#add-health-surveillance').click(function() {
-                var healthSurveillanceFields = `
-        <div class="row mt-3 health-surveillance-row">
-            <div class="row mt-3 health-surveillance-row">
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][surveillanceType]" placeholder="Surveillance Type">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][occupation]" placeholder="Occupation">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][hazards]" placeholder="Hazards">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][ecg]" placeholder="ECG">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][spirometry]" placeholder="Spirometry">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][audiometry]" placeholder="Audiometry">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="healthSurveillance[0][general]" placeholder="General">
-                </div>
-                <div class="col-md-4">
-                    <input type="date" class="form-control" name="healthSurveillance[0][followUp]" placeholder="Follow Up">
-                </div>
-                <div class="col-md-4">
-                <button type="button" class="btn btn-danger remove-health-surveillance">-</button>
-            </div>
-        </div>`;
-                $('.health-surveillance-fields').append(healthSurveillanceFields);
-                $('.health-surveillance-fields').show(); // Show health surveillance fields when adding
-            });
-            $('.health-surveillance-fields').on('click', '.remove-health-surveillance', function() {
-                $(this).closest('.health-surveillance-row').remove();
-            });
-            // Remove All Health Surveillance button click event
-            $('#remove-all-health-surveillance').click(function() {
-                $('.health-surveillance-fields').empty();
-                $('.health-surveillance-fields')
-                    .hide(); // Hide health surveillance fields when removing all
-            });
-            // healthSurveillance end
 
         });
     </script>

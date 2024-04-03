@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('health_surveillances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('consultation_id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
             $table->string('surveillanceType');
             $table->string('occupation');
             $table->string('hazards');

@@ -50,20 +50,6 @@ class ConsultationController extends Controller
             $medication->stock = $medicationData['stock'];
             $medication->save();
         }
-        foreach ($request->healthSurveillance as $healthSurveillanceData) {
-            $healthSurveillance = new healthSurveillance();
-            $healthSurveillance->consultation_id = $consultation->id;
-            $healthSurveillance->surveillanceType = $healthSurveillanceData['surveillanceType'];
-            $healthSurveillance->occupation = $healthSurveillanceData['occupation'];
-            $healthSurveillance->hazards = $healthSurveillanceData['hazards'];
-            $healthSurveillance->ecg = $healthSurveillanceData['ecg'];
-            $healthSurveillance->spirometry = $healthSurveillanceData['spirometry'];
-            $healthSurveillance->audiometry = $healthSurveillanceData['audiometry'];
-            $healthSurveillance->general = $healthSurveillanceData['general'];
-            $healthSurveillance->followUp = $healthSurveillanceData['followUp'];
-            $healthSurveillance->save();
-        }
-
         toastr()->success('Consultation added succesfully');
 
         return redirect()->route('consultation.index');

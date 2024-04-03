@@ -18,7 +18,7 @@
                 </div><!--//col-->
 
                 <div class="app-utilities col-auto">
-                    <div class="app-utility-item app-notifications-dropdown dropdown">
+                    {{-- <div class="app-utility-item app-notifications-dropdown dropdown">
                         <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle"
                             data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"
                             title="Notifications">
@@ -121,7 +121,7 @@
                             </div>
 
                         </div><!--//dropdown-menu-->
-                    </div><!--//app-utility-item-->
+                    </div><!--//app-utility-item--> --}}
                     <div class="app-utility-item">
                         <a href="settings.html" title="Settings">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
@@ -136,8 +136,8 @@
                     </div><!--//app-utility-item-->
 
                     <div class="app-utility-item app-user-dropdown dropdown">
-                        <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
-                            href="#" role="button" aria-expanded="false">
+                        <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                            role="button" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="user profile"
                                 style="border-radius: 50% "></a>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">

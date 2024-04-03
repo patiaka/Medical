@@ -168,7 +168,6 @@
                                     </div>
                                 </dl>
                             </div>
-                            @include('HealthSurveillance.details')
                             @include('Medication.details')
                         </div>
                     </div>

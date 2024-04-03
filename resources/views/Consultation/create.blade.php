@@ -57,8 +57,11 @@
                             <label for="referral" class="form-label">Referral</label>
                             <select class="form-select" name="referral" id="referral">
                                 <option value=""></option>
-                                <option value="referral">Referral</option>
-                                <option value="no referral">No referral</option>
+                                <option value="referral">No Referral</option>
+                                <option value="Fourou">Fourou</option>
+                                <option value="Kadiolo">Kadiolo</option>
+                                <option value="Sikasso">Sikasso</option>
+                                <option value="INPS">INPS</option>
                             </select>
                             @error('referral')
                                 <div class="alert-danger alert">{{ $message }}</div>

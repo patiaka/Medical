@@ -25,7 +25,7 @@ class ConsultationFactory extends Factory
             'referral' => fake()->sentence(), // Example: Random sentence for referral
             'diagnosis' => fake()->sentence(), // Example: Random sentence for diagnosis
             'history' => fake()->paragraph(), // Example: Random paragraph for history
-            'bp' => fake()->sentence(1), // Example: Random word for bp
+            'bp' => fake()->numberBetween(60, 100), // Example: Random word for bp
             'pulse' => fake()->numberBetween(60, 100), // Example: Random number between 60 and 100 for pulse
             'temperature' => fake()->numberBetween(36, 38), // Example: Random number between 36 and 38 for temperature
             'observation' => fake()->paragraph(), // Example: Random paragraph for observation

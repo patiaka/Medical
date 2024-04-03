@@ -88,7 +88,7 @@ class UserController extends Controller
         $user->update($data);
         toastr()->success('user update succesfully');
 
-        return back();
+        return redirect()->route('user.index');
     }
 
     /**

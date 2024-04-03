@@ -64,7 +64,7 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Total Doctors', 'Total Consultation', 'Total Patient', 'Total Department'],
+                labels: ['Total Doctors', 'Total Consultation', 'Total Patient', 'Total Department'], // __("")
                 datasets: [{
                     label: 'Consultation Data',
                     data: [{{ $totalDoctor }}, {{ $totalConsultation }}, {{ $totalEmployee }},

@@ -118,6 +118,12 @@
                             <label for="staffId" class="form-label">Staff ID</label>
                             <input type="text" class="form-control" id="staffId" name="staffId" value="">
                         </div>
+                        <div class="mb-3">
+                            <label for="employeeNumber" class="form-label">Employee Number</label>
+                            <input type="text" class="form-control" id="employeeNumber" name="employeeNumber"
+                                value="{{ generateEmployeeNumber() }}" readonly>
+                        </div>
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6">

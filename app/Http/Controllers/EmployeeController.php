@@ -14,7 +14,7 @@ class EmployeeController extends Controller
         $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
         sort($companys);
         $departments = Department::all();
-        $employees = Employee::with('department')->paginate(100);
+        $employees = Employee::with('department')->get();
 
         return view('employee.index', compact('employees', 'departments', 'companys'));
 
@@ -25,7 +25,7 @@ class EmployeeController extends Controller
     {
 
         $validatedData = $request->validate([
-            'employeeNumber'=>'required|string|unique:employees,employeeNumber',
+            'employeeNumber' => 'required|string|unique:employees,employeeNumber',
             'staffId' => 'required|integer|unique:employees,staffId',
             'firstName' => 'required',
             'lastName' => 'required',
@@ -85,5 +85,4 @@ class EmployeeController extends Controller
         ]);
 
     }
-    
 }

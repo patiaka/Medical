@@ -25,8 +25,8 @@ class EmployeeController extends Controller
     {
 
         $validatedData = $request->validate([
-            'employeeNumber' => 'required|string|unique:employees,employeeNumber',
-            'staffId' => 'required|integer|unique:employees,staffId',
+            // 'employeeNumber' => 'required|string|unique:employees,employeeNumber',
+            'staffId' => 'required|string|unique:employees,staffId',
             'firstName' => 'required',
             'lastName' => 'required',
             'birthDate' => 'required|date',
@@ -35,8 +35,8 @@ class EmployeeController extends Controller
             'employeeType' => 'required|string',
             'department_id' => 'required|exists:departments,id',
         ]);
-
-        Employee::create($validatedData);
+        $data = Employee::create($validatedData);
+        $data->generateId('EMP');
         toastr()->success('Employee added Successfully');
 
         return redirect()->route('employee.index');

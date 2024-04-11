@@ -18,6 +18,12 @@
                                     <div class="col-sm-8">
                                         <dd>{{ $consultation->id }}</dd>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <dt>Patient Number :</dt>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <dd>{{ $consultation->employee->employeeNumber }}</dd>
+                                    </div>
 
                                     <div class="col-sm-4">
                                         <dt>Consultation Date:</dt>
@@ -27,7 +33,7 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <dt>Employee:</dt>
+                                        <dt>Patient Name:</dt>
                                     </div>
                                     <div class="col-sm-8">
                                         <dd>{{ $consultation->employee->firstName }} {{ $consultation->employee->lastName }}
@@ -168,6 +174,7 @@
                                     </div>
                                 </dl>
                             </div>
+                            @include('Laboratory.details')
                             @include('Medication.details')
                         </div>
                     </div>

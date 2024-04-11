@@ -16,7 +16,6 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name
 Route::resource('user', UserController::class)->except('create');
 Route::resource('diagnosis', DiagnosisController::class)->except('create');
 Route::resource('injury', InjuryController::class)->except('create');
-Route::resource('heathSurveillance', healthSurveillanceController::class)->except('create');
 
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index'])->name('department.index');
@@ -44,6 +43,15 @@ Route::prefix('consultation')->group(function () {
     Route::put('/update/{consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
     Route::get('/show/{consultation}', [ConsultationController::class, 'show'])->name('consultation.show');
     Route::delete('/{consultation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
+});
+Route::prefix('healthSurveillance')->group(function () {
+    Route::get('/', [healthSurveillanceController::class, 'index'])->name('healthSurveillance.index');
+    Route::post('/store', [healthSurveillanceController::class, 'store'])->name('healthSurveillance.store');
+    Route::get('/create', [healthSurveillanceController::class, 'create'])->name('healthSurveillance.create');
+    Route::get('/edit/{consultation}', [healthSurveillanceController::class, 'edit'])->name('healthSurveillance.edit');
+    Route::put('/update/{consultation}', [healthSurveillanceController::class, 'update'])->name('healthSurveillance.update');
+    Route::get('/show/{consultation}', [healthSurveillanceController::class, 'show'])->name('healthSurveillance.show');
+    Route::delete('/{consultation}', [healthSurveillanceController::class, 'delete'])->name('healthSurveillance.delete');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

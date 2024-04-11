@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         Department::factory(10)->create();
         Injury::factory(10)->create();
         Diagnosis::factory(10)->create();
-        Employee::factory(80)->create();
+        Employee::factory(10)->create();
         Consultation::factory(20)->create();
     }
 }

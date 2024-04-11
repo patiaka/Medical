@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Injury;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreInjuryRequest;
-use App\Http\Requests\UpdateInjuryRequest;
+
 use Illuminate\Support\Facades\Validator;
 
 class InjuryController extends Controller

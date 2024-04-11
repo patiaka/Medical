@@ -60,20 +60,22 @@
                                         <td>{{ $row->function }}</td>
                                         <td>{{ $row->phone }}</td>
                                         <td>
+                                            <div style="display: flex">
                                             <a class="btn-sm app-btn-secondary" href="{{ route('user.edit', $row->id) }}">
                                                 <i class="fa fa-edit fa-lg text-success"></i>
                                             </a>
+
                                             <a role="button" href="#"
                                                 onclick="deleteConfirmation('{{ route('user.destroy', $row->id) }}')"
                                                 class="btn-sm app-btn-danger">
                                                 <i class="fa fa-trash fa-lg text-danger"></i>
                                             </a>
-
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7">No Patient added</td>
+                                        <td colspan="7">No Doctor added</td>
                                     </tr>
                                 @endforelse
                             </tbody>

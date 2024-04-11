@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HealthSurveillance;
+use App\Models\Employee;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
+use App\Models\HealthSurveillance;
 use Illuminate\Support\Facades\Validator;
 
 class HealthSurveillanceController extends Controller
@@ -23,7 +25,8 @@ class HealthSurveillanceController extends Controller
      */
     public function create()
     {
-        
+        $employees = Employee::all();
+        return view('HealthSurveillance.create', compact('employees'));
     }
 
     /**
@@ -47,7 +50,12 @@ class HealthSurveillanceController extends Controller
             return back();
         }
 
-        HealthSurveillance::create($validatedData->validated());
+        $healthSurveillance = HealthSurveillance::create($validatedData->validated());
+        if ($request->filled('hemoglobin') && $request->filled('malariaThick') && $request->filled('malariaThin')) {
+            $laboratoryData = $request->only(['hemoglobin', 'malariaThick', 'malariaThin']);
+            $healthSurveillance->laboratory()->create($laboratoryData);
+        }
+        dd($healthSurveillance->$request->all);
         toastr()->success('Health Surveillance added successfully');
         return back();
     }

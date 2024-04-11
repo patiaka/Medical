@@ -58,7 +58,7 @@
                                 @forelse ($employees as $employee)
                                     <tr>
                                         <td>{{ $employee->id }}</td>
-                                        <td>{{ generateEmployeeNumber() }}</td>
+                                        <td>{{ $employee->employeeNumber }}</td>
                                         <td><span class="truncate">{{ $employee->staffId }}</span></td>
                                         <td>{{ $employee->firstName }}</td>
                                         <td>{{ $employee->lastName }}</td>
@@ -116,11 +116,11 @@
                 <div class="modal-body">
                     <form class="" action="{{ route('employee.store') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="employeeNumber" class="form-label">Employee Number</label>
-                            <input type="text" class="form-control" id="employeeNumber" name="employeeNumber"
-                                value="{{ generateEmployeeNumber() }}" readonly>
-                        </div>
+                        {{-- <div class="mb-3">
+                        <label for="employeeNumber" class="form-label">Employee Number</label>
+                        <input type="text" class="form-control" id="employeeNumber" name="employeeNumber"
+                            value="{{ generateEmployeeNumber() }}" readonly>
+                    </div> --}}
                         <div class="mb-3">
                             <label for="staffId" class="form-label">Staff ID</label>
                             <input type="text" class="form-control" id="staffId" name="staffId" value="">

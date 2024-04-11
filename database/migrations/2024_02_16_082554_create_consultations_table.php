@@ -34,9 +34,9 @@ return new class extends Migration
             $table->string('referral');
             $table->string('diagnosis');
             $table->longText('history');
-            $table->double('bp');
-            $table->double('pulse');
-            $table->double('temperature');
+            $table->integer('bp');
+            $table->integer('pulse');
+            $table->integer('temperature');
             $table->longtext('observation');
             $table->longtext('comments');
             $table->string('malaria');

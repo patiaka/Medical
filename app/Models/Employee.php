@@ -36,9 +36,9 @@ class Employee extends Model
             }
             // Incrémente le numéro de séquence et génère le nouvel identifiant de courrier
             $sequence++;
-            $newEmployeeNumber = $prefix.$sequence;
+            $newCourrierNumber = $prefix.$sequence;
             // Met à jour le numéro de courrier de l'instance courante
-            $this->employeeNumber = $newEmployeeNumber;
+            $this->employeeNumber = $newCourrierNumber;
             $this->save();
 
             return $this;

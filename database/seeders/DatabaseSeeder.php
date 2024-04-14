@@ -8,6 +8,7 @@ use App\Models\Consultation;
 use App\Models\Department;
 use App\Models\Diagnosis;
 use App\Models\Employee;
+use App\Models\healthSurveillance;
 use App\Models\Injury;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -30,5 +31,6 @@ class DatabaseSeeder extends Seeder
         Diagnosis::factory(10)->create();
         Employee::factory(10)->create();
         Consultation::factory(20)->create();
+        healthSurveillance::factory(20)->create();
     }
 }

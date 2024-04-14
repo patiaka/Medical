@@ -10,19 +10,19 @@ class healthSurveillance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'surveillanceType', 
-        'occupation', 
-        'hazards', 
-        'ecg', 
-        'spirometry', 
-        'audiometry', 
-        'general', 
-        'followUp'
+        'surveillanceType',
+        'occupation',
+        'hazards',
+        'ecg',
+        'spirometry',
+        'audiometry',
+        'general',
+        'followUp',
+        'employee_id',
     ];
 
     public function laboratory()
     {
         return $this->morphMany(Laboratory::class, 'laboratorieable');
     }
-
 }

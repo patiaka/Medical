@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\Laboratory;
-use Illuminate\Http\Request;
 use App\Models\HealthSurveillance;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class HealthSurveillanceController extends Controller
@@ -26,6 +25,7 @@ class HealthSurveillanceController extends Controller
     public function create()
     {
         $employees = Employee::all();
+
         return view('HealthSurveillance.create', compact('employees'));
     }
 
@@ -35,28 +35,29 @@ class HealthSurveillanceController extends Controller
     public function store(Request $request)
     {
         $validatedData = Validator::make($request->all(), [
-            'surveillanceType' => 'required',
-            'occupation' => 'required',
-            'hazards' => 'required',
-            'ecg' => 'required',
-            'spirometry' => 'required',
-            'audiometry' => 'required',
+            'employee_id' => 'required|exists:employees,id',
+            'surveillanceType' => 'required|string',
+            'hazards' => 'required|string',
+            'ecg' => 'required|string',
+            'spirometry' => 'required|string',
+            'audiometry' => 'required|string',
             'general' => 'required',
             'followUp' => 'required|date',
         ]);
 
         if ($validatedData->fails()) {
             toastr()->error('Validation error');
+
             return back();
         }
-
         $healthSurveillance = HealthSurveillance::create($validatedData->validated());
+
         if ($request->filled('hemoglobin') && $request->filled('malariaThick') && $request->filled('malariaThin')) {
             $laboratoryData = $request->only(['hemoglobin', 'malariaThick', 'malariaThin']);
             $healthSurveillance->laboratory()->create($laboratoryData);
         }
-        dd($healthSurveillance->$request->all);
         toastr()->success('Health Surveillance added successfully');
+
         return back();
     }
 
@@ -90,16 +91,18 @@ class HealthSurveillanceController extends Controller
             'audiometry' => 'required',
             'general' => 'required',
             'followUp' => 'required|date',
-            
+
         ]);
 
         if ($validatedData->fails()) {
             toastr()->error('Validation error');
+
             return back();
         }
 
         $healthSurveillance->update($validatedData->validated());
         toastr()->success('Health Surveillance updated successfully');
+
         return redirect()->route('health-surveillance.index');
     }
 
@@ -110,6 +113,7 @@ class HealthSurveillanceController extends Controller
     {
         $healthSurveillance->delete();
         toastr()->success('Health Surveillance deleted successfully');
+
         return response()->json([
             'success' => true,
         ]);

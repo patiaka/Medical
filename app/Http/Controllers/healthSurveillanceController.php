@@ -14,9 +14,10 @@ class HealthSurveillanceController extends Controller
      */
     public function index()
     {
+        $employee = Employee::all();
         $healthSurveillance = HealthSurveillance::all();
 
-        return view('HealthSurveillance.index', compact('healthSurveillance'));
+        return view('HealthSurveillance.index', compact('healthSurveillance','employee'));
     }
 
     /**
@@ -58,7 +59,7 @@ class HealthSurveillanceController extends Controller
         }
         toastr()->success('Health Surveillance added successfully');
 
-        return back();
+        return redirect()->route('healthSurveillance.index');
     }
 
     /**

@@ -11,7 +11,6 @@ class healthSurveillance extends Model
 
     protected $fillable = [
         'surveillanceType',
-        'occupation',
         'hazards',
         'ecg',
         'spirometry',
@@ -24,5 +23,8 @@ class healthSurveillance extends Model
     public function laboratory()
     {
         return $this->morphMany(Laboratory::class, 'laboratorieable');
+    }
+    public function employee(){
+        return $this->belongsTo(Employee::class);
     }
 }

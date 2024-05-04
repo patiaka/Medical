@@ -9,7 +9,6 @@ use App\Http\Controllers\healthSurveillanceController;
 use App\Http\Controllers\InjuryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\healthSurveillance;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -45,19 +44,9 @@ Route::prefix('consultation')->group(function () {
     Route::put('/update/{consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
     Route::get('/show/{consultation}', [ConsultationController::class, 'show'])->name('consultation.show');
     Route::delete('/{consultation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
+    Route::get('/{consultation}/pdf', [ConsultationController::class, 'generatePDF'])->name('consultation.pdf');
+
 });
-// Route::prefix('healthSurveillance')->group(function () {
-//     Route::get('/', [healthSurveillanceController::class, 'index'])->name('healthSurveillance.index');
-//     Route::post('/store', [healthSurveillanceController::class, 'store'])->name('healthSurveillance.store');
-//     Route::get('/create', [healthSurveillanceController::class, 'create'])->name('healthSurveillance.create');
-//     Route::get('/edit/{consultation}', [healthSurveillanceController::class, 'edit'])->name('healthSurveillance.edit');
-//     Route::put('/update/{consultation}', [healthSurveillanceController::class, 'update'])->name('healthSurveillance.update');
-//     Route::get('/show/{consultation}', [healthSurveillanceController::class, 'show'])->name('healthSurveillance.show');
-//     Route::delete('/{consultation}', [healthSurveillanceController::class, 'delete'])->name('healthSurveillance.delete');
-// });
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

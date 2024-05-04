@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>id</th>
                                         <th>Staff id</th>
+                                        <th>Employee Number</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Job Title</th>
@@ -55,6 +56,7 @@
                                             <td>{{ $consultation->id }}</td>
                                             <td><span class="truncate">{{ $consultation->employee->staffId }}</span>
                                             </td>
+                                            <td>{{ $consultation->employee->employeeNumber }}</td>
                                             <td>{{ $consultation->employee->firstName }}</td>
                                             <td>{{ $consultation->employee->lastName }}</td>
                                             <td>{{ $consultation->employee->jobTitle }}</td>

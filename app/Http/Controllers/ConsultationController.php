@@ -41,7 +41,7 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-      
+    
         $consultation = Consultation::create($request->validated());
         if ($request->filled('laboratory')) {
             $laboratoryData = $request->input('laboratory');
@@ -80,8 +80,10 @@ class ConsultationController extends Controller
         $injuryType = Injury::all();
         $employee = Employee::all();
         $diagnosis = Diagnosis::all();
+        $laboratory = $consultation->laboratory;
+        $medications = $consultation->medications;
 
-        return view('consultation.edit', compact('consultation', 'injuryType', 'employee', 'diagnosis'));
+        return view('consultation.edit', compact('consultation', 'injuryType', 'employee', 'diagnosis','laboratory','medications'));
     }
 
     /**
@@ -113,4 +115,5 @@ class ConsultationController extends Controller
         ]);
 
     }
+    
 }

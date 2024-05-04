@@ -183,6 +183,7 @@
         </div>
     </div>
     <div class="text-center mt-4">
+        <a href="{{ route('consultation.pdf', $consultation) }}" class="btn btn-primary">Générer PDF des détails</a>
         <a href="{{ route('consultation.index') }}" class="btn btn-secondary">Back to Consultation List</a>
     </div>
 @endsection

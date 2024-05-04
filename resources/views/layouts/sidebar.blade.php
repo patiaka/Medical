@@ -9,6 +9,7 @@
         </div>
         <!--//app-branding-->
         <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
+            <!-- Toggle Sidebar Button -->
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->

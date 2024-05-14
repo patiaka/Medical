@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Injury;
 use App\Models\Employee;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Diagnosis;
 use App\Models\Laboratory;
 use App\Models\Medication;
@@ -114,6 +115,12 @@ class ConsultationController extends Controller
             'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
         ]);
 
+    }
+    public function generatePDF(Consultation $consultation)
+    {
+        $patientName = str_replace(' ', '_', $consultation->employee->firstName . '_' . $consultation->employee->lastName);
+        $pdf = PDF::loadView('consultation.pdf', compact('consultation'));
+        return $pdf->download($patientName . '_consultation-details.pdf');
     }
     
 }

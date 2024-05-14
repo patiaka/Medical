@@ -7,8 +7,10 @@ use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\healthSurveillanceController;
 use App\Http\Controllers\InjuryController;
+use App\Http\Controllers\pdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Consultation;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');

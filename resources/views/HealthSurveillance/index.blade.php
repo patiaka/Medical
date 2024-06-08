@@ -16,7 +16,7 @@
                                 <path fill-rule="evenodd"
                                     d="M8 1a.5.5 0 0 1 .5.5V7h5.5a.5.5 0 0 1 0 1H8V14.5a.5.5 0 0 1-1 0V8H1.5a.5.5 0 0 1 0-1H7V1.5A.5.5 0 0 1 7.5 1z" />
                             </svg>
-                            Add Health Surveillance
+                            New 
                         </a>
                     </div>
                 </div>

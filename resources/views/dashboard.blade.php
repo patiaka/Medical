@@ -59,6 +59,9 @@
                                 <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>Year</option>
                             </select>
                         </form>
+                        <button id="exportConsultations" class="btn btn-outline-primary">
+                            <i class="fas fa-file-export"></i>
+                        </button>
                     </div>
                     <div id="loadingIcon" class="d-none d-flex justify-content-center align-items-center">
                         <i class="fas fa-circle-notch fa-spin" style="font-size: 5rem;"></i>
@@ -82,6 +85,9 @@
                                 <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>Year</option>
                             </select>
                         </form>
+                        <button id="exportMalaria" class="btn btn-outline-primary">
+                            <i class="fas fa-file-export"></i>
+                        </button>
                     </div>
                     <canvas id="malariaChart" width="400" height="200"></canvas>
                 </div>
@@ -143,13 +149,13 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- Script for the charts -->
+    <!-- Script for the charts and export functionality -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Consultation Chart
             var ctx = document.getElementById('consultationChart').getContext('2d');
             var consultationDates = {!! json_encode(
                 $consultationsByDay->pluck('date')->map(function ($date) {
@@ -158,7 +164,6 @@
             ) !!};
             var consultationCounts = {!! json_encode($consultationsByDay->pluck('count')) !!};
 
-            // Format the dates to show the full month name
             var formattedDates = consultationDates.map(function(date) {
                 var options = {
                     year: 'numeric',
@@ -208,12 +213,11 @@
                 }
             });
 
-            // Malaria chart
+            // Malaria Chart
             var malariaCtx = document.getElementById('malariaChart').getContext('2d');
             var malariaLabels = {!! json_encode($malariaStats->pluck('malaria')) !!};
             var malariaCounts = {!! json_encode($malariaStats->pluck('count')) !!};
 
-            // Append the counts to the labels
             var malariaLabelsWithCounts = malariaLabels.map(function(label, index) {
                 return label + ' (' + malariaCounts[index] + ')';
             });
@@ -256,6 +260,64 @@
                         }
                     }
                 }
+            });
+
+            // Export functionality
+            function exportTableToCSV(filename, tableId) {
+                var csv = [];
+                var rows = document.querySelectorAll(`#${tableId} tr`);
+
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [],
+                        cols = rows[i].querySelectorAll('td, th');
+
+                    for (var j = 0; j < cols.length; j++) {
+                        row.push(cols[j].innerText);
+                    }
+
+                    csv.push(row.join(","));
+                }
+
+                // Download CSV file
+                var csvFile = new Blob([csv.join("\n")], {
+                    type: "text/csv"
+                });
+                var downloadLink = document.createElement("a");
+                downloadLink.download = filename;
+                downloadLink.href = window.URL.createObjectURL(csvFile);
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+            }
+
+            function exportMalariaChartToCSV() {
+                var csv = [];
+                var rows = [
+                    ['Malaria Type', 'Number of Cases']
+                ];
+
+                malariaLabels.forEach((label, index) => {
+                    rows.push([label, malariaCounts[index]]);
+                });
+
+                // Download CSV file
+                var csvFile = new Blob([rows.map(e => e.join(",")).join("\n")], {
+                    type: "text/csv"
+                });
+                var downloadLink = document.createElement("a");
+                downloadLink.download = 'malaria_statistics.csv';
+                downloadLink.href = window.URL.createObjectURL(csvFile);
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+            }
+
+            document.getElementById('exportConsultations').addEventListener('click', function() {
+                exportTableToCSV('consultations.csv', 'companyTable');
+            });
+
+            document.getElementById('exportMalaria').addEventListener('click', function() {
+                exportMalariaChartToCSV();
             });
 
             // Initialize DataTables

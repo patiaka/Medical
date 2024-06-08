@@ -78,41 +78,6 @@
                     [0, 'desc']
                 ],
             });
-
-            // Hide all medication fields by default
-            $('.medication-fields').hide();
-            // Add Medication button click event
-            $('#add-medication').click(function() {
-                var medicationFields = `
-        <div class="row mt-3 medication-row">
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="medications[0][drugname]" placeholder="Drug Name">
-            </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="medications[0][prescription]" placeholder="Prescription">
-            </div>
-            <div class="col-md-4">
-                <input type="number" class="form-control" name="medications[0][stock]" placeholder="Stock">
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-danger remove-medication">-</button>
-            </div>
-        </div>`;
-                $('.medication-fields').append(medicationFields);
-                $('.medication-fields').show(); // Show medication fields when adding medication
-            });
-
-            // Remove Medication button click event
-            $('.medication-fields').on('click', '.remove-medication', function() {
-                $(this).closest('.medication-row').remove();
-            });
-
-            // Remove All Medications button click event
-            $('#remove-all-medication').click(function() {
-                $('.medication-fields').empty();
-                $('.medication-fields').hide(); // Hide medication fields when removing all medications
-            });
-
             // Add Laboratory button click event
             $('#add-laboratory').click(function() {
                 var laboratoryFields = `

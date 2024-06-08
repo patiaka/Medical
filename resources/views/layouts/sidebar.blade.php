@@ -186,6 +186,10 @@
                                     href="{{ route('diagnosis.index') }}">Diagnosis</a>
                             </li>
                             <li class="submenu-item">
+                                <a class="submenu-link {{ request()->routeIs('company.index') ? 'active' : '' }}"
+                                    href="{{ route('company.index') }}">Company</a>
+                            </li>
+                            <li class="submenu-item">
                                 <a class="submenu-link {{ request()->routeIs('injury.index') ? 'active' : '' }}"
                                     href="{{ route('injury.index') }}">Injury</a>
                             </li>

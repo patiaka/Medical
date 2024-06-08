@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('sputumMicroscopy')->nullable();
             $table->string('gammaGt')->nullable();
             $table->string('cholesterol')->nullable();
-            $table->integer('total')->nullable();
+            $table->string('total')->nullable();
             $table->string('ldh')->nullable();
             $table->string('ldl')->nullable();
             $table->string('triglyceride')->nullable();

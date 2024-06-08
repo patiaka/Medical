@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\HealthSurveillance;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use App\Models\HealthSurveillance;
 use Illuminate\Support\Facades\Validator;
 
 class HealthSurveillanceController extends Controller
@@ -44,6 +45,7 @@ class HealthSurveillanceController extends Controller
             'audiometry' => 'required|string',
             'general' => 'required',
             'followUp' => 'required|date',
+            'hemoglobin' => 'required|string',
         ]);
 
         if ($validatedData->fails()) {
@@ -53,10 +55,28 @@ class HealthSurveillanceController extends Controller
         }
         $healthSurveillance = HealthSurveillance::create($validatedData->validated());
 
-        if ($request->filled('hemoglobin') && $request->filled('malariaThick') && $request->filled('malariaThin')) {
-            $laboratoryData = $request->only(['hemoglobin', 'malariaThick', 'malariaThin']);
+        if (
+            $request->filled('hemoglobin') && $request->filled('malariaThick') && $request->filled('malariaThin') &&
+            $request->filled('malariaQuicktest') && $request->filled('bloodGlucose') && $request->filled('got') &&
+            $request->filled('gpt') && $request->filled('ggt') && $request->filled('creatinine') &&
+            $request->filled('urea') && $request->filled('potasiumK') && $request->filled('uricAcid') &&
+            $request->filled('creatinineKinase') && $request->filled('troponinT') && $request->filled('urineDipstick') &&
+            $request->filled('urineMicroscopy') && $request->filled('stoolMicroscopy') && $request->filled('sputumMicroscopy') &&
+            $request->filled('gammaGt') && $request->filled('cholesterol') && $request->filled('total') &&
+            $request->filled('ldh') && $request->filled('ldl') && $request->filled('triglyceride') &&
+            $request->filled('tBilirubine') && $request->filled('dBilirubine') && $request->filled('iBilirubine') &&
+            $request->filled('fastingGlucose')
+        ) {
+            $laboratoryData = $request->only([
+                'hemoglobin', 'malariaThick', 'malariaThin', 'malariaQuicktest', 'bloodGlucose', 'got', 'gpt',
+                'ggt', 'creatinine', 'urea', 'potasiumK', 'uricAcid', 'creatinineKinase', 'troponinT', 'urineDipstick',
+                'urineMicroscopy', 'stoolMicroscopy', 'sputumMicroscopy', 'gammaGt', 'cholesterol', 'total', 'ldh', 'ldl',
+                'triglyceride', 'tBilirubine', 'dBilirubine', 'iBilirubine', 'fastingGlucose'
+            ]);
+        
             $healthSurveillance->laboratory()->create($laboratoryData);
         }
+        
         toastr()->success('Health Surveillance added successfully');
 
         return redirect()->route('healthSurveillance.index');
@@ -67,7 +87,7 @@ class HealthSurveillanceController extends Controller
      */
     public function show(HealthSurveillance $healthSurveillance)
     {
-        // return view('HealthSurveillance.show', compact('healthSurveillance'));
+        return view('HealthSurveillance.show', compact('healthSurveillance'));
     }
 
     /**
@@ -75,7 +95,9 @@ class HealthSurveillanceController extends Controller
      */
     public function edit(HealthSurveillance $healthSurveillance)
     {
-        return view('HealthSurveillance.edit', compact('healthSurveillance'));
+        $healthSurveillance->load('Laboratory');
+        $employees = Employee::all();
+        return view('HealthSurveillance.edit', compact('healthSurveillance','employees'));
     }
 
     /**
@@ -85,27 +107,44 @@ class HealthSurveillanceController extends Controller
     {
         $validatedData = Validator::make($request->all(), [
             'surveillanceType' => 'required',
-            'occupation' => 'required',
             'hazards' => 'required',
             'ecg' => 'required',
             'spirometry' => 'required',
             'audiometry' => 'required',
             'general' => 'required',
             'followUp' => 'required|date',
-
+    
         ]);
-
+    
         if ($validatedData->fails()) {
             toastr()->error('Validation error');
-
             return back();
         }
-
+    
         $healthSurveillance->update($validatedData->validated());
-        toastr()->success('Health Surveillance updated successfully');
 
-        return redirect()->route('health-surveillance.index');
+        // Mettez à jour les données de laboratoire si elles sont présentes dans la requête
+        if ($request->filled('hemoglobin') && $request->filled('malariaThick') && $request->filled('malariaThin')) {
+            $labData = $request->only([
+                'hemoglobin', 'malariaThick', 'malariaThin', 'malariaQuicktest',
+                'bloodGlucose', 'got', 'gpt', 'ggt', 'creatinine', 'urea',
+                'potasiumK', 'uricAcid', 'creatinineKinase', 'troponinT',
+                'urineDipstick', 'urineMicroscopy', 'stoolMicroscopy', 'sputumMicroscopy',
+                'gammaGt', 'cholesterol', 'total', 'ldh', 'ldl', 'triglyceride',
+                'tBilirubine', 'dBilirubine', 'iBilirubine', 'fastingGlucose'
+            ]);
+    
+            if ($healthSurveillance->laboratory) {
+                $healthSurveillance->laboratory->update($labData);
+            } else {
+                $healthSurveillance->laboratory()->create($labData);
+            }
+        }
+    
+        toastr()->success('Health Surveillance updated successfully');
+        return redirect()->route('healthSurveillance.index');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -118,5 +157,11 @@ class HealthSurveillanceController extends Controller
         return response()->json([
             'success' => true,
         ]);
+    }
+    public function generatePDF(HealthSurveillance $healthSurveillance)
+    {
+        $patientName = str_replace(' ', '_', $healthSurveillance->employee->firstName . '_' . $healthSurveillance->employee->lastName);
+        $pdf = PDF::loadView('healthSurveillance.pdf', compact('healthSurveillance'));
+        return $pdf->download($patientName . 'medical-Checkup.pdf');
     }
 }

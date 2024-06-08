@@ -61,7 +61,7 @@
                                             <td>{{ $consultation->employee->lastName }}</td>
                                             <td>{{ $consultation->employee->jobTitle }}</td>
                                             <td>{{ $consultation->created_at }}</td>
-                                            <td>{{ $consultation->employee->company }}</td>
+                                            <td>{{ $consultation->employee->company->name }}</td>
                                             <td>{{ $consultation->employee->department->name }}
                                             </td>
 

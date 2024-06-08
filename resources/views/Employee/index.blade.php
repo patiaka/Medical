@@ -64,7 +64,7 @@
                                         <td>{{ $employee->lastName }}</td>
                                         <td>{{ $employee->birthDate }}</td>
                                         <td>{{ $employee->jobTitle }}</td>
-                                        <td>{{ $employee->company }}</td>
+                                        <td>{{ $employee->company->name }}</td>
                                         <td>{{ $employee->department->name }}</td>
                                         <td>
                                             <div style="display: flex">
@@ -143,13 +143,16 @@
                                 placeholder="Employee Job Title" value="" required>
                         </div>
                         <div class="mb-3">
-                            <label for="company" class="form-label">Company</label>
-                            <select class="form-control" name="company" id="company">
+                            <label for="company_id" class="form-label">Company</label>
+                            <select class="form-control" name="company_id" id="company_id">
                                 <option value=""></option>
                                 @foreach ($companys as $company)
-                                    <option value="{{ $company }}">{{ $company }}</option>
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
                                 @endforeach
                             </select>
+                            @error('department_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="employeeType" class="form-label">Employee Type</label>

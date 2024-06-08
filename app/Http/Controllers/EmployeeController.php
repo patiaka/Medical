@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -11,8 +12,7 @@ class EmployeeController extends Controller
     // Liste des employées
     public function index()
     {
-        $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
-        sort($companys);
+        $companys = Company::all();
         $departments = Department::all();
         $employees = Employee::with('department')->get();
 
@@ -31,9 +31,9 @@ class EmployeeController extends Controller
             'lastName' => 'required',
             'birthDate' => 'required|date',
             'jobTitle' => 'required',
-            'company' => 'required',
             'employeeType' => 'required|string',
             'department_id' => 'required|exists:departments,id',
+            'company_id' => 'required|exists:companies,id'
         ]);
         $data = Employee::create($validatedData);
         $data->generateId('EMP');
@@ -46,8 +46,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all();
-        $companys = ['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF'];
-        sort($companys);
+        $companys = Company::all();
 
         return view('employee.edit', compact('employee', 'departments', 'companys'));
     }
@@ -61,9 +60,9 @@ class EmployeeController extends Controller
             'lastName' => 'required',
             'birthDate' => 'required|date',
             'jobTitle' => 'required',
-            'company' => 'required',
             'employeeType' => 'required',
             'department_id' => 'required|exists:departments,id',
+            'company_id' => 'required|exists:companies,id',
         ]);
 
         $employee->update($validatedData);

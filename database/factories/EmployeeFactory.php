@@ -23,9 +23,9 @@ class EmployeeFactory extends Factory
             'lastName' => fake()->lastName(),
             'birthDate' => fake()->date(),
             'jobTitle' => fake()->jobTitle(),
-            'company' => fake()->randomElement(['SOMISY', 'CORICA', 'SFTP', 'Aggreko', 'SNIAF']),
             'employeeType' => fake()->randomElement(['Expat', 'National']),
             'department_id' => \rand(1, 10),
+            'company_id' => \rand(1,10),
         ];
     }
 }

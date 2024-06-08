@@ -28,6 +28,7 @@ class Consultation extends Model
         'daysOff',
         'diagnose_id',
         'diagnosiMali',
+        'medication_id',
     ];
 
     /**

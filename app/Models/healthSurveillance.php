@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class healthSurveillance extends Model
+class HealthSurveillance extends Model
 {
     use HasFactory;
 
@@ -20,9 +20,9 @@ class healthSurveillance extends Model
         'employee_id',
     ];
 
-    public function laboratory()
+    public function Laboratory()
     {
-        return $this->morphMany(Laboratory::class, 'laboratorieable');
+        return $this->morphOne(Laboratory::class, 'laboratorieable');
     }
     public function employee(){
         return $this->belongsTo(Employee::class);

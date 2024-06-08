@@ -81,7 +81,7 @@ class InjuryController extends Controller
         $injury->update($validatedData->validated());
         toastr()->success('Injury update succesfully');
 
-        return redirect()->route('diagnosis.index');
+        return redirect()->route('injury.index');
     }
 
     /**

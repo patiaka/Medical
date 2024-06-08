@@ -11,11 +11,15 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['employeeNumber', 'staffId', 'firstName', 'lastName', 'jobTitle', 'birthDate', 'company', 'department_id', 'employeeType'];
+    protected $fillable = ['employeeNumber', 'staffId', 'firstName', 'lastName', 'jobTitle', 'birthDate', 'department_id', 'employeeType','company_id'];
 
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     public function generateId(string $prefix_type)

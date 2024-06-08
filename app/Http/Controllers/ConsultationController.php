@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Injury;
+use App\Models\Company;
 use App\Models\Employee;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Diagnosis;
+use App\Models\Department;
 use App\Models\Laboratory;
 use App\Models\Medication;
 use App\Models\Consultation;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreConsultationRequest;
 
 class ConsultationController extends Controller
@@ -32,9 +35,11 @@ class ConsultationController extends Controller
     {
         $injuryType = Injury::all();
         $employee = Employee::all();
+        $companys = Company::all();
         $diagnosis = Diagnosis::all();
+        $departments = Department::all();
 
-        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis'));
+        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis','companys','departments'));
     }
 
     /**
@@ -42,27 +47,19 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-    
         $consultation = Consultation::create($request->validated());
-        if ($request->filled('laboratory')) {
-            $laboratoryData = $request->input('laboratory');
-            $laboratory = new Laboratory($laboratoryData);
-            $consultation->laboratory()->save($laboratory);
-        }
-    
 
+    // Enregistrer les médicaments s'ils sont présents
+    if ($request->has('medications') && is_array($request->medications)) {
         foreach ($request->medications as $medicationData) {
-            $medication = new Medication();
+            $medication = new Medication($medicationData);
             $medication->consultation_id = $consultation->id;
-            $medication->drugname = $medicationData['drugname'];
-            $medication->prescription = $medicationData['prescription'];
-            $medication->stock = $medicationData['stock'];
             $medication->save();
         }
-        toastr()->success('Consultation added succesfully');
+    }
 
-        return redirect()->route('consultation.index');
-
+    toastr()->success('Consultation added successfully');
+    return redirect()->route('consultation.index');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
@@ -17,8 +18,10 @@ Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name
 
 Route::resource('user', UserController::class)->except('create');
 Route::resource('diagnosis', DiagnosisController::class)->except('create');
+Route::resource('company', CompanyController::class)->except('create');
 Route::resource('injury', InjuryController::class)->except('create');
 Route::resource('healthSurveillance', healthSurveillanceController::class);
+Route::get('/{healthSurveillance}/pdf', [healthSurveillanceController::class, 'generatePDF'])->name('healthSurveillance.pdf');
 
 Route::prefix('department')->group(function () {
     Route::get('/', [DepartmentController::class, 'index'])->name('department.index');
@@ -47,6 +50,8 @@ Route::prefix('consultation')->group(function () {
     Route::get('/show/{consultation}', [ConsultationController::class, 'show'])->name('consultation.show');
     Route::delete('/{consultation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
     Route::get('/{consultation}/pdf', [ConsultationController::class, 'generatePDF'])->name('consultation.pdf');
+   
+
 
 });
 

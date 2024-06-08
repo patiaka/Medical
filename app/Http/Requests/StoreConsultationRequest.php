@@ -29,7 +29,6 @@ class StoreConsultationRequest extends FormRequest
             'diagnose_id' => 'required|exists:diagnoses,id',
             'staffType' => 'required|string|max:255',
             'referral' => 'required|string|max:255',
-            'diagnosis' => 'required|string|max:255',
             'history' => 'required|string',
             'bp' => 'required|integer|max:255',
             'pulse' => 'required|integer',
@@ -38,8 +37,6 @@ class StoreConsultationRequest extends FormRequest
             'comments' => 'required',
             'malaria' => 'required|string|max:255',
             'daysOff' => 'required|integer',
-            // 'diagnosispec' => 'required',
-            'diagnosiMali' => 'required',
         ];
     }
 

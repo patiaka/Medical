@@ -58,7 +58,7 @@
                                         <dt>Company:</dt>
                                     </div>
                                     <div class="col-sm-8">
-                                        <dd>{{ $consultation->employee->company }}</dd>
+                                        <dd>{{ $consultation->employee->company->name }}</dd>
                                     </div>
 
                                     <div class="col-sm-4">
@@ -100,7 +100,7 @@
                                         <dt>Diagnosis:</dt>
                                     </div>
                                     <div class="col-sm-8">
-                                        <dd>{{ $consultation->diagnosis }}</dd>
+                                        <dd>{{ $consultation->diagnose->name }}</dd>
                                     </div>
 
                                     <div class="col-sm-4">
@@ -162,7 +162,7 @@
                                     <div class="col-sm-4">
                                         <dt>Diagnosis Specific:</dt>
                                     </div>
-                                    <div class="col-sm-8">
+                                    {{-- <div class="col-sm-8">
                                         <dd>{{ $consultation->diagnosispec }}</dd>
                                     </div>
 
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-sm-8">
                                         <dd>{{ $consultation->diagnosiMali }}</dd>
-                                    </div>
+                                    </div> --}}
                                 </dl>
                             </div>
                             @include('Laboratory.details')

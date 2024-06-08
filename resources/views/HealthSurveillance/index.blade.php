@@ -53,18 +53,24 @@
                                         <td>{{ $row->employee->employeeNumber }}</td>
                                         <td>{{ $row->employee->firstName }} {{ $row->employee->lastName }}</td>
                                         <td>{{ $row->surveillanceType }}</td>
-                                        <td>{{ $row->employee->company }}</td>
+                                        <td>{{ $row->employee->company->name }}</td>
                                         <td>{{ $row->employee->department->name }}</td>
                                         <td>
-                                            <a class="btn-sm app-btn-secondary"
-                                                href="{{ route('healthSurveillance.edit', $row->id) }}">
-                                                <i class="fa fa-edit fa-lg text-success"></i>
-                                            </a>
-                                            <a role="button" href="#"
-                                                onclick="deleteConfirmation('{{ route('healthSurveillance.destroy', $row->id) }}')"
-                                                class="btn-sm app-btn-danger">
-                                                <i class="fa fa-trash fa-lg text-danger"></i>
-                                            </a>
+                                            <div style="display: flex;">
+                                                <a class="btn-sm app-btn-secondary"
+                                                    href="{{ route('healthSurveillance.edit', $row->id) }}">
+                                                    <i class="fa fa-edit fa-lg text-success"></i>
+                                                </a>
+                                                <a role="button" href="{{ route('healthSurveillance.show', $row->id) }}"
+                                                    class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                    <i class="fa fa-eye fa-lg text-danger"></i>
+                                                </a>
+                                                <a role="button" href="#"
+                                                    onclick="deleteConfirmation('{{ route('healthSurveillance.destroy', $row->id) }}')"
+                                                    class="btn-sm app-btn-danger">
+                                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

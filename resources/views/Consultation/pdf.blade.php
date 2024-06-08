@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultation Details - {{ $consultation->employee->firstName }} {{ $consultation->employee->lastName }}
-    </title>
+    <title>Consultation Details</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,56 +16,57 @@
 
         .header {
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             background-color: #007bff;
             color: white;
             border-bottom: 2px solid #0056b3;
         }
 
         .header img {
-            max-width: 150px;
-            margin-bottom: 10px;
+            max-width: 100px;
+            margin-bottom: 5px;
         }
 
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 20px;
         }
 
         .content {
-            padding: 20px;
+            padding: 10px;
             background-color: white;
-            margin: 20px auto;
+            margin: 10px auto;
             max-width: 1000px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
         .details {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .details h2 {
-            font-size: 20px;
+            font-size: 18px;
             border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
             color: #007bff;
         }
 
         .details table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed;
+            table-layout: auto;
         }
 
         .details th,
         .details td {
-            padding: 10px;
+            padding: 5px;
             text-align: left;
             border: 1px solid #ddd;
             word-wrap: break-word;
+            font-size: 14px;
         }
 
         .details th {
@@ -82,15 +82,15 @@
         .details .section-title {
             background-color: #007bff;
             color: white;
-            font-size: 16px;
-            padding: 10px;
+            font-size: 14px;
+            padding: 5px;
             text-align: left;
             border: 1px solid #ddd;
         }
 
         .footer {
             text-align: center;
-            padding: 10px;
+            padding: 5px;
             background-color: #f7f7f7;
             border-top: 1px solid #ddd;
             position: fixed;
@@ -100,7 +100,7 @@
 
         .footer p {
             margin: 0;
-            font-size: 12px;
+            font-size: 10px;
             color: #555;
         }
     </style>
@@ -116,118 +116,185 @@
             <h2>Patient Information</h2>
             <table>
                 <tr>
-                    <th colspan="2" class="section-title">General Information</th>
+                    <th colspan="4" class="section-title">General Information</th>
                 </tr>
                 <tr>
                     <th>Consultation ID:</th>
                     <td>{{ $consultation->id }}</td>
-                </tr>
-                <tr>
                     <th>Patient Number:</th>
                     <td>{{ $consultation->employee->employeeNumber }}</td>
                 </tr>
                 <tr>
                     <th>Consultation Date:</th>
                     <td>{{ $consultation->created_at }}</td>
-                </tr>
-                <tr>
                     <th>Patient Name:</th>
                     <td>{{ $consultation->employee->firstName }} {{ $consultation->employee->lastName }}</td>
                 </tr>
                 <tr>
                     <th>National/Expat:</th>
                     <td>{{ $consultation->employee->employeeType }}</td>
-                </tr>
-                <tr>
                     <th>Staff ID:</th>
                     <td>{{ $consultation->employee->staffId }}</td>
                 </tr>
                 <tr>
                     <th>Company:</th>
-                    <td>{{ $consultation->employee->company }}</td>
-                </tr>
-                <tr>
+                    <td>{{ $consultation->employee->company->name }}</td>
                     <th>Department:</th>
                     <td>{{ $consultation->employee->department->name }}</td>
                 </tr>
                 <tr>
                     <th>Seen by:</th>
                     <td>{{ $consultation->user->name }}</td>
-                </tr>
-                <tr>
                     <th>Injury Type:</th>
                     <td>{{ $consultation->injurie->name }}</td>
                 </tr>
                 <tr>
                     <th>Staff/Family:</th>
                     <td>{{ $consultation->staffType }}</td>
-                </tr>
-                <tr>
                     <th>Referral:</th>
                     <td>{{ $consultation->referral }}</td>
                 </tr>
                 <tr>
-                    <th colspan="2" class="section-title">Medical Information</th>
+                    <th colspan="4" class="section-title">Medical Information</th>
                 </tr>
                 <tr>
                     <th>Diagnosis:</th>
-                    <td>{{ $consultation->diagnosis }}</td>
+                    <td colspan="3">{{ $consultation->diagnosis }}</td>
                 </tr>
                 <tr>
                     <th>History:</th>
-                    <td>{{ $consultation->history }}</td>
+                    <td colspan="3">{{ $consultation->history }}</td>
                 </tr>
                 <tr>
                     <th>BP:</th>
                     <td>{{ $consultation->bp }}</td>
-                </tr>
-                <tr>
                     <th>Pulse:</th>
                     <td>{{ $consultation->pulse }}</td>
                 </tr>
                 <tr>
                     <th>Temperature:</th>
                     <td>{{ $consultation->temperature }}</td>
-                </tr>
-                <tr>
                     <th>Observation:</th>
                     <td>{{ $consultation->observation }}</td>
                 </tr>
                 <tr>
                     <th>Comments:</th>
-                    <td>{{ $consultation->comments }}</td>
+                    <td colspan="3">{{ $consultation->comments }}</td>
                 </tr>
                 <tr>
                     <th>Malaria:</th>
                     <td>{{ $consultation->malaria }}</td>
-                </tr>
-                <tr>
                     <th>Days Off:</th>
                     <td>{{ $consultation->daysOff }}</td>
                 </tr>
                 <tr>
                     <th>Diagnosis Specific:</th>
                     <td>{{ $consultation->diagnosispec }}</td>
-                </tr>
-                <tr>
                     <th>Diagnosis Mali:</th>
                     <td>{{ $consultation->diagnosiMali }}</td>
                 </tr>
                 <tr>
-                    <th colspan="2" class="section-title">Medications</th>
+                    <th colspan="4" class="section-title">Laboratory Information</th>
+                </tr>
+                @foreach ($consultation->laboratory as $laboratory)
+                    <tr>
+                        <th>Hemoglobin:</th>
+                        <td>{{ $laboratory->hemoglobin }}</td>
+                        <th>Malaria Thick:</th>
+                        <td>{{ $laboratory->malariaThick }}</td>
+                    </tr>
+                    <tr>
+                        <th>Malaria Thin:</th>
+                        <td>{{ $laboratory->malariaThin }}</td>
+                        <th>Malaria Quicktest:</th>
+                        <td>{{ $laboratory->malariaQuicktest }}</td>
+                    </tr>
+                    <tr>
+                        <th>Blood Glucose:</th>
+                        <td>{{ $laboratory->bloodGlucose }}</td>
+                        <th>GOT:</th>
+                        <td>{{ $laboratory->got }}</td>
+                    </tr>
+                    <tr>
+                        <th>GPT:</th>
+                        <td>{{ $laboratory->gpt }}</td>
+                        <th>GGT:</th>
+                        <td>{{ $laboratory->ggt }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creatinine:</th>
+                        <td>{{ $laboratory->creatinine }}</td>
+                        <th>Urea:</th>
+                        <td>{{ $laboratory->urea }}</td>
+                    </tr>
+                    <tr>
+                        <th>Potassium K:</th>
+                        <td>{{ $laboratory->potasiumK }}</td>
+                        <th>Uric Acid:</th>
+                        <td>{{ $laboratory->uricAcid }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creatinine Kinase:</th>
+                        <td>{{ $laboratory->creatinineKinase }}</td>
+                        <th>Troponin T:</th>
+                        <td>{{ $laboratory->troponinT }}</td>
+                    </tr>
+                    <tr>
+                        <th>Urine Dipstick:</th>
+                        <td>{{ $laboratory->urineDipstick }}</td>
+                        <th>Urine Microscopy:</th>
+                        <td>{{ $laboratory->urineMicroscopy }}</td>
+                    </tr>
+                    <tr>
+                        <th>Stool Microscopy:</th>
+                        <td>{{ $laboratory->stoolMicroscopy }}</td>
+                        <th>Sputum Microscopy:</th>
+                        <td>{{ $laboratory->sputumMicroscopy }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gamma GT:</th>
+                        <td>{{ $laboratory->gammaGt }}</td>
+                        <th>Cholesterol:</th>
+                        <td>{{ $laboratory->cholesterol }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total:</th>
+                        <td>{{ $laboratory->total }}</td>
+                        <th>LDH:</th>
+                        <td>{{ $laboratory->ldh }}</td>
+                    </tr>
+                    <tr>
+                        <th>LDL:</th>
+                        <td>{{ $laboratory->ldl }}</td>
+                        <th>Triglyceride:</th>
+                        <td>{{ $laboratory->triglyceride }}</td>
+                    </tr>
+                    <tr>
+                        <th>TBilirubine:</th>
+                        <td>{{ $laboratory->tBilirubine }}</td>
+                        <th>DBilirubine:</th>
+                        <td>{{ $laboratory->dBilirubine }}</td>
+                    </tr>
+                    <tr>
+                        <th>IBilirubine:</th>
+                        <td>{{ $laboratory->iBilirubine }}</td>
+                        <th>Fasting Glucose:</th>
+                        <td>{{ $laboratory->fastingGlucose }}</td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <th colspan="4" class="section-title">Medications</th>
                 </tr>
                 @foreach ($consultation->medications as $medication)
                     <tr>
                         <th>Drug Name:</th>
                         <td>{{ $medication->drugname }}</td>
-                    </tr>
-                    <tr>
                         <th>Prescription:</th>
                         <td>{{ $medication->prescription }}</td>
                     </tr>
                     <tr>
                         <th>Stock:</th>
-                        <td>{{ $medication->stock }}</td>
+                        <td colspan="3">{{ $medication->stock }}</td>
                     </tr>
                 @endforeach
             </table>

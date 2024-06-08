@@ -19,9 +19,12 @@ return new class extends Migration
             $table->string('lastName');
             $table->date('birthDate');
             $table->string('jobTitle');
-            $table->string('company');
             $table->string('employeeType');
             $table->foreignId('department_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+                $table->foreignId('company_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

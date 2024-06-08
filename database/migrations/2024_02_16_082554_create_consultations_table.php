@@ -29,10 +29,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-    
             $table->string('staffType');
             $table->string('referral');
-            $table->string('diagnosis');
             $table->longText('history');
             $table->integer('bp');
             $table->integer('pulse');
@@ -42,7 +40,6 @@ return new class extends Migration
             $table->string('malaria');
             $table->integer('daysOff');
             // $table->string('diagnosispec');
-            $table->string('diagnosiMali');
             $table->timestamps();
         });
     }

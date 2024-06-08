@@ -3,7 +3,7 @@
 @section('content')
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">Injury</h1>
+            <h1 class="app-page-title mb-0">Companies</h1>
         </div>
         <div class="col-auto">
             <div class="page-utilities">
@@ -17,7 +17,7 @@
                                 <path fill-rule="evenodd"
                                     d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                             </svg>
-                            Add Injury
+                            Add Company
                         </button>
                     </div>
                 </div>
@@ -43,25 +43,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($injury as $row)
+                                @forelse ($companys as $company)
                                     <tr>
-                                        <td>{{ $row->id }}</td>
-                                        <td>{{ $row->name }}</td>
+                                        <td>{{ $company->id }}</td>
+                                        <td>{{ $company->name }}</td>
                                         <td>
-                                            <a class="btn-sm app-btn-secondary" href="{{ route('injury.edit', $row->id) }}">
+                                            <a class="btn-sm app-btn-secondary"
+                                                href="{{ route('company.edit', $company->id) }}">
                                                 <i class="fa fa-edit fa-lg text-success"></i>
                                             </a>
                                             <a role="button" href="#"
-                                                onclick="deleteConfirmation('{{ route('injury.destroy', $row->id) }}')"
+                                                onclick="deleteConfirmation('{{ route('company.destroy', $company->id) }}')"
                                                 class="btn-sm app-btn-danger">
                                                 <i class="fa fa-trash fa-lg text-danger"></i>
                                             </a>
-
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7">No Patient added</td>
+                                        <td colspan="3">No Companies added</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -73,15 +73,10 @@
                 <!--//app-card-body-->
             </div>
             <!--//app-card-->
-
-            <!--//app-pagination-->
-
         </div>
         <!--//tab-pane-->
     </div>
     <!--//tab-content-->
-    <!-- Button trigger modal -->
-
 
     <!-- Modal add row -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -89,13 +84,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add diagnosis</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Company</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="" action="{{ route('injury.store') }}" method="POST">
+                    <form class="" action="{{ route('company.store') }}" method="POST">
                         @csrf
-
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="">
@@ -103,8 +97,7 @@
                                 <div class="alert-danger alert">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        <button type="submit" class="btn app-btn-primary" data-bs-dismiss="modal">Save</button>
+                        <button type="submit" class="btn app-btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </form>
                 </div>

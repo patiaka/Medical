@@ -48,12 +48,13 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="company" class="form-label">Company</label>
-                            <select class="form-control" name="company" id="company" required>
+                            <label for="company_id" class="form-label">Company</label>
+                            <select class="form-control" name="company_id" id="company_id" required>
 
                                 @foreach ($companys as $company)
-                                    <option value="{{ $company }}" @selected($employee->company == $company)>
-                                        {{ $company }}</option>
+                                    <option value="{{ $company->id }}"
+                                        {{ $employee->company_id == $company->id ? 'selected' : '' }}>
+                                        {{ $company->name }}</option>
                                 @endforeach
                             </select>
                         </div>

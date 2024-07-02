@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Doctor;
 use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Consultation;
@@ -24,28 +22,46 @@ class DashboardController extends Controller
         $consultationsByDayQuery = DB::table('consultations')
             ->selectRaw('CONVERT(VARCHAR, created_at, 23) as date, COUNT(*) as count');
 
+        // Filtrer les statistiques de la malaria en fonction de la période sélectionnée
+        $filter_malaria = $request->input('filter_malaria');
         $malariaStatsQuery = Consultation::select('malaria', DB::raw('count(*) as count'))
             ->whereIn('malaria', ['Doxycycline', 'Lariam', 'Chloroquine', 'Coartem', 'Fansider']);
 
+        // Application des filtres pour les consultations
         switch ($filter) {
             case 'last_24h':
                 $consultationsByDayQuery->whereRaw('DATEDIFF(hour, created_at, GETDATE()) <= 24');
-                $malariaStatsQuery->whereRaw('DATEDIFF(hour, created_at, GETDATE()) <= 24');
                 break;
             case 'week':
                 $consultationsByDayQuery->whereRaw('DATEDIFF(day, created_at, GETDATE()) <= 7');
-                $malariaStatsQuery->whereRaw('DATEDIFF(day, created_at, GETDATE()) <= 7');
                 break;
             case 'month':
                 $consultationsByDayQuery->whereRaw('DATEDIFF(month, created_at, GETDATE()) <= 1');
-                $malariaStatsQuery->whereRaw('DATEDIFF(month, created_at, GETDATE()) <= 1');
                 break;
             case 'year':
                 $consultationsByDayQuery->whereRaw('DATEDIFF(year, created_at, GETDATE()) <= 1');
-                $malariaStatsQuery->whereRaw('DATEDIFF(year, created_at, GETDATE()) <= 1');
                 break;
             default:
                 // Pas de filtre, obtenir toutes les consultations
+                break;
+        }
+
+        // Application des filtres pour les statistiques de la malaria
+        switch ($filter_malaria) {
+            case 'last_24h':
+                $malariaStatsQuery->whereRaw('DATEDIFF(hour, created_at, GETDATE()) <= 24');
+                break;
+            case 'week':
+                $malariaStatsQuery->whereRaw('DATEDIFF(day, created_at, GETDATE()) <= 7');
+                break;
+            case 'month':
+                $malariaStatsQuery->whereRaw('DATEDIFF(month, created_at, GETDATE()) <= 1');
+                break;
+            case 'year':
+                $malariaStatsQuery->whereRaw('DATEDIFF(year, created_at, GETDATE()) <= 1');
+                break;
+            default:
+                // Pas de filtre, obtenir toutes les statistiques de malaria
                 break;
         }
 
@@ -79,7 +95,8 @@ class DashboardController extends Controller
             'malariaStats',
             'consultationsByCompany',
             'consultationsByDepartment',
-            'filter' // Ajout de la variable de filtre pour la vue
+            'filter',
+            'filter_malaria' // Ajout de la variable de filtre pour la malaria
         ));
     }
 }

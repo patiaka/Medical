@@ -52,7 +52,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="app-card-title">Consultations by Day</h2>
                         <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
-                            <select class="form-select me-2" id="filterSelect" name="filter">
+                            <select class="form-select me-2" id="filterSelectConsultation" name="filter">
                                 <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24h</option>
                                 <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>Week</option>
                                 <option value="month" {{ $filter === 'month' ? 'selected' : '' }}>Month</option>
@@ -63,8 +63,8 @@
                             <i class="fas fa-file-export"></i>
                         </button>
                     </div>
-                    <div id="loadingIcon" class="d-none d-flex justify-content-center align-items-center">
-                        <i class="fas fa-circle-notch fa-spin" style="font-size: 5rem;"></i>
+                    <div id="loadingIconConsultation" class="d-none d-flex justify-content-center align-items-center">
+                        <i class="fas fa-spinner fa-pulse" style="font-size: 5rem;"></i>
                     </div>
                     <hr>
                     <canvas id="consultationChart" width="400" height="200"></canvas>
@@ -78,16 +78,20 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="app-card-title">Malaria Treatment Statistics</h2>
                         <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
-                            <select class="form-select me-2" id="filterSelectMalaria" name="filter">
-                                <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24h</option>
-                                <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>Week</option>
-                                <option value="month" {{ $filter === 'month' ? 'selected' : '' }}>Month</option>
-                                <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>Year</option>
+                            <select class="form-select me-2" id="filterSelectMalaria" name="filter_malaria">
+                                <option value="last_24h" {{ $filter_malaria === 'last_24h' ? 'selected' : '' }}>Last 24h
+                                </option>
+                                <option value="week" {{ $filter_malaria === 'week' ? 'selected' : '' }}>Week</option>
+                                <option value="month" {{ $filter_malaria === 'month' ? 'selected' : '' }}>Month</option>
+                                <option value="year" {{ $filter_malaria === 'year' ? 'selected' : '' }}>Year</option>
                             </select>
                         </form>
                         <button id="exportMalaria" class="btn btn-outline-primary">
                             <i class="fas fa-file-export"></i>
                         </button>
+                        <div id="loadingIconMalaria" class="d-none d-flex">
+                            {{-- <i class="fas fa-spinner fa-pulse" style="font-size: 5rem;"></i> --}}
+                        </div>
                     </div>
                     <canvas id="malariaChart" width="400" height="200"></canvas>
                 </div>
@@ -327,10 +331,10 @@
 
         // Code de l'evenement qui declenche le auto filtre pour les consultations
         document.addEventListener('DOMContentLoaded', function() {
-            // Écoute l'événement de soumission du formulaire
-            document.querySelector('#filterSelect').addEventListener('change', function() {
+            // Écoute l'événement de soumission du formulaire pour les consultations
+            document.querySelector('#filterSelectConsultation').addEventListener('change', function() {
                 // Affiche l'icône de chargement
-                document.getElementById('loadingIcon').classList.remove('d-none');
+                document.getElementById('loadingIconConsultation').classList.remove('d-none');
 
                 // Soumet le formulaire
                 this.form.submit();
@@ -339,7 +343,7 @@
             // Code de l'evenement qui declenche le auto filtre pour les statistiques de malaria
             document.querySelector('#filterSelectMalaria').addEventListener('change', function() {
                 // Affiche l'icône de chargement
-                document.getElementById('loadingIcon').classList.remove('d-none');
+                document.getElementById('loadingIconMalaria').classList.remove('d-none');
 
                 // Soumet le formulaire
                 this.form.submit();

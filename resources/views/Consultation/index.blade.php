@@ -22,18 +22,14 @@
                             </a>
                         </div>
                     </div>
-                    <!--//row-->
                 </div>
-                <!--//table-utilities-->
             </div>
-            <!--//col-auto-->
         </div>
-        <!--//row-->
+
         <div class="tab-content" id="orders-table-tab-content">
             <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
                 <div class="app-card app-card-orders-table shadow-sm mb-5">
                     <div class="app-card-body">
-
                         <div class="table-responsive">
                             <table class="table app-table-hover mb-0 text-left" id="myTable" style="width:100%">
                                 <thead>
@@ -54,31 +50,28 @@
                                     @forelse ($consultations as $consultation)
                                         <tr>
                                             <td>{{ $consultation->id }}</td>
-                                            <td><span class="truncate">{{ $consultation->employee->staffId }}</span>
-                                            </td>
+                                            <td><span class="truncate">{{ $consultation->employee->staffId }}</span></td>
                                             <td>{{ $consultation->employee->employeeNumber }}</td>
                                             <td>{{ $consultation->employee->firstName }}</td>
                                             <td>{{ $consultation->employee->lastName }}</td>
                                             <td>{{ $consultation->employee->jobTitle }}</td>
                                             <td>{{ $consultation->created_at }}</td>
                                             <td>{{ $consultation->employee->company->name }}</td>
-                                            <td>{{ $consultation->employee->department->name }}
-                                            </td>
-
+                                            <td>{{ $consultation->employee->department->name }}</td>
                                             <td>
-                                                <div style="display: flex;">
+                                                <div class="d-flex">
                                                     <a class="btn-sm app-btn-secondary"
                                                         href="{{ route('consultation.edit', $consultation->id) }}">
                                                         <i class="fa fa-edit fa-lg text-success"></i>
                                                     </a>
                                                     <a role="button"
                                                         href="{{ route('consultation.show', $consultation->id) }}"
-                                                        class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                        class="btn-sm app-btn-danger ms-2">
                                                         <i class="fa fa-eye fa-lg text-danger"></i>
                                                     </a>
                                                     <a role="button"
                                                         onclick="deleteConfirmation('{{ route('consultation.delete', $consultation->id) }}')"
-                                                        class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                        class="btn-sm app-btn-danger ms-2">
                                                         <i class="fa fa-trash fa-lg text-danger"></i>
                                                     </a>
                                                 </div>
@@ -86,21 +79,15 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">There is no entries for consultation</td>
+                                            <td colspan="10">There are no entries for consultation</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        <!--//table-responsive-->
-
                     </div>
-                    <!--//app-card-body-->
                 </div>
-                <!--//app-card-->
-
             </div>
-            <!--//tab-pane-->
         </div>
     </div>
 @endsection

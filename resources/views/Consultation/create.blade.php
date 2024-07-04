@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <h1 class="app-page-title">Consultation</h1>
     <hr class="mb-4">
@@ -6,240 +7,270 @@
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                    <form class="row" action="{{ route('consultation.store') }}" method="POST">
+                    <form id="consultationForm" action="{{ route('consultation.store') }}" method="POST">
                         @csrf
-                        <div class="col-md-6 d-flex align-items-end">
-                            <div class="flex-grow-1">
-                                <label for="employee" class="form-label">Employee</label>
-                                <select class="form-select" name="employee_id" id="employee">
-                                    <option value=""></option>
-                                    @foreach ($employee as $row)
-                                        <option value="{{ $row->id }}">{{ $row->firstName }} {{ $row->lastName }} -
-                                            {{ $row->staffId }}</option>
-                                    @endforeach
-                                </select>
-                                @error('employee_id')
-                                    <div class="alert-danger alert">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
-                                data-bs-target="#addEmployeeModal">
-                                Add
-                            </button>
-                        </div>
+                        <div class="col-12">
+                            <ul class="nav nav-tabs orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4"
+                                id="myTab" role="tablist">
+                                <li class="flex-sm-fill text-sm-center nav-item" role="presentation">
+                                    <a class="nav-link active" id="consultation-tab" data-bs-toggle="tab"
+                                        href="#consultation" role="tab" aria-controls="consultation"
+                                        aria-selected="true">Consultation</a>
+                                </li>
+                                <li class="flex-sm-fill text-sm-center nav-item" role="presentation">
+                                    <a class="nav-link" id="medication-tab" data-bs-toggle="tab" href="#medication"
+                                        role="tab" aria-controls="medication" aria-selected="false">Medication</a>
+                                </li>
+                                <li class="flex-sm-fill text-sm-center nav-item" role="presentation">
+                                    <a class="nav-link" id="laboratory-tab" data-bs-toggle="tab" href="#laboratory"
+                                        role="tab" aria-controls="laboratory" aria-selected="false">Laboratory</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <!-- Consultation Tab -->
+                                <div class="tab-pane fade show active" id="consultation" role="tabpanel"
+                                    aria-labelledby="consultation-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="employee" class="form-label">Employee</label>
+                                            <select class="form-select" name="employee_id" id="employee">
+                                                <option value=""></option>
+                                                @foreach ($employee as $row)
+                                                    <option value="{{ $row->id }}">{{ $row->firstName }}
+                                                        {{ $row->lastName }} - {{ $row->staffId }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('employee_id')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                        <div class="col-md-6">
-                            <label for="injury_type" class="form-label">Injury Type</label>
-                            <select class="form-select" name="injurie_id" id="injurie_id">
-                                <option value=""></option>
-                                @foreach ($injuryType as $row)
-                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('injurie_id')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="company" class="form-label">Staff/Family</label>
-                            <select class="form-select" name="staffType" id="staffType">
-                                <option value="Staff">Staff</option>
-                                <option value="Family">Family</option>
-                            </select>
-                            @error('staffType')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="nationality" class="form-label">Expat/National</label>
-                            <select class="form-select" name="nationality" id="nationality">
-                                <option value="national">national</option>
-                                <option value="expat">expat</option>
-                            </select>
-                            @error('nationality')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="referral" class="form-label">Referral</label>
-                            <select class="form-select" name="referral" id="referral">
-                                <option value=""></option>
-                                <option value="referral">No Referral</option>
-                                <option value="Fourou">Fourou</option>
-                                <option value="Kadiolo">Kadiolo</option>
-                                <option value="Sikasso">Sikasso</option>
-                                <option value="INPS">INPS</option>
-                            </select>
-                            @error('referral')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="diagnosis" class="form-label">Diagnosis</label>
-                            <select class="form-select" name="diagnose_id" id="diagnosis">
-                                <option value="" selected disabled>select</option>
-                                @foreach ($diagnosis as $row)
-                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('diagnosis')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="history" class="form-label">History</label>
-                            <textarea class="form-control" name="history" id="history"></textarea>
-                            @error('history')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="bp" class="form-label">BP</label>
-                            <input type="text" class="form-control" name="bp" id="bp">
-                            @error('bp')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="pulse" class="form-label">Pulse</label>
-                            <input type="number" class="form-control" name="pulse" id="pulse">
+                                        <div class="col-md-6">
+                                            <label for="injury_type" class="form-label">Injury Type</label>
+                                            <select class="form-select" name="injurie_id" id="injurie_id">
+                                                <option value=""></option>
+                                                @foreach ($injuryType as $injury)
+                                                    <option value="{{ $injury->id }}">{{ $injury->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('injurie_id')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                            @error('pulse')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="temperature" class="form-label">Temperature</label>
-                            <input type="number" class="form-control" name="temperature" id="temperature">
-                            @error('temperature')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="observation" class="form-label">Medical Observation</label>
-                            <textarea class="form-control" name="observation" id="observation" rows="3"></textarea>
-                            @error('observation')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="comments" class="form-label">Comments</label>
-                            <textarea class="form-control" name="comments" id="comments" rows="3"></textarea>
-                            @error('comments')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="malaria" class="form-label">Malaria Prophylaxis</label>
-                            <select class="form-select" name="malaria" id="malaria">
-                                <option value="" selected disabled>none</option>
-                                <option value="Doxycycline">Doxycycline</option>
-                                <option value="Lariam">Lariam</option>
-                                <option value="Chloroquine">Chloroquine</option>
-                                <option value="Coartem">Coartem 20 mg</option>
-                                <option value="Fansider">Fansider</option>
+                                        <div class="col-md-6">
+                                            <label for="diagnosis" class="form-label">Diagnosis</label>
+                                            <select class="form-select" name="diagnose_id" id="diagnose_id">
+                                                <option value=""></option>
+                                                @foreach ($diagnosis as $diag)
+                                                    <option value="{{ $diag->id }}">{{ $diag->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('diagnose_id')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                            </select>
-                            @error('malaria')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="daysOff" class="form-label">Days Off (include today)</label>
-                            <input type="number" class="form-control" name="daysOff" id="daysOff">
-                            @error('daysOff')
-                                <div class="alert-danger alert">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                        <div class="col-md-6">
+                                            <label for="staffType" class="form-label">Staff Type</label>
+                                            <select class="form-select" name="staffType" id="staffType">
+                                                <option value="Staff">Staff</option>
+                                                <option value="Family">Family</option>
+                                            </select>
+                                            @error('staffType')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                </div>
-                {{-- @include('Laboratory.create') --}}
-                @include('Medication.create')
+                                        <div class="col-md-6">
+                                            <label for="referral" class="form-label">Referral</label>
+                                            <select class="form-select" name="referral" id="referral">
+                                                <option value=""></option>
+                                                <option value="No Referral">No Referral</option>
+                                                <option value="Fourou">Fourou</option>
+                                                <option value="Kadiolo">Kadiolo</option>
+                                                <option value="Sikasso">Sikasso</option>
+                                                <option value="INPS">INPS</option>
+                                            </select>
+                                            @error('referral')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-            </div>
-            </form>
-        </div>
-    </div>
-    </div>
-    </div>
+                                        <div class="col-md-6">
+                                            <label for="history" class="form-label">History</label>
+                                            <textarea class="form-control" name="history" id="history"></textarea>
+                                            @error('history')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addEmployeeModalLabel">Add Employee</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addEmployeeForm" action="{{ route('employee.store') }}" method="POST">
-                        @csrf
-                        <!-- Employee form fields... -->
-                        <div class="mb-3">
-                            <label for="staffId" class="form-label">Staff ID</label>
-                            <input type="text" class="form-control" id="staffId" name="staffId" value="">
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName"
-                                            placeholder="Employee First Name" value="" required>
+                                        <div class="col-md-6">
+                                            <label for="bp" class="form-label">BP</label>
+                                            <input type="number" class="form-control" name="bp" id="bp">
+                                            @error('bp')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="pulse" class="form-label">Pulse</label>
+                                            <input type="number" class="form-control" name="pulse" id="pulse">
+                                            @error('pulse')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="temperature" class="form-label">Temperature</label>
+                                            <input type="number" class="form-control" name="temperature"
+                                                id="temperature">
+                                            @error('temperature')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="observation" class="form-label">Observation</label>
+                                            <textarea class="form-control" name="observation" id="observation"></textarea>
+                                            @error('observation')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="comments" class="form-label">Comments</label>
+                                            <textarea class="form-control" name="comments" id="comments"></textarea>
+                                            @error('comments')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="malaria" class="form-label">Malaria</label>
+                                            <input type="text" class="form-control" name="malaria" id="malaria">
+                                            @error('malaria')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="daysOff" class="form-label">Days Off</label>
+                                            <input type="number" class="form-control" name="daysOff" id="daysOff">
+                                            @error('daysOff')
+                                                <div class="alert-danger alert">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" name="lastName"
-                                            placeholder="Employee Last Name" value="" required>
+
+                                <!-- Medication Tab -->
+                                <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="medication-tab">
+                                    <div id="medication-container">
+                                        <div class="row medication-item">
+                                            <div class="col-md-4">
+                                                <label for="drugname" class="form-label">Drug Name</label>
+                                                <input type="text" class="form-control" name="medications[0][drugname]" id="drugname">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="prescription" class="form-label">Prescription</label>
+                                                <input type="text" class="form-control" name="medications[0][prescription]" id="prescription">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="stock" class="form-label">Stock</label>
+                                                <input type="number" class="form-control" name="medications[0][stock]" id="stock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary mt-3" id="add-medication">Add Medication</button>
+                                </div>
+                                
+                                <!-- Laboratory Tab -->
+                                <div class="tab-pane fade" id="laboratory" role="tabpanel"
+                                    aria-labelledby="laboratory-tab">
+                                    <div class="row">
+                                        @php
+                                            $fields = [
+                                                'hemoglobin',
+                                                'malariaThick',
+                                                'malariaThin',
+                                                'malariaQuicktest',
+                                                'bloodGlucose',
+                                                'got',
+                                                'gpt',
+                                                'ggt',
+                                                'creatinine',
+                                                'urea',
+                                                'potasiumK',
+                                                'uricAcid',
+                                                'creatinineKinase',
+                                                'troponinT',
+                                                'urineDipstick',
+                                                'urineMicroscopy',
+                                                'stoolMicroscopy',
+                                                'sputumMicroscopy',
+                                                'gammaGt',
+                                                'cholesterol',
+                                                'total',
+                                                'ldh',
+                                                'ldl',
+                                                'triglyceride',
+                                                'tBilirubine',
+                                                'dBilirubine',
+                                                'iBilirubine',
+                                                'fastingGlucose',
+                                            ];
+                                        @endphp
+                                        @foreach ($fields as $field)
+                                            <div class="col-md-6">
+                                                <label for="{{ $field }}"
+                                                    class="form-label">{{ ucfirst($field) }}</label>
+                                                <input type="text" class="form-control"
+                                                    name="laboratory[{{ $field }}]" id="{{ $field }}">
+                                                @error('laboratory.' . $field)
+                                                    <div class="alert-danger alert">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary mt-3">Save Consultation</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="birthDate" class="form-label">Birth Date</label>
-                            <input type="date" class="form-control" id="birthDate" name="birthDate" value="">
-                        </div>
-                        <div class="mb-3">
-                            <label for="jobTitle" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="jobTitle" name="jobTitle"
-                                placeholder="Employee Job Title" value="" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="company" class="form-label">Company</label>
-                            <select class="form-control" name="company" id="company">
-                                <option value=""></option>
-                                @foreach ($companys as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="employeeType" class="form-label">Employee Type</label>
-                            <select class="form-control" name="employeeType" id="employeeType">
-                                <option selected disabled>select</option>
-                                <option value="National">National</option>
-                                <option value="Expat">Expat</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="department_id" class="form-label">Department</label>
-                            <select class="form-control" name="department_id" id="department_id">
-                                <option value=""></option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('department_id')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('add-medication').addEventListener('click', function() {
+                const container = document.getElementById('medication-container');
+                const count = container.children.length; // Nombre d'éléments actuels dans le conteneur
+                const newItem = document.querySelector('.medication-item').cloneNode(
+                    true); // Cloner l'élément
+
+                // Réinitialiser les valeurs des champs clonés
+                newItem.querySelectorAll('input').forEach(input => {
+                    input.value = ''; // Réinitialiser la valeur
+                    input.name = input.name.replace(/\[\d\]/, '[' + count +
+                        ']'); // Mettre à jour les noms des champs avec le nouveau compteur
+                });
+
+                // Ajouter le nouvel élément cloné au conteneur
+                container.appendChild(newItem);
+            });
+
+            document.getElementById('consultationForm').addEventListener('submit', function(event) {
+                // Empêcher la soumission par défaut pour gérer manuellement via JavaScript
+                event.preventDefault();
+
+                // Soumettre le formulaire après validation
+                this.submit();
+            });
+        });
+    </script>
 @endsection

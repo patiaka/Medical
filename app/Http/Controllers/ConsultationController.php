@@ -11,7 +11,6 @@ use App\Models\Laboratory;
 use App\Models\Medication;
 use App\Models\Consultation;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreConsultationRequest;
 
 class ConsultationController extends Controller
@@ -21,7 +20,6 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        //
         $employees = Employee::all();
         $consultations = Consultation::all();
 
@@ -39,7 +37,7 @@ class ConsultationController extends Controller
         $diagnosis = Diagnosis::all();
         $departments = Department::all();
 
-        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis','companys','departments'));
+        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis', 'companys', 'departments'));
     }
 
     /**
@@ -47,19 +45,30 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
+        // Créer la consultation avec les données validées
         $consultation = Consultation::create($request->validated());
 
-    // Enregistrer les médicaments s'ils sont présents
-    if ($request->has('medications') && is_array($request->medications)) {
-        foreach ($request->medications as $medicationData) {
-            $medication = new Medication($medicationData);
-            $medication->consultation_id = $consultation->id;
-            $medication->save();
+        // Enregistrer les médicaments s'ils sont présents
+        if ($request->has('medications') && is_array($request->medications)) {
+            foreach ($request->medications as $medicationData) {
+                // Assurez-vous que $medicationData est un tableau d'attributs
+                if (is_array($medicationData)) {
+                    $medication = new Medication($medicationData);
+                    $medication->consultation_id = $consultation->id;
+                    $medication->save();
+                }
+            }
         }
-    }
 
-    toastr()->success('Consultation added successfully');
-    return redirect()->route('consultation.index');
+        // Enregistrer le laboratoire s'il est présent
+        if ($request->has('laboratory')) {
+            $laboratoryData = $request->input('laboratory');
+            $laboratory = new Laboratory($laboratoryData); // Assurez-vous que $laboratoryData est un tableau d'attributs
+            $consultation->laboratory()->save($laboratory);
+        }
+
+        toastr()->success('Consultation added successfully');
+        return redirect()->route('consultation.index');
     }
 
     /**
@@ -81,7 +90,7 @@ class ConsultationController extends Controller
         $laboratory = $consultation->laboratory;
         $medications = $consultation->medications;
 
-        return view('consultation.edit', compact('consultation', 'injuryType', 'employee', 'diagnosis','laboratory','medications'));
+        return view('consultation.edit', compact('consultation', 'injuryType', 'employee', 'diagnosis', 'laboratory', 'medications'));
     }
 
     /**
@@ -90,11 +99,13 @@ class ConsultationController extends Controller
     public function update(StoreConsultationRequest $request, Consultation $consultation)
     {
         $consultation->update($request->validated());
+        
+        // Mettre à jour les données du laboratoire
         $laboratory = $consultation->laboratory ?? new Laboratory();
         $laboratory->fill($request->input('laboratory', []));
         $consultation->laboratory()->save($laboratory);
-        toastr()->success('Consultation update succesfully');
 
+        toastr()->success('Consultation update succesfully');
         return redirect()->route('consultation.index');
     }
 
@@ -103,21 +114,19 @@ class ConsultationController extends Controller
      */
     public function delete(int $consultation)
     {
-        //
         $row = Consultation::findOrFail($consultation);
         $row->delete();
 
         return response()->json([
             'success' => true,
-            'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
+            'message' => $row ? class_basename($row) . ' Deleted successfully ' : class_basename($row) . ' Not Fund',
         ]);
-
     }
+
     public function generatePDF(Consultation $consultation)
     {
         $patientName = str_replace(' ', '_', $consultation->employee->firstName . '_' . $consultation->employee->lastName);
         $pdf = PDF::loadView('consultation.pdf', compact('consultation'));
         return $pdf->download($patientName . '_consultation-details.pdf');
     }
-    
 }

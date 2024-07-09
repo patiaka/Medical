@@ -17,8 +17,11 @@ class HealthSurveillanceController extends Controller
     {
         $employee = Employee::all();
         $healthSurveillance = HealthSurveillance::all();
+        $preEmployment = HealthSurveillance::where('surveillanceType', 'preEmployment')->get();
+        $postEmployment = HealthSurveillance::where('surveillanceType', 'postEmployment')->get();
+        $annualLeave = HealthSurveillance::where('surveillanceType', 'annualMedical')->get();
 
-        return view('HealthSurveillance.index', compact('healthSurveillance','employee'));
+        return view('HealthSurveillance.index', compact('healthSurveillance', 'preEmployment', 'postEmployment', 'annualLeave', 'employee'));
     }
 
     /**

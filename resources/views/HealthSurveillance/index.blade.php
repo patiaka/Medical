@@ -16,25 +16,39 @@
                                 <path fill-rule="evenodd"
                                     d="M8 1a.5.5 0 0 1 .5.5V7h5.5a.5.5 0 0 1 0 1H8V14.5a.5.5 0 0 1-1 0V8H1.5a.5.5 0 0 1 0-1H7V1.5A.5.5 0 0 1 7.5 1z" />
                             </svg>
-                            New 
+                            New
                         </a>
                     </div>
                 </div>
-                <!--//row-->
             </div>
-            <!--//table-utilities-->
         </div>
-        <!--//col-auto-->
     </div>
-    <!--//row-->
 
-    <div class="tab-content" id="health-surveillance-table-tab-content">
-        <div class="tab-pane fade show active" id="health-surveillance-all" role="tabpanel"
-            aria-labelledby="health-surveillance-all-tab">
+    <ul class="nav nav-tabs orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#health-surveillance-all"
+                type="button" role="tab" aria-controls="health-surveillance-all" aria-selected="true">All</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pre-employment-tab" data-bs-toggle="tab" data-bs-target="#pre-employment"
+                type="button" role="tab" aria-controls="pre-employment" aria-selected="false">Pre Employment</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="post-employment-tab" data-bs-toggle="tab" data-bs-target="#post-employment"
+                type="button" role="tab" aria-controls="post-employment" aria-selected="false">Post Employment</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="annual-leave-tab" data-bs-toggle="tab" data-bs-target="#annual-leave"
+                type="button" role="tab" aria-controls="annual-leave" aria-selected="false">Annual Leave</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="health-surveillance-all" role="tabpanel" aria-labelledby="all-tab">
             <div class="app-card app-card-orders-table shadow-sm mb-5">
                 <div class="app-card-body">
                     <div class="table-responsive">
-                        <table class="table app-table-hover mb-0 text-left" id="myTable" style="width:100%">
+                        <table class="table app-table-hover mb-0 text-left myTable" id="" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -77,13 +91,158 @@
                             </tbody>
                         </table>
                     </div>
-                    <!--//table-responsive-->
                 </div>
-                <!--//app-card-body-->
             </div>
-            <!--//app-card-->
         </div>
-        <!--//tab-pane-->
+        <div class="tab-pane fade" id="pre-employment" role="tabpanel" aria-labelledby="pre-employment-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="app-card-body">
+                    <div class="table-responsive">
+                        <table class="table app-table-hover mb-0 text-left myTable" id="" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Surveillance Type</th>
+                                    <th>Company</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($preEmployment as $row)
+                                    <tr>
+                                        <td>{{ $row->id }}</td>
+                                        <td>{{ $row->employee->employeeNumber }}</td>
+                                        <td>{{ $row->employee->firstName }} {{ $row->employee->lastName }}</td>
+                                        <td>{{ $row->surveillanceType }}</td>
+                                        <td>{{ $row->employee->company->name }}</td>
+                                        <td>{{ $row->employee->department->name }}</td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn-sm app-btn-secondary"
+                                                    href="{{ route('healthSurveillance.edit', $row->id) }}">
+                                                    <i class="fa fa-edit fa-lg text-success"></i>
+                                                </a>
+                                                <a role="button" href="{{ route('healthSurveillance.show', $row->id) }}"
+                                                    class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                    <i class="fa fa-eye fa-lg text-danger"></i>
+                                                </a>
+                                                <a role="button" href="#"
+                                                    onclick="deleteConfirmation('{{ route('healthSurveillance.destroy', $row->id) }}')"
+                                                    class="btn-sm app-btn-danger">
+                                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="post-employment" role="tabpanel" aria-labelledby="post-employment-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="app-card-body">
+                    <div class="table-responsive">
+                        <table class="table app-table-hover mb-0 text-left myTable" id="" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Surveillance Type</th>
+                                    <th>Company</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($postEmployment as $row)
+                                    <tr>
+                                        <td>{{ $row->id }}</td>
+                                        <td>{{ $row->employee->employeeNumber }}</td>
+                                        <td>{{ $row->employee->firstName }} {{ $row->employee->lastName }}</td>
+                                        <td>{{ $row->surveillanceType }}</td>
+                                        <td>{{ $row->employee->company->name }}</td>
+                                        <td>{{ $row->employee->department->name }}</td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn-sm app-btn-secondary"
+                                                    href="{{ route('healthSurveillance.edit', $row->id) }}">
+                                                    <i class="fa fa-edit fa-lg text-success"></i>
+                                                </a>
+                                                <a role="button" href="{{ route('healthSurveillance.show', $row->id) }}"
+                                                    class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                    <i class="fa fa-eye fa-lg text-danger"></i>
+                                                </a>
+                                                <a role="button" href="#"
+                                                    onclick="deleteConfirmation('{{ route('healthSurveillance.destroy', $row->id) }}')"
+                                                    class="btn-sm app-btn-danger">
+                                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="annual-leave" role="tabpanel" aria-labelledby="annual-leave-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="app-card-body">
+                    <div class="table-responsive">
+                        <table class="table app-table-hover mb-0 text-left myTable" id="" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Surveillance Type</th>
+                                    <th>Company</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($annualLeave as $row)
+                                    <tr>
+                                        <td>{{ $row->id }}</td>
+                                        <td>{{ $row->employee->employeeNumber }}</td>
+                                        <td>{{ $row->employee->firstName }} {{ $row->employee->lastName }}</td>
+                                        <td>{{ $row->surveillanceType }}</td>
+                                        <td>{{ $row->employee->company->name }}</td>
+                                        <td>{{ $row->employee->department->name }}</td>
+                                        <td>
+                                            <div style="display: flex;">
+                                                <a class="btn-sm app-btn-secondary"
+                                                    href="{{ route('healthSurveillance.edit', $row->id) }}">
+                                                    <i class="fa fa-edit fa-lg text-success"></i>
+                                                </a>
+                                                <a role="button" href="{{ route('healthSurveillance.show', $row->id) }}"
+                                                    class="btn-sm app-btn-danger" style="margin-left: 10px;">
+                                                    <i class="fa fa-eye fa-lg text-danger"></i>
+                                                </a>
+                                                <a role="button" href="#"
+                                                    onclick="deleteConfirmation('{{ route('healthSurveillance.destroy', $row->id) }}')"
+                                                    class="btn-sm app-btn-danger">
+                                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!--//tab-content-->
 @endsection

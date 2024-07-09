@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
             <div class="app-card shadow-sm">
                 <div class="app-card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
             <div class="app-card shadow-sm">
                 <div class="app-card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">

@@ -50,8 +50,6 @@ Route::prefix('consultation')->group(function () {
     Route::get('/show/{consultation}', [ConsultationController::class, 'show'])->name('consultation.show');
     Route::delete('/{consultation}', [ConsultationController::class, 'delete'])->name('consultation.delete');
     Route::get('/{consultation}/pdf', [ConsultationController::class, 'generatePDF'])->name('consultation.pdf');
-   
-
 
 });
 

@@ -35,6 +35,7 @@ class AuthenticatedSessionController extends Controller
         } else {
             $request->session()->regenerate();
         }
+        Auth::user()->journals()->create(['libelle' => 'Connexion']);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -44,6 +45,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        Auth::user()->journals()->create(['libelle' => 'Deconnexion']);
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

@@ -55,4 +55,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Consultation::class);
     }
+
+    /**
+     * Get all of the journals for the User
+     */
+    public function journals(): HasMany
+    {
+        return $this->hasMany(Journal::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'Admin';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === 'User';
+    }
 }

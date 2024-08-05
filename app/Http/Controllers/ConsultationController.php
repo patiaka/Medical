@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Injury;
+use App\Http\Requests\StoreConsultationRequest;
 use App\Models\Company;
-use App\Models\Employee;
-use App\Models\Diagnosis;
+use App\Models\Consultation;
 use App\Models\Department;
+use App\Models\Diagnosis;
+use App\Models\Employee;
+use App\Models\Injury;
 use App\Models\Laboratory;
 use App\Models\Medication;
-use App\Models\Consultation;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Requests\StoreConsultationRequest;
+use Illuminate\Support\Facades\Gate;
 
 class ConsultationController extends Controller
 {
@@ -68,6 +69,7 @@ class ConsultationController extends Controller
         }
 
         toastr()->success('Consultation added successfully');
+
         return redirect()->route('consultation.index');
     }
 
@@ -84,6 +86,9 @@ class ConsultationController extends Controller
      */
     public function edit(Consultation $consultation)
     {
+        if (! Gate::allows('update-consultation', $consultation)) {
+            abort(403);
+        }
         $injuryType = Injury::all();
         $employee = Employee::all();
         $diagnosis = Diagnosis::all();
@@ -99,13 +104,14 @@ class ConsultationController extends Controller
     public function update(StoreConsultationRequest $request, Consultation $consultation)
     {
         $consultation->update($request->validated());
-        
+
         // Mettre à jour les données du laboratoire
         $laboratory = $consultation->laboratory ?? new Laboratory();
         $laboratory->fill($request->input('laboratory', []));
         $consultation->laboratory()->save($laboratory);
 
         toastr()->success('Consultation update succesfully');
+
         return redirect()->route('consultation.index');
     }
 
@@ -115,18 +121,22 @@ class ConsultationController extends Controller
     public function delete(int $consultation)
     {
         $row = Consultation::findOrFail($consultation);
+        if (! Gate::allows('delete-consultation', $row)) {
+            abort(403);
+        }
         $row->delete();
 
         return response()->json([
             'success' => true,
-            'message' => $row ? class_basename($row) . ' Deleted successfully ' : class_basename($row) . ' Not Fund',
+            'message' => $row ? class_basename($row).' Deleted successfully ' : class_basename($row).' Not Fund',
         ]);
     }
 
     public function generatePDF(Consultation $consultation)
     {
-        $patientName = str_replace(' ', '_', $consultation->employee->firstName . '_' . $consultation->employee->lastName);
+        $patientName = str_replace(' ', '_', $consultation->employee->firstName.'_'.$consultation->employee->lastName);
         $pdf = PDF::loadView('consultation.pdf', compact('consultation'));
-        return $pdf->download($patientName . '_consultation-details.pdf');
+
+        return $pdf->download($patientName.'_consultation-details.pdf');
     }
 }

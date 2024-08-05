@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Employee;
-use App\Models\Department;
 use App\Models\Consultation;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,55 +18,49 @@ class DashboardController extends Controller
         $totalEmployee = Employee::count();
         $totalDepartment = Department::count();
 
-        // Filtrer les consultations en fonction de la période sélectionnée
         $filter = $request->input('filter');
         $consultationsByDayQuery = DB::table('consultations')
-            ->selectRaw('CONVERT(VARCHAR, created_at, 23) as date, COUNT(*) as count');
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count');
 
-        // Filtrer les statistiques de la malaria en fonction de la période sélectionnée
         $filter_malaria = $request->input('filter_malaria');
         $malariaStatsQuery = Consultation::select('malaria', DB::raw('count(*) as count'))
             ->whereIn('malaria', ['Doxycycline', 'Lariam', 'Chloroquine', 'Coartem', 'Fansider']);
 
-        // Application des filtres pour les consultations
         switch ($filter) {
             case 'last_24h':
-                $consultationsByDayQuery->whereRaw('DATEDIFF(hour, created_at, GETDATE()) <= 24');
+                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(HOUR, created_at, NOW()) <= 24');
                 break;
             case 'week':
-                $consultationsByDayQuery->whereRaw('DATEDIFF(day, created_at, GETDATE()) <= 7');
+                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(DAY, created_at, NOW()) <= 7');
                 break;
             case 'month':
-                $consultationsByDayQuery->whereRaw('DATEDIFF(month, created_at, GETDATE()) <= 1');
+                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(MONTH, created_at, NOW()) <= 1');
                 break;
             case 'year':
-                $consultationsByDayQuery->whereRaw('DATEDIFF(year, created_at, GETDATE()) <= 1');
+                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(YEAR, created_at, NOW()) <= 1');
                 break;
             default:
-                // Pas de filtre, obtenir toutes les consultations
                 break;
         }
 
-        // Application des filtres pour les statistiques de la malaria
         switch ($filter_malaria) {
             case 'last_24h':
-                $malariaStatsQuery->whereRaw('DATEDIFF(hour, created_at, GETDATE()) <= 24');
+                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(HOUR, created_at, NOW()) <= 24');
                 break;
             case 'week':
-                $malariaStatsQuery->whereRaw('DATEDIFF(day, created_at, GETDATE()) <= 7');
+                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(DAY, created_at, NOW()) <= 7');
                 break;
             case 'month':
-                $malariaStatsQuery->whereRaw('DATEDIFF(month, created_at, GETDATE()) <= 1');
+                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(MONTH, created_at, NOW()) <= 1');
                 break;
             case 'year':
-                $malariaStatsQuery->whereRaw('DATEDIFF(year, created_at, GETDATE()) <= 1');
+                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(YEAR, created_at, NOW()) <= 1');
                 break;
             default:
-                // Pas de filtre, obtenir toutes les statistiques de malaria
                 break;
         }
 
-        $consultationsByDayQuery->groupBy(DB::raw('CONVERT(VARCHAR, created_at, 23)'))
+        $consultationsByDayQuery->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy('date');
 
         $consultationsByDay = $consultationsByDayQuery->get();
@@ -96,7 +91,8 @@ class DashboardController extends Controller
             'consultationsByCompany',
             'consultationsByDepartment',
             'filter',
-            'filter_malaria' // Ajout de la variable de filtre pour la malaria
+            'filter_malaria'
         ));
+
     }
 }

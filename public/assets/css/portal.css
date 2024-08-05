@@ -96,6 +96,10 @@ body {
     color: var(--bs-body-color);
     text-align: var(--bs-body-text-align);
     background-color: var(--bs-body-bg);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -10402,7 +10406,11 @@ fieldset:disabled .btn {
     .d-print-none {
         display: none !important;
     }
+<<<<<<< HEAD
 } /*!
+=======
+} /*!  
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
  * Portal - Bootstrap 5 Admin Dashboard Template for Developers
  * Version: 2.1
  * Author: Xiaoying Riley
@@ -10821,7 +10829,11 @@ button.close:focus {
 .app-sidepanel .sidepanel-inner {
     position: relative;
     z-index: 10;
+<<<<<<< HEAD
     background: #fff;
+=======
+    background: #2c2c2c;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     box-shadow: rgba(0, 0, 0, 0.05) 0px 8px 15px;
     width: 250px;
     height: 100%;
@@ -10848,7 +10860,11 @@ button.close:focus {
 }
 .app-sidepanel .app-nav-main::-webkit-scrollbar {
     width: 6px;
+<<<<<<< HEAD
     background-color: #e7e9ed;
+=======
+    background-color: #2c2c2c;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
 }
 .app-sidepanel .app-nav-main::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.1);
@@ -10861,11 +10877,19 @@ button.close:focus {
     margin-bottom: 1rem;
 }
 .app-branding .logo-icon {
+<<<<<<< HEAD
     width: 36px;
     height: 36px;
 }
 .app-branding .logo-text {
     color: #252930;
+=======
+    width: 80px;
+    height: 36px;
+}
+.app-branding .logo-text {
+    color: #fff;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     font-size: 1.25rem;
     font-weight: 600;
     vertical-align: middle;
@@ -10882,20 +10906,33 @@ button.close:focus {
 .app-nav .nav-item {
     display: block;
     color: #5d6778;
+<<<<<<< HEAD
     background: #fff;
+=======
+    background: #303030;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
 }
 .app-nav .nav-link {
     display: block;
     padding: 0.875rem 1rem;
+<<<<<<< HEAD
     color: #252930;
+=======
+    color: #fff;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     position: relative;
     display: block;
     padding-left: 3rem;
     border-left: 3px solid rgba(0, 0, 0, 0);
 }
 .app-nav .nav-link.active {
+<<<<<<< HEAD
     color: #15a362;
     background: #edfdf6;
+=======
+    color: #fff;
+    background: #2a2a2a;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     border-left: 3px solid #15a362;
     font-weight: 500;
 }
@@ -10934,7 +10971,11 @@ button.close:focus {
     }
 }
 .app-nav .submenu-toggle[aria-expanded="true"] .submenu-arrow {
+<<<<<<< HEAD
     color: #252930;
+=======
+    color: #fff;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
 }
 .app-nav .submenu-toggle[aria-expanded="true"] .submenu-arrow svg {
     -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
@@ -10945,7 +10986,11 @@ button.close:focus {
     margin-bottom: 0;
 }
 .app-nav .submenu-link {
+<<<<<<< HEAD
     color: #5d6778;
+=======
+    color: #fff;
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
     font-size: 0.875rem;
     margin-left: 2rem;
     padding: 0.5rem 1rem;

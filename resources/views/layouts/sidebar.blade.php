@@ -3,16 +3,22 @@
     <div class="sidepanel-inner d-flex flex-column">
         <a href="/" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
         <div class="app-branding">
+<<<<<<< HEAD
             <a class="app-logo" href="/"><img class="logo-icon me-2" src="{{ asset('assets/images/app-logo.svg') }}"
                     alt="logo"><span class="logo-text">Syama
+=======
+            <a class="app-logo" href="/"><img class="logo-icon me-2"
+                    src="{{ asset('assets/images/Resolute.png') }}" alt="logo"><span class="logo-text">Syama
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
                     Medical</span></a>
         </div>
-        <!--//app-branding-->
+     
         <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
-            <!-- Toggle Sidebar Button -->
+            
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
+
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                   
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                         href="{{ route('dashboard') }}">
                         <span class="nav-icon">
@@ -25,14 +31,34 @@
                         </span>
                         <span class="nav-link-text">Dashboard</span>
                     </a>
-                    <!--//nav-link-->
+        
                 </li>
+<<<<<<< HEAD
                 <!--//nav-item-->
 
                 <!--//nav-item-->
+=======
+             
+                <li class="nav-item">
+                   
+                    <a class="nav-link {{ request()->routeIs('user.index') ? 'active' : '' }}"
+                        href="{{ route('user.index') }}">
+                        <span class="nav-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people" viewBox="0 0 16 16">
+                                <path
+                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                            </svg>
+                        </span>
+                        <span class="nav-link-text">Doctor</span>
+                    </a>
+                   
+                </li>
+               
+>>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
 
                 <li class="nav-item">
-                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                    
                     <a class="nav-link {{ request()->routeIs('consultation.index') ? 'active' : '' }} "
                         href="{{ route('consultation.index') }}">
                         <span class="nav-icon">
@@ -214,6 +240,76 @@
                     </div>
                 </li>
                 @endif
+
+                <li class="nav-item has-submenu">
+                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#submenu-roles" aria-expanded="false" aria-controls="submenu-roles">
+                        <span class="nav-icon">
+                            <!-- Role Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a1 1 0 0 1 .6.2l4 3a1 1 0 0 1 .4.8v7.27a6 6 0 1 1-8 0V4a1 1 0 0 1 .4-.8l4-3A1 1 0 0 1 8 0zm0 1.5L4.75 4v6a5.978 5.978 0 0 0 6.5 0V4L8 1.5zM7.5 7a1.5 1.5 0 0 1 3 0v2a1.5 1.5 0 1 1-3 0V7z" />
+                            </svg>
+                        </span>
+                        <span class="nav-link-text">Roles</span>
+                        <span class="submenu-arrow">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <div id="submenu-roles" class="collapse submenu" data-bs-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item">
+                                <a class="submenu-link {{ request()->routeIs('roles.index') ? 'active' : '' }}"
+                                    href="">Manage Roles</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a class="submenu-link {{ request()->routeIs('roles.create') ? 'active' : '' }}"
+                                    href="">Create Role</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Permissions -->
+                <li class="nav-item has-submenu">
+                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#submenu-permissions" aria-expanded="false"
+                        aria-controls="submenu-permissions">
+                        <span class="nav-icon">
+                            <!-- Permission Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.5 7.5V5a4 4 0 0 0-8 0v2.5h-1A1.5 1.5 0 0 0 1 9v7a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 16v-7a1.5 1.5 0 0 0-1.5-1.5h-1zm-6 0h6V5a2 2 0 0 0-4 0v2.5z" />
+                            </svg>
+                        </span>
+                        <span class="nav-link-text">Permissions</span>
+                        <span class="submenu-arrow">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                    </a>
+                    <div id="submenu-permissions" class="collapse submenu" data-bs-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item">
+                                <a class="submenu-link {{ request()->routeIs('permissions.index') ? 'active' : '' }}"
+                                    href="">Manage Permissions</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a class="submenu-link {{ request()->routeIs('permissions.create') ? 'active' : '' }}"
+                                    href="">Create Permission</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <!--//nav-item-->
             </ul>

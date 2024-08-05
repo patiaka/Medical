@@ -1,56 +1,122 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row g-4 mb-4">
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="app-card app-card-stat shadow-sm h-100">
-                <div class="app-card-body p-3 p-lg-4 text-center">
-                    <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
-                    <h4 class="stats-type mb-1">Doctors</h4>
-                    <div class="stats-figure">{{ $totalDoctor }}</div>
+    <style>
+        .card-body {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .bg-doctor {
+            background-color: #e3f2fd;
+
+        }
+
+        .bg-consultation {
+            background-color: #e3f2fd;
+
+        }
+
+        .bg-patient {
+            background-color: #e1f5fe;
+
+        }
+
+        .bg-department {
+            background-color: #e8f5e9;
+
+        }
+
+        .icon-doctor {
+            color: #2196f3;
+
+        }
+
+        .icon-consultation {
+            color: #f44336;
+
+        }
+
+        .icon-patient {
+            color: #03a9f4;
+
+        }
+
+        .icon-department {
+            color: #4caf50;
+        }
+    </style>
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Welcome {{ auth()->user()->name }}</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body bg-doctor d-flex justify-content-between align-items-center">
+                    <i class="fas fa-user-md fa-3x icon-doctor"></i>
+                    <div class="dash-widget-info text-end">
+                        <h3>{{ $totalDoctor }}</h3>
+                        <span>Doctors</span>
+                    </div>
                 </div>
                 <a class="app-card-link-mask" href="{{ route('user.index') }}"></a>
             </div>
         </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="app-card app-card-stat shadow-sm h-100">
-                <div class="app-card-body p-3 p-lg-4 text-center">
-                    <i class="fas fa-stethoscope fa-3x text-danger mb-3"></i>
-                    <h4 class="stats-type mb-1">Consultation</h4>
-                    <div class="stats-figure">{{ $totalConsultation }}</div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body bg-consultation d-flex justify-content-between align-items-center">
+                    <i class="fas fa-stethoscope fa-3x icon-consultation"></i>
+                    <div class="dash-widget-info text-end">
+                        <h3>{{ $totalConsultation }}</h3>
+                        <span>Consultation</span>
+                    </div>
                 </div>
                 <a class="app-card-link-mask" href="{{ route('consultation.index') }}"></a>
             </div>
         </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="app-card app-card-stat shadow-sm h-100">
-                <div class="app-card-body p-3 p-lg-4 text-center">
-                    <i class="fas fa-user-friends fa-3x text-info mb-3"></i>
-                    <h4 class="stats-type mb-1">Patient</h4>
-                    <div class="stats-figure">{{ $totalEmployee }}</div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body bg-patient d-flex justify-content-between align-items-center">
+                    <i class="fas fa-user-friends fa-3x icon-patient"></i>
+                    <div class="dash-widget-info text-end">
+                        <h3>{{ $totalEmployee }}</h3>
+                        <span>Patients</span>
+                    </div>
                 </div>
                 <a class="app-card-link-mask" href="{{ route('employee.index') }}"></a>
             </div>
         </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="app-card app-card-stat shadow-sm h-100">
-                <div class="app-card-body p-3 p-lg-4 text-center">
-                    <i class="fas fa-hospital fa-3x text-success mb-3"></i>
-                    <h4 class="stats-type mb-1">Department</h4>
-                    <div class="stats-figure">{{ $totalDepartment }}</div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body bg-department d-flex justify-content-between align-items-center">
+                    <i class="fas fa-hospital fa-3x icon-department"></i>
+                    <div class="dash-widget-info text-end">
+                        <h3>{{ $totalDepartment }}</h3>
+                        <span>Departments</span>
+                    </div>
                 </div>
                 <a class="app-card-link-mask" href="{{ route('department.index') }}"></a>
             </div>
         </div>
-
+    </div>
+    <div class="row mt-5">
+        <!-- Consultations by Day Chart -->
         <div class="col-12 col-md-6">
-            <div class="app-card shadow-sm">
-                <div class="app-card-body">
+            <div class="card dash-widget">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="app-card-title">Consultations by Day</h2>
+                        <h4 class="stats-type">Consultations by Day</h4>
                         <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
                             <select class="form-select me-2" id="filterSelectConsultation" name="filter">
                                 <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24h</option>
@@ -64,7 +130,7 @@
                         </button>
                     </div>
                     <div id="loadingIconConsultation" class="d-none d-flex justify-content-center align-items-center">
-                        <i class="fas fa-spinner fa-pulse" style="font-size: 5rem;"></i>
+                        <i class="fas fa-spinner fa-pulse" style="font-size: 2rem;"></i>
                     </div>
                     <hr>
                     <canvas id="consultationChart" width="400" height="200"></canvas>
@@ -72,11 +138,12 @@
             </div>
         </div>
 
+        <!-- Malaria Treatment Statistics Chart -->
         <div class="col-12 col-md-6">
-            <div class="app-card shadow-sm">
-                <div class="app-card-body">
+            <div class="card dash-widget">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="app-card-title">Malaria Treatment Statistics</h2>
+                        <h4 class="stats-type">Malaria Treatment Statistics</h4>
                         <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
                             <select class="form-select me-2" id="filterSelectMalaria" name="filter_malaria">
                                 <option value="last_24h" {{ $filter_malaria === 'last_24h' ? 'selected' : '' }}>Last 24h
@@ -89,21 +156,17 @@
                         <button id="exportMalaria" class="btn btn-outline-primary">
                             <i class="fas fa-file-export"></i>
                         </button>
-                        <div id="loadingIconMalaria" class="d-none d-flex">
-                            {{-- <i class="fas fa-spinner fa-pulse" style="font-size: 5rem;"></i> --}}
-                        </div>
                     </div>
                     <canvas id="malariaChart" width="400" height="200"></canvas>
                 </div>
             </div>
         </div>
 
+        <!-- Consultations by Company Table -->
         <div class="col-12 col-md-6 mt-5">
-            <div class="app-card shadow-sm"
-                style="background-color: #ffffff; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                <div class="app-card-body">
-                    <h2 class="mb-4" style="font-size: 1.5rem; color: #333333; font-weight: bold;">Consultations by
-                        Company</h2>
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <h4 class="stats-type mb-4">Consultations by Company</h4>
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left" id="companyTable">
                             <thead>
@@ -126,12 +189,11 @@
             </div>
         </div>
 
+        <!-- Consultations by Department Table -->
         <div class="col-12 col-md-6 mt-5">
-            <div class="app-card shadow-sm"
-                style="background-color: #ffffff; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                <div class="app-card-body">
-                    <h2 class="mb-4" style="font-size: 1.5rem; color: #333333; font-weight: bold;">Consultations by
-                        Department</h2>
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <h4 class="stats-type mb-4">Consultations by Department</h4>
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left" id="departmentTable">
                             <thead>
@@ -154,6 +216,10 @@
             </div>
         </div>
     </div>
+
+
+
+
 
     <!-- Script for the charts and export functionality -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -217,7 +283,7 @@
                 }
             });
 
-            // Malaria Chart
+            
             var malariaCtx = document.getElementById('malariaChart').getContext('2d');
             var malariaLabels = {!! json_encode($malariaStats->pluck('malaria')) !!};
             var malariaCounts = {!! json_encode($malariaStats->pluck('count')) !!};
@@ -266,7 +332,7 @@
                 }
             });
 
-            // Export functionality
+            
             function exportTableToCSV(filename, tableId) {
                 var csv = [];
                 var rows = document.querySelectorAll(`#${tableId} tr`);
@@ -282,7 +348,7 @@
                     csv.push(row.join(","));
                 }
 
-                // Download CSV file
+                
                 var csvFile = new Blob([csv.join("\n")], {
                     type: "text/csv"
                 });
@@ -304,7 +370,7 @@
                     rows.push([label, malariaCounts[index]]);
                 });
 
-                // Download CSV file
+               
                 var csvFile = new Blob([rows.map(e => e.join(",")).join("\n")], {
                     type: "text/csv"
                 });
@@ -324,28 +390,28 @@
                 exportMalariaChartToCSV();
             });
 
-            // Initialize DataTables
+            
             $('#companyTable').DataTable();
             $('#departmentTable').DataTable();
         });
 
-        // Code de l'evenement qui declenche le auto filtre pour les consultations
+       
         document.addEventListener('DOMContentLoaded', function() {
-            // Écoute l'événement de soumission du formulaire pour les consultations
+            
             document.querySelector('#filterSelectConsultation').addEventListener('change', function() {
-                // Affiche l'icône de chargement
+                
                 document.getElementById('loadingIconConsultation').classList.remove('d-none');
 
-                // Soumet le formulaire
+                
                 this.form.submit();
             });
 
-            // Code de l'evenement qui declenche le auto filtre pour les statistiques de malaria
+        
             document.querySelector('#filterSelectMalaria').addEventListener('change', function() {
-                // Affiche l'icône de chargement
+                
                 document.getElementById('loadingIconMalaria').classList.remove('d-none');
 
-                // Soumet le formulaire
+                
                 this.form.submit();
             });
         });

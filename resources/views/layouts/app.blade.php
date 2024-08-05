@@ -17,8 +17,6 @@
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
     <link id="theme-style" rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
     <link id="theme-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js">
-
-
 </head>
 
 <body class="app">
@@ -31,10 +29,8 @@
     <div class="app-wrapper">
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
-            <div class="container-xl">
+            <div class="container-fluid">
                 @yield('content')
-
-
             </div>
             <!--//container-fluid-->
         </div>

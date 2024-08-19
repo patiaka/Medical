@@ -50,9 +50,8 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Role</label>
                             <select class="form-control" name="role" id="role">
-                                <option @selected($user->role === 'Super Admin') value="superAdmin">Super Admin</option>
-                                <option @selected($user->role === 'Admin') value="admin">Admin</option>
-                                <option @selected($user->role === 'user') value="user">User</option>
+                                <option @selected($user->role === 'Admin') value="Admin">Admin</option>
+                                <option @selected($user->role === 'User') value="User">User</option>
 
                             </select>
                             @error('role')

@@ -18,55 +18,77 @@ class DashboardController extends Controller
         $totalEmployee = Employee::count();
         $totalDepartment = Department::count();
 
-        $filter = $request->input('filter');
-        $consultationsByDayQuery = DB::table('consultations')
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as count');
+        $filter = $request->input('filter', 'all'); // Default to 'all' if no filter is provided
+        $filterDiagnosis = $request->input('filterSelectDiagnosis');
 
-        $filter_malaria = $request->input('filter_malaria');
-        $malariaStatsQuery = Consultation::select('malaria', DB::raw('count(*) as count'))
-            ->whereIn('malaria', ['Doxycycline', 'Lariam', 'Chloroquine', 'Coartem', 'Fansider']);
+        // Query for consultations by period
+        $consultationsByDayQuery = DB::table('consultations');
 
+        // Apply filters based on the time period
         switch ($filter) {
             case 'last_24h':
-                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(HOUR, created_at, NOW()) <= 24');
+                $consultationsByDayQuery->whereRaw('DATEDIFF(HOUR, created_at, GETDATE()) <= 24');
                 break;
             case 'week':
-                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(DAY, created_at, NOW()) <= 7');
+                $consultationsByDayQuery->whereRaw('DATEDIFF(DAY, created_at, GETDATE()) <= 7');
                 break;
             case 'month':
-                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(MONTH, created_at, NOW()) <= 1');
+                $consultationsByDayQuery->whereRaw('DATEDIFF(MONTH, created_at, GETDATE()) <= 1');
                 break;
             case 'year':
-                $consultationsByDayQuery->whereRaw('TIMESTAMPDIFF(YEAR, created_at, NOW()) <= 1');
+                $consultationsByDayQuery->whereRaw('DATEDIFF(YEAR, created_at, GETDATE()) <= 1');
+                break;
+            case 'all':
+                // No additional filtering for 'all'
                 break;
             default:
                 break;
         }
 
-        switch ($filter_malaria) {
-            case 'last_24h':
-                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(HOUR, created_at, NOW()) <= 24');
-                break;
-            case 'week':
-                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(DAY, created_at, NOW()) <= 7');
-                break;
-            case 'month':
-                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(MONTH, created_at, NOW()) <= 1');
-                break;
-            case 'year':
-                $malariaStatsQuery->whereRaw('TIMESTAMPDIFF(YEAR, created_at, NOW()) <= 1');
-                break;
-            default:
-                break;
+        // Determine whether to group by day or month
+        if ($filter === 'month' || $filter === 'year' || $filter === 'all') {
+            $consultationsByDayQuery->selectRaw('FORMAT(created_at, \'yyyy-MM\') as period, COUNT(*) as count')
+                ->groupBy(DB::raw('FORMAT(created_at, \'yyyy-MM\')'));
+        } else {
+            $consultationsByDayQuery->selectRaw('FORMAT(created_at, \'yyyy-MM-dd\') as period, COUNT(*) as count')
+                ->groupBy(DB::raw('FORMAT(created_at, \'yyyy-MM-dd\')'));
         }
 
-        $consultationsByDayQuery->groupBy(DB::raw('DATE(created_at)'))
-            ->orderBy('date');
+        $consultationsByDayQuery->orderBy('period');
 
+        // Execute the query and get results
         $consultationsByDay = $consultationsByDayQuery->get();
 
-        $malariaStats = $malariaStatsQuery->groupBy('malaria')->get();
+        // Query for diagnoses stats with filters
+        $diagnosesStatsQuery = DB::table('consultations')
+    ->join('diagnoses', 'consultations.diagnose_id', '=', 'diagnoses.id')
+    ->join('employees', 'consultations.employee_id', '=', 'employees.id')
+    ->select(
+        DB::raw("CONCAT(diagnoses.name, ' - ', employees.employeeType) as label"),
+        DB::raw('count(*) as count')
+    )
+    ->groupBy('diagnoses.name', 'employees.employeeType');
 
+    switch ($filterDiagnosis) {
+        case 'last_24h':
+            $diagnosesStatsQuery->where('consultations.created_at', '>=', DB::raw('DATEADD(HOUR, -24, GETDATE())'));
+            break;
+        case 'week':
+            $diagnosesStatsQuery->where('consultations.created_at', '>=', DB::raw('DATEADD(DAY, -7, GETDATE())'));
+            break;
+        case 'month':
+            $diagnosesStatsQuery->where('consultations.created_at', '>=', DB::raw('DATEADD(MONTH, -1, GETDATE())'));
+            break;
+        case 'year':
+            $diagnosesStatsQuery->where('consultations.created_at', '>=', DB::raw('DATEADD(YEAR, -1, GETDATE())'));
+            break;
+        default:
+        break;
+}
+
+    $diagnosesStats = $diagnosesStatsQuery->get();
+
+        // Query for consultations by company
         $consultationsByCompany = DB::table('consultations')
             ->join('employees', 'consultations.employee_id', '=', 'employees.id')
             ->join('companies', 'employees.company_id', '=', 'companies.id')
@@ -74,6 +96,7 @@ class DashboardController extends Controller
             ->groupBy('companies.name')
             ->get();
 
+        // Query for consultations by department
         $consultationsByDepartment = DB::table('consultations')
             ->join('employees', 'consultations.employee_id', '=', 'employees.id')
             ->join('departments', 'employees.department_id', '=', 'departments.id')
@@ -87,12 +110,11 @@ class DashboardController extends Controller
             'totalEmployee',
             'totalDepartment',
             'consultationsByDay',
-            'malariaStats',
+            'diagnosesStats',
             'consultationsByCompany',
             'consultationsByDepartment',
             'filter',
-            'filter_malaria'
+            'filterDiagnosis'
         ));
-
     }
 }

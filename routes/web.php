@@ -13,8 +13,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-<<<<<<< HEAD
-=======
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::resource('user', UserController::class)->except('create');
@@ -54,7 +52,6 @@ Route::prefix('consultation')->group(function () {
 
 });
 
->>>>>>> 9427f0d665f7e8d13ddc57ab4e28b78461f03a3d
 Route::middleware('auth')->group(function () {
     Route::middleware('role:Admin')->group(function () {
         Route::prefix('department')->group(function () {
@@ -93,6 +90,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::resource('healthSurveillance', healthSurveillanceController::class);
+        // Route::get('/healthSurveillance/follow-up', [HealthSurveillanceController::class, 'followUpList'])->name('healthSurveillance.followUpList');
         Route::get('/{healthSurveillance}/pdf', [healthSurveillanceController::class, 'generatePDF'])->name('healthSurveillance.pdf');
     });
 

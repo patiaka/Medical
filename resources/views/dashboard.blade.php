@@ -10,37 +10,30 @@
 
         .bg-doctor {
             background-color: #e3f2fd;
-
         }
 
         .bg-consultation {
             background-color: #e3f2fd;
-
         }
 
         .bg-patient {
             background-color: #e1f5fe;
-
         }
 
         .bg-department {
             background-color: #e8f5e9;
-
         }
 
         .icon-doctor {
             color: #2196f3;
-
         }
 
         .icon-consultation {
             color: #f44336;
-
         }
 
         .icon-patient {
             color: #03a9f4;
-
         }
 
         .icon-department {
@@ -110,20 +103,24 @@
             </div>
         </div>
     </div>
+
     <div class="row mt-5">
         <!-- Consultations by Day Chart -->
-        <div class="col-12 col-md-6">
+        <div class="col-md-12 col-lg-8">
             <div class="card dash-widget">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="stats-type">Consultations by Day</h4>
-                        <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
-                            <select class="form-select me-2" id="filterSelectConsultation" name="filter">
-                                <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24h</option>
-                                <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>Week</option>
-                                <option value="month" {{ $filter === 'month' ? 'selected' : '' }}>Month</option>
-                                <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>Year</option>
+                        <form method="GET" action="{{ route('dashboard') }}">
+                            <select name="filter" onchange="this.form.submit()">
+                                <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>All</option>
+                                <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24 Hours
+                                </option>
+                                <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>This Week</option>
+                                <option value="month" {{ $filter === 'month' ? 'selected' : '' }}>This Month</option>
+                                <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>This Year</option>
                             </select>
+                            <input type="hidden" name="filter_diagnosis" value="{{ $filterDiagnosis }}">
                         </form>
                         <button id="exportConsultations" class="btn btn-outline-primary">
                             <i class="fas fa-file-export"></i>
@@ -138,32 +135,40 @@
             </div>
         </div>
 
-        <!-- Malaria Treatment Statistics Chart -->
-        <div class="col-12 col-md-6">
+        <!-- Diagnoses Chart -->
+        <div class="col-md-12 col-lg-4">
             <div class="card dash-widget">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4 class="stats-type">Malaria Treatment Statistics</h4>
+                        <h4 class="stats-type">Diagnoses Statistics</h4>
                         <form action="{{ route('dashboard') }}" method="GET" class="d-flex align-items-center">
-                            <select class="form-select me-2" id="filterSelectMalaria" name="filter_malaria">
-                                <option value="last_24h" {{ $filter_malaria === 'last_24h' ? 'selected' : '' }}>Last 24h
+                            <select class="form-select me-2" id="filterSelectDiagnosis" name="filterSelectDiagnosis"
+                                onchange="this.form.submit()">
+                                <option value="all" {{ $filterDiagnosis === 'all' ? 'selected' : '' }}>All</option>
+                                <option value="top_5" {{ $filterDiagnosis === 'top_5' ? 'selected' : '' }}>Top 5</option>
+                                <option value="last_24h" {{ $filterDiagnosis === 'last_24h' ? 'selected' : '' }}>Last 24
+                                    hours</option>
+                                <option value="week" {{ $filterDiagnosis === 'week' ? 'selected' : '' }}>Last Week
                                 </option>
-                                <option value="week" {{ $filter_malaria === 'week' ? 'selected' : '' }}>Week</option>
-                                <option value="month" {{ $filter_malaria === 'month' ? 'selected' : '' }}>Month</option>
-                                <option value="year" {{ $filter_malaria === 'year' ? 'selected' : '' }}>Year</option>
+                                <option value="month" {{ $filterDiagnosis === 'month' ? 'selected' : '' }}>Last Month
+                                </option>
+                                <option value="year" {{ $filterDiagnosis === 'year' ? 'selected' : '' }}>Last Year
+                                </option>
                             </select>
                         </form>
-                        <button id="exportMalaria" class="btn btn-outline-primary">
+                        <button id="exportDiagnoses" class="btn btn-outline-primary">
                             <i class="fas fa-file-export"></i>
                         </button>
                     </div>
-                    <canvas id="malariaChart" width="400" height="200"></canvas>
+                    <canvas id="diagnosesChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
+    </div>
 
+    {{-- <div class="row mt-5">
         <!-- Consultations by Company Table -->
-        <div class="col-12 col-md-6 mt-5">
+        <div class="col-md-6">
             <div class="card dash-widget">
                 <div class="card-body">
                     <h4 class="stats-type mb-4">Consultations by Company</h4>
@@ -190,7 +195,7 @@
         </div>
 
         <!-- Consultations by Department Table -->
-        <div class="col-12 col-md-6 mt-5">
+        <div class="col-md-6">
             <div class="card dash-widget">
                 <div class="card-body">
                     <h4 class="stats-type mb-4">Consultations by Department</h4>
@@ -215,116 +220,144 @@
                 </div>
             </div>
         </div>
-    </div>
 
-
-
-
+    </div> --}}
 
     <!-- Script for the charts and export functionality -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var ctxConsultation = document.getElementById('consultationChart').getContext('2d');
             // Consultation Chart
-            var ctx = document.getElementById('consultationChart').getContext('2d');
-            var consultationDates = {!! json_encode(
-                $consultationsByDay->pluck('date')->map(function ($date) {
-                    return \Carbon\Carbon::parse($date)->format('Y-m-d');
-                }),
-            ) !!};
+            var consultationDates = {!! json_encode($consultationsByDay->pluck('period')) !!};
             var consultationCounts = {!! json_encode($consultationsByDay->pluck('count')) !!};
 
-            var formattedDates = consultationDates.map(function(date) {
+            // Function to format dates based on filter
+            function formatDate(dateStr, filter) {
+                var date = new Date(dateStr);
                 var options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
                 };
-                return new Date(date).toLocaleDateString('en-US', options);
-            });
 
-            var consultationChart = new Chart(ctx, {
+                if (filter === 'month' || filter === 'year' || filter === 'all') {
+                    // Format as Month Year (e.g., "Aug 2024")
+                    return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                } else {
+                    // Format as Day/Month/Year (e.g., "17/08/2024")
+                    return date.toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+                }
+            }
+
+            var formattedDates = consultationDates.map(date => formatDate(date, '{{ $filter }}'));
+
+            // Create the chart
+            var consultationChart = new Chart(ctxConsultation, {
                 type: 'bar',
                 data: {
                     labels: formattedDates,
                     datasets: [{
-                        label: 'Consultations per Day',
+                        label: 'Consultations',
                         data: consultationCounts,
-                        backgroundColor: 'rgba(240, 239, 230)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 1
                     }]
                 },
                 options: {
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return tooltipItem.raw + ' consultations';
-                                }
+                        x: {
+                            title: {
+                                display: true,
+                                text: '{{ $filter === 'month' || $filter === 'year' || $filter === 'all' ? 'Month' : 'Date' }}'
                             }
                         },
-                        datalabels: {
-                            anchor: 'end',
-                            align: 'end',
-                            formatter: function(value) {
-                                return value;
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Consultations'
                             }
                         }
                     }
                 }
             });
 
-            
-            var malariaCtx = document.getElementById('malariaChart').getContext('2d');
-            var malariaLabels = {!! json_encode($malariaStats->pluck('malaria')) !!};
-            var malariaCounts = {!! json_encode($malariaStats->pluck('count')) !!};
+            // Diagnoses Chart
+            // Diagnoses Chart
+            var ctxDiagnoses = document.getElementById('diagnosesChart').getContext('2d');
+            var diagnosesLabels = {!! json_encode($diagnosesStats->pluck('label')) !!};
+            var diagnosesCounts = {!! json_encode($diagnosesStats->pluck('count')) !!};
 
-            var malariaLabelsWithCounts = malariaLabels.map(function(label, index) {
-                return label + ' (' + malariaCounts[index] + ')';
-            });
+            // Define custom colors for the chart segments
+            var colors = [
+                'rgba(100, 149, 237, 0.7)', // Cornflower Blue
+                'rgba(60, 179, 113, 0.7)', // Medium Sea Green
+                'rgba(255, 165, 0, 0.7)', // Orange
+                'rgba(240, 128, 128, 0.7)', // Light Coral
+                'rgba(255, 192, 203, 0.7)', // Pink
+                'rgba(144, 238, 144, 0.7)', // Light Green
+                'rgba(135, 206, 250, 0.7)', // Light Sky Blue
+                'rgba(255, 222, 173, 0.7)', // Navajo White
+                'rgba(221, 160, 221, 0.7)', // Plum
+                'rgba(224, 255, 255, 0.7)', // Light Cyan
+                'rgba(255, 240, 245, 0.7)', // Lavender Blush
+                'rgba(255, 228, 225, 0.7)' // Misty Rose
+            ];
 
-            var malariaChart = new Chart(malariaCtx, {
+
+
+
+
+            // Assign border colors
+            var borderColors = [
+                'rgba(82, 134, 202, 1)', // Darker Cornflower Blue
+                'rgba(34, 139, 34, 1)', // Darker Medium Sea Green
+                'rgba(255, 140, 0, 1)', // Darker Orange
+                'rgba(205, 92, 92, 1)', // Darker Light Coral
+                'rgba(255, 105, 180, 1)', // Darker Pink
+                'rgba(0, 128, 0, 1)', // Darker Light Green
+                'rgba(0, 191, 255, 1)', // Darker Light Sky Blue
+                'rgba(255, 165, 0, 1)', // Darker Navajo White
+                'rgba(128, 0, 128, 1)', // Darker Plum
+                'rgba(0, 255, 255, 1)', // Darker Light Cyan
+                'rgba(255, 182, 193, 1)', // Darker Lavender Blush
+                'rgba(255, 228, 225, 1)' // Darker Misty Rose
+            ];
+
+
+
+            var diagnosesChart = new Chart(ctxDiagnoses, {
                 type: 'doughnut',
                 data: {
-                    labels: malariaLabelsWithCounts,
+                    labels: diagnosesLabels,
                     datasets: [{
-                        label: 'Malaria Treatment',
-                        data: malariaCounts,
-                        backgroundColor: [
-                            'rgba(29, 204, 55)', // Dark green
-                            'rgba(242, 68, 15)', // Dark red
-                            'rgba(194, 192, 95)', // Yellow
-                            'rgba(128, 128, 128, 0.2)', // Gray
-                            'rgba(255, 99, 132, 0.2)' // Pink as a placeholder
-                        ],
-                        borderColor: [
-                            'rgba(23, 145, 42)', // Dark green
-                            'rgba(227, 18, 49)', // Dark red
-                            'rgba(194, 192, 95, 1)', // Yellow
-                            'rgba(128, 128, 128, 1)', // Gray
-                            'rgba(255, 99, 132, 1)' // Pink as a placeholder
-                        ],
+                        label: 'Number of Cases',
+                        data: diagnosesCounts,
+                        backgroundColor: colors,
+                        borderColor: borderColors,
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    responsive: true,
                     plugins: {
                         legend: {
-                            display: true
+                            position: 'top',
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(tooltipItem) {
-                                    return tooltipItem.raw + ' cases';
+                                    return tooltipItem.label + ': ' + tooltipItem.raw;
                                 }
                             }
                         }
@@ -332,88 +365,35 @@
                 }
             });
 
-            
-            function exportTableToCSV(filename, tableId) {
-                var csv = [];
-                var rows = document.querySelectorAll(`#${tableId} tr`);
 
-                for (var i = 0; i < rows.length; i++) {
-                    var row = [],
-                        cols = rows[i].querySelectorAll('td, th');
+            // Event Listeners for Filter Changes
+            document.querySelector('#filterSelectConsultation').addEventListener('change', function() {
+                document.getElementById('loadingIconConsultation').classList.remove('d-none');
+                this.form.submit();
+            });
 
-                    for (var j = 0; j < cols.length; j++) {
-                        row.push(cols[j].innerText);
-                    }
+            document.querySelector('#filterSelectDiagnosis').addEventListener('change', function() {
+                this.form.submit();
+            });
 
-                    csv.push(row.join(","));
-                }
-
-                
-                var csvFile = new Blob([csv.join("\n")], {
-                    type: "text/csv"
-                });
-                var downloadLink = document.createElement("a");
-                downloadLink.download = filename;
-                downloadLink.href = window.URL.createObjectURL(csvFile);
-                downloadLink.style.display = "none";
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-            }
-
-            function exportMalariaChartToCSV() {
-                var csv = [];
-                var rows = [
-                    ['Malaria Type', 'Number of Cases']
-                ];
-
-                malariaLabels.forEach((label, index) => {
-                    rows.push([label, malariaCounts[index]]);
-                });
-
-               
-                var csvFile = new Blob([rows.map(e => e.join(",")).join("\n")], {
-                    type: "text/csv"
-                });
-                var downloadLink = document.createElement("a");
-                downloadLink.download = 'malaria_statistics.csv';
-                downloadLink.href = window.URL.createObjectURL(csvFile);
-                downloadLink.style.display = "none";
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
+            // Export Table to CSV (placeholder function, needs implementation)
+            function exportTableToCSV(tableId, filename) {
+                // Implement CSV export logic here
+                console.log(`Exporting ${tableId} to ${filename}`);
             }
 
             document.getElementById('exportConsultations').addEventListener('click', function() {
-                exportTableToCSV('consultations.csv', 'companyTable');
+                exportTableToCSV('companyTable', 'consultations.csv');
             });
 
-            document.getElementById('exportMalaria').addEventListener('click', function() {
-                exportMalariaChartToCSV();
+            document.getElementById('exportDiagnoses').addEventListener('click', function() {
+                exportTableToCSV('diagnosisTable', 'diagnoses.csv');
             });
 
-            
+            // DataTables Initialization
             $('#companyTable').DataTable();
             $('#departmentTable').DataTable();
-        });
-
-       
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            document.querySelector('#filterSelectConsultation').addEventListener('change', function() {
-                
-                document.getElementById('loadingIconConsultation').classList.remove('d-none');
-
-                
-                this.form.submit();
-            });
-
-        
-            document.querySelector('#filterSelectMalaria').addEventListener('change', function() {
-                
-                document.getElementById('loadingIconMalaria').classList.remove('d-none');
-
-                
-                this.form.submit();
-            });
+            $('#diagnosisTable').DataTable();
         });
     </script>
 @endsection

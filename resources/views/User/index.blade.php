@@ -9,7 +9,7 @@
             <div class="page-utilities">
                 <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -61,15 +61,16 @@
                                         <td>{{ $row->phone }}</td>
                                         <td>
                                             <div style="display: flex">
-                                            <a class="btn-sm app-btn-secondary" href="{{ route('user.edit', $row->id) }}">
-                                                <i class="fa fa-edit fa-lg text-success"></i>
-                                            </a>
+                                                <a class="btn-sm app-btn-secondary"
+                                                    href="{{ route('user.edit', $row->id) }}">
+                                                    <i class="fa fa-edit fa-lg text-success"></i>
+                                                </a>
 
-                                            <a role="button" href="#"
-                                                onclick="deleteConfirmation('{{ route('user.destroy', $row->id) }}')"
-                                                class="btn-sm app-btn-danger">
-                                                <i class="fa fa-trash fa-lg text-danger"></i>
-                                            </a>
+                                                <a role="button" href="#"
+                                                    onclick="deleteConfirmation('{{ route('user.destroy', $row->id) }}')"
+                                                    class="btn-sm app-btn-danger">
+                                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -151,9 +152,8 @@
                             <label for="role" class="form-label">Role</label>
                             <select class="form-control" name="role" id="role">
                                 <option selected disabled>select</option>
-                                <option value="superAdmin">Super Admin</option>
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
                             </select>
                             @error('role')
                                 <div class="alert-danger alert">{{ $message }}</div>

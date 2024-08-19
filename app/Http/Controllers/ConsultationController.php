@@ -23,8 +23,21 @@ class ConsultationController extends Controller
     {
         $employees = Employee::all();
         $consultations = Consultation::all();
+        $consultationCount = Consultation::count();
+        $consultationsByDay = Consultation::whereDate('created_at', now()->format('Y-m-d'))->count();
+        // $consultationsByWeek = Consultation::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+        $consultationsByMonth = Consultation::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count();
+        $consultationsByYear = Consultation::whereYear('created_at', now()->year)->count();
 
-        return view('Consultation.index', compact('consultations', 'employees'));
+        return view('Consultation.index', compact(
+            'consultations', 
+            'employees',
+            'consultationCount',
+            'consultationsByDay',
+            // 'consultationsByWeek',
+            'consultationsByMonth',
+            'consultationsByYear'
+        ));
     }
 
     /**

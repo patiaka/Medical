@@ -17,14 +17,13 @@ class DashboardController extends Controller
         $totalConsultation = Consultation::count();
         $totalEmployee = Employee::count();
         $totalDepartment = Department::count();
-
-        $filter = $request->input('filter', 'all'); // Default to 'all' if no filter is provided
+        $filter = $request->input('filter', 'all'); 
         $filterDiagnosis = $request->input('filterSelectDiagnosis');
 
-        // Query for consultations by period
+        
         $consultationsByDayQuery = DB::table('consultations');
 
-        // Apply filters based on the time period
+        
         switch ($filter) {
             case 'last_24h':
                 $consultationsByDayQuery->whereRaw('DATEDIFF(HOUR, created_at, GETDATE()) <= 24');
@@ -39,13 +38,12 @@ class DashboardController extends Controller
                 $consultationsByDayQuery->whereRaw('DATEDIFF(YEAR, created_at, GETDATE()) <= 1');
                 break;
             case 'all':
-                // No additional filtering for 'all'
+                
                 break;
             default:
                 break;
         }
 
-        // Determine whether to group by day or month
         if ($filter === 'month' || $filter === 'year' || $filter === 'all') {
             $consultationsByDayQuery->selectRaw('FORMAT(created_at, \'yyyy-MM\') as period, COUNT(*) as count')
                 ->groupBy(DB::raw('FORMAT(created_at, \'yyyy-MM\')'));
@@ -56,10 +54,8 @@ class DashboardController extends Controller
 
         $consultationsByDayQuery->orderBy('period');
 
-        // Execute the query and get results
         $consultationsByDay = $consultationsByDayQuery->get();
 
-        // Query for diagnoses stats with filters
         $diagnosesStatsQuery = DB::table('consultations')
     ->join('diagnoses', 'consultations.diagnose_id', '=', 'diagnoses.id')
     ->join('employees', 'consultations.employee_id', '=', 'employees.id')
@@ -88,7 +84,6 @@ class DashboardController extends Controller
 
     $diagnosesStats = $diagnosesStatsQuery->get();
 
-        // Query for consultations by company
         $consultationsByCompany = DB::table('consultations')
             ->join('employees', 'consultations.employee_id', '=', 'employees.id')
             ->join('companies', 'employees.company_id', '=', 'companies.id')
@@ -96,7 +91,7 @@ class DashboardController extends Controller
             ->groupBy('companies.name')
             ->get();
 
-        // Query for consultations by department
+        
         $consultationsByDepartment = DB::table('consultations')
             ->join('employees', 'consultations.employee_id', '=', 'employees.id')
             ->join('departments', 'employees.department_id', '=', 'departments.id')

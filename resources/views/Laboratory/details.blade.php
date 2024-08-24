@@ -62,8 +62,6 @@
                                 <dd>{{ $laboratory->ggt }}</dd>
                             </div>
 
-                            <!-- Ajoutez les autres champs de la même manière -->
-
                             <div class="col-sm-4">
                                 <dt>Urea:</dt>
                             </div>

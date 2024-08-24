@@ -39,8 +39,8 @@
         <footer class="app-footer">
             <div class="container text-center py-3">
 
-                <small class="copyright">Developped by <a class="app-link" href="#" target="_blank">Oumar
-                        OUREIBA</a></small>
+                <small class="copyright">Developped by <a class="app-link" href="#" target="_blank">SYAMA
+                        IT</a></small>
 
             </div>
         </footer>

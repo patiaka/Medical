@@ -18,6 +18,26 @@
         .alert-danger {
             margin-top: 0.5rem;
         }
+
+        .medication-item {
+            margin-bottom: 1rem;
+        }
+
+        .add-remove-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .add-remove-buttons button {
+            margin: 0 5px;
+            padding: 5px;
+        }
+
+        .add-remove-buttons i {
+            font-size: 1.5rem;
+        }
     </style>
 
     <h1 class="app-page-title">Consultation</h1>
@@ -231,31 +251,37 @@
                                     </div>
                                 </div>
 
-
                                 <!-- Medication Tab -->
                                 <div class="tab-pane fade" id="medication" role="tabpanel"
                                     aria-labelledby="medication-tab">
                                     <div id="medication-container">
                                         <div class="row medication-item">
                                             <div class="col-md-4">
-                                                <label for="drugname" class="form-label">Drug Name</label>
+                                                <label for="drugname-0" class="form-label">Drug Name</label>
                                                 <input type="text" class="form-control"
-                                                    name="medications[0][drugname]" id="drugname">
+                                                    name="medications[0][drugname]" id="drugname-0">
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="prescription" class="form-label">Prescription</label>
+                                                <label for="prescription-0" class="form-label">Prescription</label>
                                                 <input type="text" class="form-control"
-                                                    name="medications[0][prescription]" id="prescription">
+                                                    name="medications[0][prescription]" id="prescription-0">
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="stock" class="form-label">Stock</label>
+                                                <label for="stock-0" class="form-label">Stock</label>
                                                 <input type="number" class="form-control" name="medications[0][stock]"
-                                                    id="stock">
+                                                    id="stock-0">
+                                            </div>
+                                            <div class="col-md-12 add-remove-buttons">
+                                                <button type="button" class="btn btn-success add-medication">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger remove-medication"
+                                                    style="display: none;">
+                                                    <i class="fas fa-minus-circle"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary mt-3" id="add-medication">Add
-                                        Medication</button>
                                 </div>
 
                                 <!-- Laboratory Tab -->
@@ -321,35 +347,46 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('add-medication').addEventListener('click', function() {
-                const container = document.getElementById('medication-container');
-                const count = container.children.length; // Nombre d'éléments actuels dans le conteneur
-                const newItem = document.querySelector('.medication-item').cloneNode(
-                    true); // Cloner l'élément
+            const medicationsContainer = document.getElementById('medication-container');
 
-                // Réinitialiser les valeurs des champs clonés
-                newItem.querySelectorAll('input').forEach(input => {
-                    input.value = ''; // Réinitialiser la valeur
-                    input.name = input.name.replace(/\[\d\]/, '[' + count +
-                        ']'); // Mettre à jour les noms des champs avec le nouveau compteur
+            function updateRemoveButtons() {
+                const medicationItems = document.querySelectorAll('.medication-item');
+                medicationItems.forEach((item, index) => {
+                    const removeButton = item.querySelector('.remove-medication');
+                    if (index === 0) {
+                        removeButton.style.display = 'none';
+                    } else {
+                        removeButton.style.display = 'inline-block';
+                    }
                 });
+            }
 
-                // Ajouter le nouvel élément cloné au conteneur
-                container.appendChild(newItem);
+            medicationsContainer.addEventListener('click', function(event) {
+                if (event.target.closest('.add-medication')) {
+                    const medicationItem = event.target.closest('.medication-item');
+                    const newMedicationItem = medicationItem.cloneNode(true);
+                    const index = document.querySelectorAll('.medication-item').length;
+                    const inputs = newMedicationItem.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.value = '';
+                        input.id = input.id.replace(/\d+/, index);
+                        input.name = input.name.replace(/\d+/, index);
+                    });
+                    medicationsContainer.appendChild(newMedicationItem);
+                    updateRemoveButtons();
+                }
+
+                if (event.target.closest('.remove-medication')) {
+                    const medicationItem = event.target.closest('.medication-item');
+                    medicationsContainer.removeChild(medicationItem);
+                    updateRemoveButtons();
+                }
             });
 
-            document.getElementById('consultationForm').addEventListener('submit', function(event) {
-                // Empêcher la soumission par défaut pour gérer manuellement via JavaScript
-                event.preventDefault();
-
-                // Soumettre le formulaire après validation
-                this.submit();
-            });
+            updateRemoveButtons();
         });
     </script>
 @endsection

@@ -59,13 +59,12 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-        // Créer la consultation avec les données validées
+        // Create the consultation
         $consultation = Consultation::create($request->validated());
-
-        // Enregistrer les médicaments s'ils sont présents
+    
+        // Handle medications if any
         if ($request->has('medications') && is_array($request->medications)) {
             foreach ($request->medications as $medicationData) {
-                // Assurez-vous que $medicationData est un tableau d'attributs
                 if (is_array($medicationData)) {
                     $medication = new Medication($medicationData);
                     $medication->consultation_id = $consultation->id;
@@ -73,18 +72,25 @@ class ConsultationController extends Controller
                 }
             }
         }
-
-        // Enregistrer le laboratoire s'il est présent
-        if ($request->has('laboratory')) {
-            $laboratoryData = $request->input('laboratory');
-            $laboratory = new Laboratory($laboratoryData); // Assurez-vous que $laboratoryData est un tableau d'attributs
-            $consultation->laboratory()->save($laboratory);
+    
+        // Extract laboratory data
+        $laboratoryData = $request->only([
+            'hemoglobin', 'malariaThick', 'malariaThin', 'malariaQuicktest', 'bloodGlucose', 'got', 'gpt',
+            'ggt', 'creatinine', 'urea', 'potasiumK', 'uricAcid', 'creatinineKinase', 'troponinT', 'urineDipstick',
+            'urineMicroscopy', 'stoolMicroscopy', 'sputumMicroscopy', 'gammaGt', 'cholesterol', 'total', 'ldh', 'ldl',
+            'triglyceride', 'tBilirubine', 'dBilirubine', 'iBilirubine', 'fastingGlucose'
+        ]);
+    
+        // Check if there is any laboratory data
+        if (!empty(array_filter($laboratoryData))) {
+            $consultation->laboratory()->create($laboratoryData);
         }
-
+    
         toastr()->success('Consultation added successfully');
-
+    
         return redirect()->route('consultation.index');
     }
+    
 
     /**
      * Display the specified resource.

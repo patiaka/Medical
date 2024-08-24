@@ -20,8 +20,13 @@ class HealthSurveillanceController extends Controller
         $preEmployment = HealthSurveillance::where('surveillanceType', 'preEmployment')->get();
         $postEmployment = HealthSurveillance::where('surveillanceType', 'postEmployment')->get();
         $annualLeave = HealthSurveillance::where('surveillanceType', 'annualMedical')->get();
+        $periodicMedical = HealthSurveillance::where('surveillanceType', 'periodicMedical')->get();
+        $allSurveillance = HealthSurveillance::count();
+        $preEmploymentCount = HealthSurveillance::where('surveillanceType', 'preEmployment')->count();
+        $postEmploymentCount = HealthSurveillance::where('surveillanceType', 'postEmployment')->count();
+        $annualLeaveCount = HealthSurveillance::where('surveillanceType', 'annualMedical')->count();
 
-        return view('HealthSurveillance.index', compact('healthSurveillance', 'preEmployment', 'postEmployment', 'annualLeave', 'employee'));
+        return view('HealthSurveillance.index', compact('healthSurveillance', 'preEmployment', 'postEmployment', 'annualLeave','periodicMedical', 'employee','allSurveillance','preEmploymentCount','postEmploymentCount','annualLeaveCount'));
     }
 
     /**

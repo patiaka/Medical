@@ -26,7 +26,8 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- Statistics Containers -->
+    <div class="row mb-4">
         <!-- Total Consultations -->
         <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
             <div class="card dash-widget">
@@ -41,7 +42,7 @@
             </div>
         </div>
 
-        <!-- Consultations by Department -->
+        <!-- Consultations by Day -->
         <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
             <div class="card dash-widget">
                 <div class="card-body bg-day d-flex justify-content-between align-items-center">
@@ -54,20 +55,6 @@
                 <a class="app-card-link-mask" href=""></a>
             </div>
         </div>
-
-        {{-- <!-- Consultations by Week -->
-        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-            <div class="card dash-widget">
-                <div class="card-body bg-week d-flex justify-content-between align-items-center">
-                    <i class="fas fa-calendar-week fa-3x icon-week"></i>
-                    <div class="dash-widget-info text-end">
-                        <h3></h3>
-                        <span>Consultations by Week</span>
-                    </div>
-                </div>
-                <a class="app-card-link-mask" href=""></a>
-            </div>
-        </div> --}}
 
         <!-- Consultations by Month -->
         <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
@@ -97,6 +84,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Add margin here -->
+    <div class="mb-4"></div>
 
     <div class="tab-content" id="orders-table-tab-content">
         <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -160,6 +150,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

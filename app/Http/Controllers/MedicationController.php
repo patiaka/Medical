@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Medication;
-use App\Http\Requests\StoreMedicationRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateMedicationRequest;
+use Illuminate\Support\Facades\Validator;
 
 class MedicationController extends Controller
 {
@@ -14,6 +15,8 @@ class MedicationController extends Controller
     public function index()
     {
         //
+        $medication = Medication::all();
+        return view('Medication.index',compact('medication'));
     }
 
     /**
@@ -22,14 +25,28 @@ class MedicationController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMedicationRequest $request)
+    public function store(Request $request)
     {
         //
+        $validatedData = Validator::make($request->all(), [
+            'drugname' => 'required',
+        ]);
+        if ($validatedData->fails()) {
+            toastr()->error('validation error');
+
+            return \back();
+        }
+        
+        Medication::create($validatedData->validated());
+        toastr()->success('Medication added Successfully');
+
+        return \back();
     }
 
     /**

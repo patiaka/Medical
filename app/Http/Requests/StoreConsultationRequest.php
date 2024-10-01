@@ -26,6 +26,7 @@ class StoreConsultationRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'employee_id' => 'required|exists:employees,id',
             'injurie_id' => 'required|exists:injuries,id',
+            'medication_id' => 'required|exists:medications,id',
             'diagnose_id' => 'required|exists:diagnoses,id',
             'staffType' => 'required|string|max:255',
             'referral' => 'required|string|max:255',

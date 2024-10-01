@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Consultation;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\HealthSurveillance;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class DashboardController extends Controller
     {
         $totalDoctor = User::count();
         $totalConsultation = Consultation::count();
-        $totalEmployee = Employee::count();
+        $totalheathSurveillance = HealthSurveillance::count();
         $totalDepartment = Department::count();
         $filter = $request->input('filter', 'all'); 
         $filterDiagnosis = $request->input('filterSelectDiagnosis');
@@ -102,7 +103,7 @@ class DashboardController extends Controller
         return view('dashboard', compact(
             'totalDoctor',
             'totalConsultation',
-            'totalEmployee',
+            'totalheathSurveillance',
             'totalDepartment',
             'consultationsByDay',
             'diagnosesStats',

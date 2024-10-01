@@ -17,6 +17,10 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            // $table->foreignId('medication_id')
+            //     ->constrained()
+            //     ->cascadeOnUpdate()
+            //     ->cascadeOnDelete();
             $table->foreignId('diagnose_id')
                 ->constrained()
                 ->cascadeOnUpdate()
@@ -39,7 +43,6 @@ return new class extends Migration
             $table->longtext('comments');
             $table->string('malaria');
             $table->integer('daysOff');
-            // $table->string('diagnosispec');
             $table->timestamps();
         });
     }

@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Medication extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'consultation_id',
         'drugname',
         'prescription',
         'stock',
     ];
 
-    public function consultation()
+    public function consulations(): HasMany
     {
-        return $this->belongsTo(Consultation::class);
+        return $this->hasMany(Consultation::class, 'foreign_key', 'local_key');
     }
 
 }

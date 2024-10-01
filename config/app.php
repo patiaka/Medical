@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://syamamedical.com'),
+    'url' => env('APP_URL', 'http://syamamedical.test'),
 
     'asset_url' => env('ASSET_URL'),
 

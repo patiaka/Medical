@@ -60,9 +60,9 @@ class Consultation extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function medications()
+    public function medications(): BelongsTo
     {
-        return $this->hasMany(Medication::class);
+        return $this->belongsTo(Medication::class);
     }
 
     public function laboratory()

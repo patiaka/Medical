@@ -61,7 +61,7 @@
                 <div class="app-utilities col-auto">
 
                     <div class="app-utility-item app-user-dropdown dropdown">
-                        <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        <a class="dropdown-toggle no-loading" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
                             role="button" aria-expanded="false">
                             <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="user profile"
                                 style="border-radius: 50% "></a>

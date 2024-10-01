@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\healthSurveillanceController;
 use App\Http\Controllers\InjuryController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::resource('user', UserController::class)->except('create');
 Route::resource('diagnosis', DiagnosisController::class)->except('create');
 Route::resource('company', CompanyController::class)->except('create');
 Route::resource('injury', InjuryController::class)->except('create');
+Route::resource('medication', MedicationController::class);
 Route::resource('healthSurveillance', healthSurveillanceController::class);
 Route::get('/{healthSurveillance}/pdf', [healthSurveillanceController::class, 'generatePDF'])->name('healthSurveillance.pdf');
 
@@ -67,6 +69,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('diagnosis', DiagnosisController::class)->except('create');
         Route::resource('company', CompanyController::class)->except('create');
         Route::resource('injury', InjuryController::class)->except('create');
+        Route::resource('medication', MedicationController::class)->except('create');
         Route::resource('journal', JournalController::class)->only('index', 'destroy');
     });
     Route::middleware('role:User')->group(function () {

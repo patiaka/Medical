@@ -25,7 +25,6 @@ class ConsultationController extends Controller
         $consultations = Consultation::all();
         $consultationCount = Consultation::count();
         $consultationsByDay = Consultation::whereDate('created_at', now()->format('Y-m-d'))->count();
-        // $consultationsByWeek = Consultation::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
         $consultationsByMonth = Consultation::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count();
         $consultationsByYear = Consultation::whereYear('created_at', now()->year)->count();
 
@@ -59,10 +58,9 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $request)
     {
-        // Create the consultation
+        // Création de la consultation
         $consultation = Consultation::create($request->validated());
-    
-        // Handle medications if any
+        // Gestion des médicaments s'il y en a
         if ($request->has('medications') && is_array($request->medications)) {
             foreach ($request->medications as $medicationData) {
                 if (is_array($medicationData)) {
@@ -72,22 +70,14 @@ class ConsultationController extends Controller
                 }
             }
         }
-    
-        // Extract laboratory data
-        $laboratoryData = $request->only([
-            'hemoglobin', 'malariaThick', 'malariaThin', 'malariaQuicktest', 'bloodGlucose', 'got', 'gpt',
-            'ggt', 'creatinine', 'urea', 'potasiumK', 'uricAcid', 'creatinineKinase', 'troponinT', 'urineDipstick',
-            'urineMicroscopy', 'stoolMicroscopy', 'sputumMicroscopy', 'gammaGt', 'cholesterol', 'total', 'ldh', 'ldl',
-            'triglyceride', 'tBilirubine', 'dBilirubine', 'iBilirubine', 'fastingGlucose'
-        ]);
-    
-        // Check if there is any laboratory data
-        if (!empty(array_filter($laboratoryData))) {
+        if ($request->filled('laboratory')) {
+            $laboratoryData = $request->input('laboratory');
             $consultation->laboratory()->create($laboratoryData);
         }
-    
+       
+
         toastr()->success('Consultation added successfully');
-    
+
         return redirect()->route('consultation.index');
     }
     
@@ -124,7 +114,6 @@ class ConsultationController extends Controller
     {
         $consultation->update($request->validated());
 
-        // Mettre à jour les données du laboratoire
         $laboratory = $consultation->laboratory ?? new Laboratory();
         $laboratory->fill($request->input('laboratory', []));
         $consultation->laboratory()->save($laboratory);

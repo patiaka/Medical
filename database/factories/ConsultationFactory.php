@@ -20,6 +20,7 @@ class ConsultationFactory extends Factory
             'user_id' => fake()->numberBetween(1, 5), // Example: Random user ID between 1 and 100
             'employee_id' => fake()->numberBetween(1, 5), // Example: Random employee ID between 1 and 100
             'injurie_id' => fake()->numberBetween(1, 5), // Example: Random injury ID between 1 and 100
+            // 'medication_id' => fake()->numberBetween(1, 5), // Example: Random injury ID between 1 and 100
             'diagnose_id' => fake()->numberBetween(1, 5), // Example: Random injury ID between 1 and 100
             'staffType' => fake()->randomElement(['Staff', 'Family']), // Example: Random word for staffType
             'referral' => fake()->sentence(), // Example: Random sentence for referral

@@ -10,7 +10,7 @@
                 <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                     <!--//col-->
                     <div class="col-auto">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <button type="button" class="btn btn-secondary no-loading" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -48,13 +48,13 @@
                                         <td>{{ $department->id }}</td>
                                         <td>{{ $department->name }}</td>
                                         <td>
-                                            <a class="btn-sm app-btn-secondary"
+                                            <a class="btn-sm app-btn-secondary no-loading"
                                                 href="{{ route('department.edit', $department->id) }}">
                                                 <i class="fa fa-edit fa-lg text-success"></i>
                                             </a>
                                             <a role="button" href="#"
                                                 onclick="deleteConfirmation('{{ route('department.delete', $department->id) }}')"
-                                                class="btn-sm app-btn-danger">
+                                                class="btn-sm app-btn-danger no-loading">
                                                 <i class="fa fa-trash fa-lg text-danger"></i>
                                             </a>
                                         </td>
@@ -97,8 +97,8 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn app-btn-primary" data-bs-dismiss="modal">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn app-btn-primary no-loading" data-bs-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary no-loading" data-bs-dismiss="modal">Close</button>
                     </form>
                 </div>
             </div>

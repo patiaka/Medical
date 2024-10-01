@@ -1,34 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Your other head elements -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card-body {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .bg-doctor {
+            background-color: #e3f2fd;
+        }
+
+        .bg-consultation {
+            background-color: #e3f2fd;
+        }
+
+        .bg-patient {
+            background-color: #e1f5fe;
+        }
+
+        .bg-department {
+            background-color: #e8f5e9;
+        }
+
+        .icon-doctor {
+            color: #2196f3;
+        }
+
+        .icon-consultation {
+            color: #f44336;
+        }
+
+        .icon-medical-checkup {
+            color: #03a9f4;
+        }
+
+        .icon-department {
+            color: #4caf50;
+        }
+
+        .form-select {
+            width: auto;
+            flex: 1;
+        }
+
+        .btn-outline-primary {
+            margin-left: 1rem;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px; /* Ensure the height is sufficient */
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px; /* Adjust height for smaller screens */
+            }
+        }
+    </style>
 </head>
+
 <body>
     @extends('layouts.app')
 
     @section('content')
-        <style>
-            .card-body {
-                background-color: #f8f9fa;
-                border-radius: 10px;
-                padding: 20px;
-            }
-
-            .bg-doctor { background-color: #e3f2fd; }
-            .bg-consultation { background-color: #e3f2fd; }
-            .bg-patient { background-color: #e1f5fe; }
-            .bg-department { background-color: #e8f5e9; }
-
-            .icon-doctor { color: #2196f3; }
-            .icon-consultation { color: #f44336; }
-            .icon-patient { color: #03a9f4; }
-            .icon-department { color: #4caf50; }
-        </style>
-
         <div class="page-header">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-12">
                     <h3 class="page-title">Welcome {{ auth()->user()->name }}</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item active">Dashboard</li>
@@ -38,67 +86,63 @@
         </div>
         <!-- /Page Header -->
 
-        <div class="row">
+        <div class="row mb-4">
             <!-- Cards -->
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body bg-doctor d-flex justify-content-between align-items-center">
                         <i class="fas fa-user-md fa-3x icon-doctor"></i>
                         <div class="dash-widget-info text-end">
                             <h3>{{ $totalDoctor }}</h3>
-                            <span>Doctors</span>
+                            <a class="app-card-link-mask" href="{{ route('user.index') }}"><span>Doctors</span></a>
                         </div>
                     </div>
-                    <a class="app-card-link-mask" href="{{ route('user.index') }}"></a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body bg-consultation d-flex justify-content-between align-items-center">
                         <i class="fas fa-stethoscope fa-3x icon-consultation"></i>
                         <div class="dash-widget-info text-end">
                             <h3>{{ $totalConsultation }}</h3>
-                            <span>Consultation</span>
+                            <a class="app-card-link-mask" href="{{ route('consultation.index') }}"><span>Consultation</span></a>
                         </div>
                     </div>
-                    <a class="app-card-link-mask" href="{{ route('consultation.index') }}"></a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body bg-patient d-flex justify-content-between align-items-center">
-                        <i class="fas fa-user-friends fa-3x icon-patient"></i>
+                        <i class="fas fa-heartbeat fa-3x icon-medical-checkup"></i>
                         <div class="dash-widget-info text-end">
-                            <h3>{{ $totalEmployee }}</h3>
-                            <span>Patients</span>
+                            <h3>{{ $totalheathSurveillance }}</h3>
+                            <a class="app-card-link-mask" href="{{ route('healthSurveillance.index') }}"><span>Medical Check Up</span></a>
                         </div>
                     </div>
-                    <a class="app-card-link-mask" href="{{ route('employee.index') }}"></a>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body bg-department d-flex justify-content-between align-items-center">
                         <i class="fas fa-hospital fa-3x icon-department"></i>
                         <div class="dash-widget-info text-end">
                             <h3>{{ $totalDepartment }}</h3>
-                            <span>Departments</span>
+                            <a class="app-card-link-mask" href="{{ route('department.index') }}"><span>Departments</span></a>
                         </div>
                     </div>
-                    <a class="app-card-link-mask" href="{{ route('department.index') }}"></a>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row">
             <!-- Consultations by Day Chart -->
-            <div class="col-md-12 col-lg-8">
+            <div class="col-md-12 col-lg-8 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h4 class="stats-type">Consultations by Day</h4>
-                            <form method="GET" action="{{ route('dashboard') }}">
-                                <select name="filter" onchange="this.form.submit()">
+                            <form method="GET" action="{{ route('dashboard') }}" class="d-flex align-items-center">
+                                <select name="filter" class="form-select" onchange="this.form.submit()">
                                     <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>All</option>
                                     <option value="last_24h" {{ $filter === 'last_24h' ? 'selected' : '' }}>Last 24 Hours</option>
                                     <option value="week" {{ $filter === 'week' ? 'selected' : '' }}>This Week</option>
@@ -106,22 +150,24 @@
                                     <option value="year" {{ $filter === 'year' ? 'selected' : '' }}>This Year</option>
                                 </select>
                                 <input type="hidden" name="filter_diagnosis" value="{{ $filterDiagnosis }}">
+                                <button id="exportExcel" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-excel"></i> Export
+                                </button>
                             </form>
-                            <button id="exportExcel" class="btn btn-outline-primary">
-                                <i class="fas fa-file-excel"></i> Export
-                            </button>
                         </div>
                         <div id="loadingIconConsultation" class="d-none d-flex justify-content-center align-items-center">
                             <i class="fas fa-spinner fa-pulse" style="font-size: 2rem;"></i>
                         </div>
                         <hr>
-                        <canvas id="consultationChart" width="400" height="200"></canvas>
+                        <div class="chart-container">
+                            <canvas id="consultationChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Diagnoses Chart -->
-            <div class="col-md-12 col-lg-4">
+            <div class="col-md-12 col-lg-4 mb-4">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -135,12 +181,14 @@
                                     <option value="month" {{ $filterDiagnosis === 'month' ? 'selected' : '' }}>Last Month</option>
                                     <option value="year" {{ $filterDiagnosis === 'year' ? 'selected' : '' }}>Last Year</option>
                                 </select>
+                                <button id="exportExcelDiagnoses" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-excel"></i> Export
+                                </button>
                             </form>
-                            <button id="exportExcelDiagnoses" class="btn btn-outline-primary">
-                                <i class="fas fa-file-excel"></i> Export
-                            </button>
                         </div>
-                        <canvas id="diagnosesChart" width="400" height="400"></canvas>
+                        <div class="chart-container">
+                            <canvas id="diagnosesChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,6 +237,8 @@
                         }]
                     },
                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
                             x: {
                                 beginAtZero: true,
@@ -228,7 +278,8 @@
                         }]
                     },
                     options: {
-                        responsive: true
+                        responsive: true,
+                        maintainAspectRatio: false
                     }
                 });
 
@@ -240,8 +291,9 @@
                         consultationDates.map((date, index) => ({
                             Date: date,
                             Count: consultationCounts[index]
-                        })),
-                        { header: ['Date', 'Count'] }
+                        })), {
+                            header: ['Date', 'Count']
+                        }
                     );
                     XLSX.utils.book_append_sheet(wb, wsConsultations, 'Consultations');
 
@@ -249,8 +301,9 @@
                         diagnosesLabels.map((label, index) => ({
                             Diagnosis: label,
                             Count: diagnosesCounts[index]
-                        })),
-                        { header: ['Diagnosis', 'Count'] }
+                        })), {
+                            header: ['Diagnosis', 'Count']
+                        }
                     );
                     XLSX.utils.book_append_sheet(wb, wsDiagnoses, 'Diagnoses');
 
@@ -265,8 +318,9 @@
                         diagnosesLabels.map((label, index) => ({
                             Diagnosis: label,
                             Count: diagnosesCounts[index]
-                        })),
-                        { header: ['Diagnosis', 'Count'] }
+                        })), {
+                            header: ['Diagnosis', 'Count']
+                        }
                     );
                     XLSX.utils.book_append_sheet(wb, wsDiagnoses, 'Diagnoses');
 
@@ -274,6 +328,9 @@
                 });
             });
         </script>
+        <!-- Include Bootstrap JS and dependencies -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @endsection
 </body>
+
 </html>

@@ -33,7 +33,7 @@
 
                                     <a role="button" href="#"
                                         onclick="deleteConfirmation('{{ route('journal.destroy', $row->id) }}')"
-                                        class="btn-sm app-btn-danger">
+                                        class="btn-sm app-btn-danger no-loading">
                                         <i class="fa fa-trash fa-lg text-danger"></i>
                                     </a>
 

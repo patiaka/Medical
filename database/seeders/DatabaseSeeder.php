@@ -30,6 +30,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'Admin',
             'change_password' => true,
         ]);
+        User::factory()->create([
+            'name' => 'Oumar',
+            'email' => 'admin@gmail.com',
+            'role' => 'Admin',
+            'change_password' => true,
+        ]);
         Department::factory(10)->create();
         Injury::factory(10)->create();
         // Medication::factory(10)->create();

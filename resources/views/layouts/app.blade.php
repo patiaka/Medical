@@ -76,7 +76,10 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-theme@0.1.0-beta.10/dist/select2-bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Charts JS -->
     <script src="{{ asset('assets/plugins/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('assets/js/index-charts.js') }}"></script>
@@ -87,12 +90,15 @@
     <script>
         $(document).ready(function() {
             // Initialiser DataTables
-            $('.myTable,#myTable').DataTable({
+            $('#myTable').DataTable({
                 responsive: true,
                 autoWidth: true,
                 'order': [
                     [0, 'desc']
                 ],
+            });
+            $(".select2").select2({
+                theme: "bootstrap"
             });
         });
 

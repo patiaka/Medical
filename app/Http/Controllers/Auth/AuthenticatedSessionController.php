@@ -37,6 +37,10 @@ class AuthenticatedSessionController extends Controller
         }
         Auth::user()->journals()->create(['libelle' => 'Connexion']);
 
+        if (! Auth::user()->isAdmin()) {
+            return \to_route('consultation.index');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Consultation;
 use App\Models\Department;
 use App\Models\Diagnosis;
+use App\Models\Drugname;
 use App\Models\Employee;
 use App\Models\Injury;
 use App\Models\Laboratory;
@@ -29,7 +30,7 @@ class ConsultationController extends Controller
         $consultationsByYear = Consultation::whereYear('created_at', now()->year)->count();
 
         return view('Consultation.index', compact(
-            'consultations', 
+            'consultations',
             'employees',
             'consultationCount',
             'consultationsByDay',
@@ -49,8 +50,9 @@ class ConsultationController extends Controller
         $companys = Company::all();
         $diagnosis = Diagnosis::all();
         $departments = Department::all();
+        $drugname = Drugname::all();
 
-        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis', 'companys', 'departments'));
+        return view('Consultation.create', compact('injuryType', 'employee', 'diagnosis', 'companys', 'departments', 'drugname'));
     }
 
     /**
@@ -74,13 +76,11 @@ class ConsultationController extends Controller
             $laboratoryData = $request->input('laboratory');
             $consultation->laboratory()->create($laboratoryData);
         }
-       
 
         toastr()->success('Consultation added successfully');
 
         return redirect()->route('consultation.index');
     }
-    
 
     /**
      * Display the specified resource.
@@ -114,7 +114,7 @@ class ConsultationController extends Controller
     {
         $consultation->update($request->validated());
 
-        $laboratory = $consultation->laboratory ?? new Laboratory();
+        $laboratory = $consultation->laboratory ?? new Laboratory;
         $laboratory->fill($request->input('laboratory', []));
         $consultation->laboratory()->save($laboratory);
 
